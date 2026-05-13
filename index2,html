@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Benjamin Kirongozi Mazuya | WDD 130</title>
+    <meta name="description"
+      content="Benjamin Kirongozi Mazuya course home page for WDD 130. Learning web development, HTML, CSS, and programming skills.">
+    <meta name="author" content="Benjamin Kirongozi Mazuya">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="wwr/">Rafting Website</a>
+            <a href="https://www.linkedin.com/in/benjamin-kirongozi-mazuya-806a2926a/">linkedin</a>
+            <a
+              href="https://web.facebook.com/benjamin.kirongozi.mazuya/directory_links">facebook</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Benjamin Kirongozi Mazuya | WDD 130</h1>
+        <img src="images/profile.png" alt="Hello, my name is Benjamin Kirongozi Mazuya" width="100">
+        <p>Hello! My name is Benjamin Kirongozi Mazuya. I am from the Democratic Republic of Congo,
+            a country
+            in Central Africa known for its rich culture, natural resources, and diverse landscapes.
+            I am
+            currently studying and developing my skills in web development, where I enjoy learning
+            how to build
+            websites using HTML, CSS, and programming concepts.
+
+            I am passionate about coding because it allows me to create, solve problems, and
+            continuously
+            improve my technical abilities. Each new concept I learn motivates me to grow further in
+            the field
+            of technology.
+
+            On a personal note, I am married to Naomi Anukwabi, and we were sealed in the Kinshasa
+            Temple. We
+            are blessed with three boys, and they are a very important part of our lives. We love
+            them deeply
+            and enjoy spending time together as a family.</p>
+        <ul class="box">
+            <li><a href="https://www.churchofjesuschrist.org/temples/details/philadelphia-pennsylvania-temple"
+                  target="_blank">Philadelphia Pennsylvania Temple</a></li>
+            <li><a href="https://www.churchofjesuschrist.org/temples/details/paris-france-temple"
+                  target="_blank">Paris France Temple</a></li>
+            <li><a href="https://www.churchofjesuschrist.org/temples/details/lima-peru-los-olivos-temple"
+                  target="_blank">Berlin Germany Temple</a></li>
+        </ul>
+    </main>
+    <aside class="box">
+        <h2>Democratic Republic of Congo</h2>
+        <img src="images/congo-kinshasa.jpg"
+          alt="Landscape of the Democratic Republic of Congo-Kinshasa" width="300">
+
+        <p>
+            The Democratic Republic of Congo is a country located in Central Africa.
+            It is known for its rich natural resources, large rain forests, diverse
+            wildlife, and the Congo River, one of the longest rivers in Africa.
+            The country has many cultures and languages and is one of the largest
+            countries on the African continent.
+        </p>
+    </aside>
+    <footer>
+        <p>©️2026 🌴 Benjamin Kirongozi Mazuya🌴 Kolwezi, Congo-Kinshasa.</p>
+    </footer>
+
+</body>
+
+</html>
