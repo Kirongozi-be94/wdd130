@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mini Chat Local</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h2>💬 Chat Local</h2>
+
+  <div id="typing"></div>
+
+  <div id="chat"></div>
+
+  <div class="bar">
+
+    <input
+      type="text"
+      id="msg"
+      placeholder="Votre message..."
+    >
+
+    <button onclick="sendMsg()">
+      Envoyer
+    </button>
+
+    <input
+      type="file"
+      id="file"
+      accept="image/*,audio/*"
+      hidden
+    >
+
+    <button onclick="document.getElementById('file').click()">
+      📷
+    </button>
+
+    <button id="micBtn" onclick="toggleRecord()">
+      🎤
+    </button>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
