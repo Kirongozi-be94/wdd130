@@ -14,40 +14,41 @@
 
   <h2>💬 Chat Local</h2>
 
+  <!-- 👥 USERS EN LIGNE -->
+  <div id="users"></div>
+
+  <!-- ✍️ TYPING -->
   <div id="typing"></div>
 
+  <!-- 💬 CHAT -->
   <div id="chat"></div>
 
+  <!-- 🧭 BARRE D'ENVOI -->
   <div class="bar">
 
-    <input
-      type="text"
-      id="msg"
-      placeholder="Votre message..."
-    >
+    <input type="text" id="msg" placeholder="Votre message...">
 
     <button onclick="sendMsg()">
       Envoyer
     </button>
 
-    <input
-      type="file"
-      id="file"
-      accept="image/*,audio/*"
-      hidden
-    >
+    <!-- 📎 IMAGE / FICHIER -->
+    <input type="file" id="file" accept="image/*,audio/*" hidden>
 
     <button onclick="document.getElementById('file').click()">
       📷
     </button>
 
+    <!-- 🎤 MICRO -->
     <button id="micBtn" onclick="toggleRecord()">
       🎤
     </button>
 
   </div>
 
+  <!-- 🔌 JS -->
   <script src="app.js"></script>
 
 </body>
+
 </html>
