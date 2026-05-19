@@ -1,166 +1,4 @@
 /* =========================
-   RESET & BASE STYLES
-========================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-color: #0b3d91;
-    --accent-color: #eaf2ff;
-    --text-color: #222;
-    --white: #ffffff;
-    --gray-bg: #f4f4f4;
-    /* Matches the wireframe backgrounds */
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.6;
-    background-color: var(--accent-color);
-    color: var(--text-color);
-}
-
-/* =========================
-   SHARED CONTAINER WIDTH
-========================= */
-
-header,
-main,
-footer {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    align-items: center;
-    background-color: #d1c4e9;
-    /* Light purple to match wireframe accent */
-    padding: 15px 20px;
-    border: 1px solid #333;
-}
-
-header img {
-    width: 100px;
-}
-
-/* NAV LINKS (Styled like buttons in wireframe) */
-nav ul {
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    border: 1px solid #333;
-    background-color: var(--white);
-    display: inline-flex;
-    float: right;
-}
-
-nav li {
-    border-right: 1px solid #333;
-}
-
-nav li:last-child {
-    border-right: none;
-}
-
-nav a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 20px;
-    display: block;
-}
-
-nav a:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
-}
-
-/* =========================
-   HERO SECTION
-========================= */
-
-.hero {
-    position: relative;
-    border: 1px solid #333;
-    border-top: none;
-    background-color: var(--white);
-    height: 450px;
-    /* Gives the absolute elements room to breathe */
-}
-
-.hero > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-/* Title centered near the top */
-.hero h1 {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: whitesmoke;
-    font-size: 2.5rem;
-    z-index: 2;
-    width: 100%;
-    text-align: center;
-}
-
-/* Floating article box inside the hero */
-.hero article {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border: 1px solid #333;
-    z-index: 2;
-    overflow: auto;
-    /* Clears the internal image float */
-}
-
-.hero article p {
-    font-size: 0.95rem;
-}
-
-/* Image floated to the right side of the text */
-.hero article img {
-    float: right;
-    width: 100px;
-    height: auto;
-    margin-left: 15px;
-    border: 1px solid #333;
-}
-
-/* =========================
-   HISTORY SECTION (3 COLUMNS)
-========================= */
-
-.history {
-    background-color: var(--gray-bg);
-    padding: 30px 20px;
-    border: 1px solid black;
-    border-top: none;
-}
-
-/* =========================
    1. RESET & BASE STYLES
 ========================= */
 
@@ -273,7 +111,6 @@ nav a:hover {
     z-index: 1;
 }
 
-/* Fixed contrast issue: uses primary color instead of matching white background */
 .hero h1 {
     position: absolute;
     top: 20px;
@@ -286,7 +123,6 @@ nav a:hover {
     text-align: center;
 }
 
-/* Floating article card */
 .hero article {
     position: absolute;
     bottom: 20px;
