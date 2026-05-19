@@ -10,6 +10,8 @@
 
 :root {
     --primary-color: #0b3d91;
+    --ocean-blue: #008080;
+    /* Superbe couleur bleu océan / turquoise profond */
     --accent-color: #eaf2ff;
     --text-color: #222222;
     --white: #ffffff;
@@ -116,11 +118,14 @@ nav a:hover {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    color: var(--primary-color);
+    color: var(--ocean-blue);
+    /* Applique la couleur bleu océan demandée */
     font-size: 2.5rem;
     z-index: 2;
     width: 100%;
     text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    /* Ajoute un léger relief pour la lisibilité */
 }
 
 .hero article {
