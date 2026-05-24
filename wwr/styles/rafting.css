@@ -11,7 +11,6 @@
 :root {
     --primary-color: #0b3d91;
     --ocean-blue: #008080;
-    /* Superbe couleur bleu océan / turquoise profond */
     --accent-color: #eaf2ff;
     --text-color: #222222;
     --white: #ffffff;
@@ -58,16 +57,19 @@ header img {
 }
 
 /* =========================
-   4. NAVIGATION (BUTTON STYLE)
+   4. NAVIGATION
 ========================= */
 
-nav ul {
-    display: inline-flex;
+nav {
+    display: flex;
     justify-content: flex-end;
+}
+
+nav ul {
+    display: flex;
     list-style: none;
     border: 1px solid var(--border-dark);
     background-color: var(--white);
-    float: right;
 }
 
 nav li {
@@ -79,11 +81,11 @@ nav li:last-child {
 }
 
 nav a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 20px;
     display: block;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
 }
 
 nav a:hover {
@@ -110,51 +112,37 @@ nav a:hover {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
 }
 
 .hero h1 {
     position: absolute;
     top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--ocean-blue);
-    /* Applique la couleur bleu océan demandée */
-    font-size: 2.5rem;
-    z-index: 2;
     width: 100%;
     text-align: center;
+    color: var(--ocean-blue);
+    font-size: 2.5rem;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    /* Ajoute un léger relief pour la lisibilité */
 }
 
 .hero article {
     position: absolute;
     bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 5%;
     width: 90%;
-    background: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border: 1px solid var(--border-dark);
-    z-index: 2;
-    overflow: auto;
-}
-
-.hero article p {
-    font-size: 0.95rem;
 }
 
 .hero article img {
     float: right;
     width: 100px;
-    height: auto;
     margin-left: 15px;
     border: 1px solid var(--border-dark);
 }
 
 /* =========================
-   6. HISTORY SECTION (3-COLUMN GRID)
+   6. HISTORY SECTION
 ========================= */
 
 .history {
@@ -179,12 +167,11 @@ nav a:hover {
 
 .history-content img {
     width: 100%;
-    height: auto;
     border: 1px solid var(--border-dark);
 }
 
 /* =========================
-   7. ADVENTURES SECTION (GALLERY)
+   7. ADVENTURES SECTION
 ========================= */
 
 .adventures {
@@ -224,7 +211,133 @@ figcaption {
 }
 
 /* =========================
-   8. FOOTER
+   8. CONTACT PAGE
+========================= */
+
+.contact-info {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.contact-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    padding: 30px 20px;
+    align-items: start;
+}
+
+/* MAP */
+
+.map-container iframe {
+    width: 100%;
+    height: 360px;
+    border: 1px solid var(--border-light);
+}
+
+/* FORM */
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 10px;
+    align-items: start;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-dark);
+    font-size: 1rem;
+}
+
+.radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+textarea {
+    resize: none;
+}
+
+/* NEWSLETTER */
+
+.newsletter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* BUTTON */
+
+.contact-form button {
+    padding: 10px;
+    border: 1px solid var(--border-dark);
+    background-color: var(--gray-bg);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* EMPLOYEES */
+
+.employees {
+    background-color: var(--gray-bg);
+    border: 1px solid var(--border-dark);
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.employees h2 {
+    margin-bottom: 25px;
+    font-size: 2rem;
+}
+
+.employee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.employee-grid figure {
+    text-align: center;
+}
+
+.employee-grid img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 1px solid var(--border-light);
+    background-color: var(--gallery-fallback);
+    margin-bottom: 10px;
+}
+
+/* =========================
+   9. FOOTER
 ========================= */
 
 footer {
@@ -236,6 +349,10 @@ footer {
     padding: 20px;
     border: 1px solid var(--border-dark);
     border-top: none;
+}
+
+footer p {
+    margin: 0 auto;
 }
 
 .socialmedia {
