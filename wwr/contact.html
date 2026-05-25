@@ -10,7 +10,7 @@
     <meta name="description"
       content="Contact White Water Rafting Company for reservations, rafting questions, trip information, and customer support.">
 
-    <meta name="author" content="Your Name">
+    <meta name="author" content="Benjamin Kirongozi Mazuya">
 
     <link rel="stylesheet" href="styles/rafting.css">
 </head>
@@ -72,37 +72,23 @@
 
                         <div class="radio-options">
 
-                            <label>
-                                <input type="radio" name="purpose">
-                                General Inquiry
-                            </label>
+                            <input type="radio" id="general" name="purpose" value="general">
+                            <label for="general">General Inquiry</label>
 
-                            <label>
-                                <input type="radio" name="purpose">
-                                Reservation Question
-                            </label>
+                            <input type="radio" id="reservation" name="purpose" value="reservation">
+                            <label for="reservation">Reservation Question</label>
 
-                            <label>
-                                <input type="radio" name="purpose">
-                                Website Suggestion
-                            </label>
+                            <input type="radio" id="suggestion" name="purpose" value="suggestion">
+                            <label for="suggestion">Website Suggestion</label>
 
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <label for="message">Message</label>
+                        <label class="newsletter" for="subscribe">
+                            <input type="checkbox" id="subscribe" name="subscribe">
+                            Please Subscribe me to the monthly newsletter
+                        </label>
 
-                        <textarea id="message" name="message" rows="5" placeholder="Type here">
-                    </textarea>
-                    </div>
-
-                    <label class="newsletter">
-                        <input type="checkbox" name="subscribe">
-                        Please Subscribe me to the monthly newsletter
-                    </label>
-
-                    <button type="submit">Get in Touch!</button>
+                        <button type="submit">Get in Touch!</button>
 
                 </form>
 
@@ -142,15 +128,19 @@
 
         <p>©2026 💦 White Water Rafting 💦 Benjamin Kirongozi Mazuya</p>
 
-        <div class="socialmedia">
-            <a href="https://web.facebook.com/benjamin.kirongozi.mazuya/directory_links"><img
-                  src="images/facebook.png" alt="Facebook"></a>
-            <a href="https://www.linkedin.com/in/benjamin-kirongozi-mazuya-806a2926a/"><img
-                  src="images/linkedin.png" alt="linkedin"></a>
-            <a href="https://vm.tiktok.com/ZS9FnAnqUc163-WUEvp/"><img src="images/tiktok.png"
-                  alt="tiktok"></a>
-        </div>
+        <nav class="socialmedia">
+            <a href="https://web.facebook.com/benjamin.kirongozi.mazuya/directory_links">
+                <img src="images/facebook.png" alt="Facebook">
+            </a>
 
+            <a href="https://www.linkedin.com/in/benjamin-kirongozi-mazuya-806a2926a/">
+                <img src="images/linkedin.png" alt="LinkedIn">
+            </a>
+
+            <a href="https://vm.tiktok.com/ZS9FnAnqUc163-WUEvp/">
+                <img src="images/tiktok.png" alt="TikTok">
+            </a>
+        </nav>
     </footer>
 
 </body>
