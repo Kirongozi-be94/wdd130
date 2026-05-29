@@ -10,12 +10,12 @@
 
 :root {
     --primary-color: #0b3d91;
-    --ocean-blue: #008080;
-    --accent-color: #eaf2ff;
+    --ocean-blue: #005757;
+    --accent-color: #f4f4f4;
     --text-color: #222222;
     --white: #ffffff;
     --gray-bg: #f4f4f4;
-    --wireframe-purple: #d1c4e9;
+    --wireframe-purple: #F5F1F9;
     --border-dark: #333333;
     --border-light: #aaaaaa;
     --gallery-fallback: #dddddd;
@@ -93,8 +93,8 @@ nav a {
 }
 
 nav a:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--ocean-blue);
+    color: white;
 }
 
 /* =========================
@@ -226,14 +226,14 @@ figcaption {
     text-align: center;
     padding: 30px 20px;
 
-    color: #d8caf6;
+    color: #222;
 }
 
 .contact-info h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
 
-    color: #c8dbf9;
+    color: #0b3d91;
 }
 
 .contact-grid {
@@ -407,6 +407,7 @@ footer p {
     top: 80px;
     width: 100%;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
     color: white;
     font-size: 3rem;
 }
@@ -423,8 +424,8 @@ footer p {
     display: inline-block;
     margin-top: 15px;
     padding: 10px 20px;
-    background: #d8c3a5;
-    color: black;
+    background: #8b5e34;
+    color: white;
     text-decoration: none;
 }
 
@@ -483,6 +484,37 @@ footer p {
     background: #082b66;
 }
 
+.newsletter-section {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.newsletter-form input {
+    padding: 10px;
+    border: 1px solid var(--border-dark);
+}
+
+.newsletter-form button {
+    padding: 12px;
+    background: var(--ocean-blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.newsletter-form button:hover {
+    background: var(--primary-color);
+}
+
 /* =========================
    TRIPS PAGE
 ========================= */
@@ -535,7 +567,7 @@ footer p {
 }
 
 .trips-table th {
-    background: var(--primary-color);
+    background: var(--ocean-blue);
     color: white;
 }
 
