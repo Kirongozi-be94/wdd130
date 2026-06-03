@@ -226,14 +226,15 @@ figcaption {
     text-align: center;
     padding: 30px 20px;
 
-    color: #222;
+    color: white;
 }
 
 .contact-info h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-
-    color: #0b3d91;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 3rem;
 }
 
 .contact-grid {
@@ -252,13 +253,18 @@ figcaption {
     border: 1px solid var(--border-light);
 }
 
+/* CONTACT FORM TITLE */
+.contact-map-title {
+    color: rgb(250, 250, 252);
+}
+
 /* FORM */
 
 .contact-form form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    color: #c9d5e6;
+    color: var(--white);
 }
 
 .form-row {
@@ -275,8 +281,7 @@ figcaption {
     padding: 8px;
     border: 1px solid var(--border-dark);
     font-size: 1rem;
-
-    color: #021743;
+    color: rgb(3, 3, 40);
 }
 
 .radio-options {
@@ -330,6 +335,7 @@ textarea {
 .employees h2 {
     margin-bottom: 25px;
     font-size: 2rem;
+
 }
 
 .employee-grid {
@@ -474,10 +480,11 @@ footer p {
     display: inline-block;
     margin-top: 15px;
     padding: 10px 20px;
-    background: #0b3d91;
-    color: white;
+    background-color: #0b3d91;
+    color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
 }
 
 .contact-btn:hover {
@@ -576,7 +583,7 @@ footer p {
 ========================= */
 
 body {
-    background-image: url("../images/background.jpg");
+    background-image: url("../images/hero.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
