@@ -595,3 +595,128 @@ body {
 .trip-table-section {
     background-color: rgba(255, 255, 255, 0.85);
 }
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media screen and (max-width: 768px) {
+
+    /* Header */
+    header {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 15px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav li {
+        border-right: none;
+        border-bottom: 1px solid var(--border-dark);
+    }
+
+    nav li:last-child {
+        border-bottom: none;
+    }
+
+    /* Hero */
+    .hero {
+        height: auto;
+        min-height: 400px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        top: 40px;
+    }
+
+    .hero article {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        width: 100%;
+        margin-top: 250px;
+    }
+
+    .hero article img {
+        float: none;
+        display: block;
+        margin: 0 auto 15px;
+    }
+
+    /* History */
+    .history-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    /* Adventures */
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Contact */
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Employees */
+    .employee-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Home page */
+    .features {
+        grid-template-columns: 1fr;
+        padding: 30px;
+    }
+
+    .mountains {
+        grid-template-columns: 1fr;
+        padding: 30px;
+    }
+
+    /* Trips */
+    .trip-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* Footer */
+    footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .trip-card img {
+        height: auto;
+    }
+}
