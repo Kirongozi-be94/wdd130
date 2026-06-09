@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
+  './alarme.mp3' // 👈 AJOUTE CETTE LIGNE ICI
 ];
 
 // 1. Installation : Enregistrement des fichiers dans le cache de l'appareil
