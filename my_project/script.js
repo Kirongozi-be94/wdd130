@@ -176,4 +176,3 @@ function rendreAgenda() {
         listElementsRdv.appendChild(li);
     });
 }
-}
