@@ -1,9 +1,38 @@
-// Enregistrement du Service Worker pour la PWA
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
     .then(() => console.log("Service Worker configuré."))
     .catch(err => console.error("Erreur Service Worker :", err));
 }
+
+// ==========================================
+// DICTIONNAIRE DE TRADUCTION
+// ==========================================
+const traductions = {
+    fr: {
+        titreChrono: "Chronomètre",
+        titreAgenda: "Rappel de Rendez-vous",
+        placeholderObjet: "Objet du rendez-vous",
+        btnAjouter: "Ajouter à l'agenda",
+        btnDemarrer: "Démarrer",
+        btnPause: "Pause",
+        btnReprendre: "Reprendre",
+        alerteRappel: "🔔 RAPPEL :",
+        langueCode: "fr-FR"
+    },
+    en: {
+        titreChrono: "Stopwatch",
+        titreAgenda: "Appointment Reminder",
+        placeholderObjet: "Appointment subject",
+        btnAjouter: "Add to agenda",
+        btnDemarrer: "Start",
+        btnPause: "Pause",
+        btnReprendre: "Resume",
+        alerteRappel: "🔔 REMINDER:",
+        langueCode: "en-US"
+    }
+};
+
+let langueActuelle = "fr"; // Langue par défaut
 
 // ==========================================
 // GLOBALS & SÉLECTEURS
@@ -12,9 +41,7 @@ let millisecondes = 0;
 let chrono = null; 
 let enCours = false; 
 
-// Chargement du fichier audio d'alarme
 const sonAlarme = new Audio('alarme.mp3');
-
 const horlogeElement = document.getElementById("horloge-temps-reel");
 const affichage = document.getElementById("affichage");
 const btnPausePlay = document.getElementById("btn-plus"); 
@@ -25,25 +52,69 @@ const inputTitre = document.getElementById("titre-rdv");
 const inputDate = document.getElementById("date-rdv");
 const listElementsRdv = document.getElementById("liste-rdv");
 
-// Base de données locale (LocalStorage)
+// Sélecteurs pour la traduction
+const txtTitreChrono = document.getElementById("txt-titre-chrono");
+const txtTitreAgenda = document.getElementById("txt-titre-agenda");
+const btnValiderAgenda = document.getElementById("btn-valider-agenda");
+const btnFr = document.getElementById("btn-fr");
+const btnEn = document.getElementById("btn-en");
+
 let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 
 // Initialisation au démarrage
-afficherDateEtHeureDuJour(); 
-setInterval(afficherDateEtHeureDuJour, 1000); // Horloge + Vérification des alarmes chaque seconde
-
+changerLangue("fr");
+setInterval(afficherDateEtHeureDuJour, 1000);
 mettreAJourAffichageChrono();
-rendreAgenda();
 
 // ==========================================
-// 1. HORLOGE DU JOUR & VÉRIFICATION DES ALARMES
+// GESTION DU CHANGEMENT DE LANGUE
+// ==========================================
+function changerLangue(langue) {
+    langueActuelle = langue;
+    const t = traductions[langue];
+
+    // Traduction des textes fixes
+    txtTitreChrono.textContent = t.titreChrono;
+    txtTitreAgenda.textContent = t.titreAgenda;
+    inputTitre.placeholder = t.placeholderObjet;
+    btnValiderAgenda.textContent = t.btnAjouter;
+    
+    // Traduction du bouton Chrono selon son état
+    if (!enCours && millisecondes === 0) {
+        btnPausePlay.textContent = t.btnDemarrer;
+    } else if (enCours) {
+        btnPausePlay.textContent = t.btnPause;
+    } else {
+        btnPausePlay.textContent = t.btnReprendre;
+    }
+
+    // Activer le bon bouton visuellement
+    if (langue === "fr") {
+        btnFr.classList.add("active");
+        btnEn.classList.remove("active");
+    } else {
+        btnEn.classList.add("active");
+        btnFr.classList.remove("active");
+    }
+
+    // Rafraîchir la date et l'agenda avec le nouveau format de langue
+    afficherDateEtHeureDuJour();
+    rendreAgenda();
+}
+
+btnFr.addEventListener("click", () => changerLangue("fr"));
+btnEn.addEventListener("click", () => changerLangue("en"));
+
+// ==========================================
+// 1. HORLOGE DU JOUR & ALARMES
 // ==========================================
 function afficherDateEtHeureDuJour() {
     const maintenant = new Date();
+    const t = traductions[langueActuelle];
     
-    // Format standardisé français pour l'affichage
+    // Utilise le code langue dynamic (fr-FR ou en-US)
     const optionsDate = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-    const dateLisible = maintenant.toLocaleDateString('fr-FR', optionsDate);
+    const dateLisible = maintenant.toLocaleDateString(t.langueCode, optionsDate);
     
     const heures = String(maintenant.getHours()).padStart(2, '0');
     const minutes = String(maintenant.getMinutes()).padStart(2, '0');
@@ -51,17 +122,14 @@ function afficherDateEtHeureDuJour() {
     
     horlogeElement.innerHTML = `📅 ${dateLisible} — 🕒 <strong>${heures}:${minutes}:${secondes}</strong>`;
 
-    // --- LOGIQUE DE L'ALARME ---
-    // On crée une chaîne de caractères à la minute près (ex: "2026-06-09T16:30")
+    // Vérification alarme
     const annee = maintenant.getFullYear();
     const mois = String(maintenant.getMonth() + 1).padStart(2, '0');
     const jour = String(maintenant.getDate()).padStart(2, '0');
     const minuteActuelleFormatee = `${annee}-${mois}-${jour}T${heures}:${minutes}`;
 
-    // Si on est à la seconde "00", on vérifie s'il y a un RDV maintenant
     if (secondes === "00") {
         rendezVousTableau.forEach(function(rdv) {
-            // Convertir la date du RDV stockée au même format de chaîne pour comparer
             const dateRdvObjet = new Date(rdv.date);
             const anneeR = dateRdvObjet.getFullYear();
             const moisR = String(dateRdvObjet.getMonth() + 1).padStart(2, '0');
@@ -71,8 +139,8 @@ function afficherDateEtHeureDuJour() {
             const dateRdvFormatee = `${anneeR}-${moisR}-${jourR}T${heuresR}:${minutesR}`;
 
             if (dateRdvFormatee === minuteActuelleFormatee) {
-                sonAlarme.play(); // Déclenche le son !
-                alert(`🔔 RAPPEL : ${rdv.titre}`); // Alerte visuelle à l'écran
+                sonAlarme.play();
+                alert(`${t.alerteRappel} ${rdv.titre}`);
             }
         });
     }
@@ -106,22 +174,24 @@ function lancerChrono() {
 }
 
 btnPausePlay.addEventListener("click", function() {
+    const t = traductions[langueActuelle];
     if (!enCours) {
         lancerChrono();
-        btnPausePlay.textContent = "Pause";
+        btnPausePlay.textContent = t.btnPause;
         enCours = true;
     } else {
         clearInterval(chrono);
-        btnPausePlay.textContent = "Reprendre";
+        btnPausePlay.textContent = t.btnReprendre;
         enCours = false;
     }
 });
 
 btnReset.addEventListener("click", function() {
+    const t = traductions[langueActuelle];
     clearInterval(chrono);
     millisecondes = 0;
     mettreAJourAffichageChrono();
-    btnPausePlay.textContent = "Démarrer";
+    btnPausePlay.textContent = t.btnDemarrer;
     enCours = false;
 });
 
@@ -130,13 +200,11 @@ btnReset.addEventListener("click", function() {
 // ==========================================
 formRdv.addEventListener("submit", function(evenement) {
     evenement.preventDefault();
-
     const nouveauRdv = {
         id: Date.now(),
         titre: inputTitre.value,
-        date: inputDate.value // Stockage direct de la chaîne brute saisie par l'input
+        date: inputDate.value
     };
-
     rendezVousTableau.push(nouveauRdv);
     sauvegarderDonnees();
     rendreAgenda();
@@ -149,15 +217,16 @@ function sauvegarderDonnees() {
 
 function rendreAgenda() {
     listElementsRdv.innerHTML = ""; 
-
+    const t = traductions[langueActuelle];
     rendezVousTableau.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     rendezVousTableau.forEach(function(rdv) {
         const li = document.createElement("li");
         const dateObjet = new Date(rdv.date);
         
+        // Formatage de la date de la liste selon la langue
         const options = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' };
-        const dateLisible = dateObjet.toLocaleDateString('fr-FR', options);
+        const dateLisible = dateObjet.toLocaleDateString(t.langueCode, options);
 
         li.innerHTML = `<span>📅 <strong>${rdv.titre}</strong> - ${dateLisible}</span>`;
 
@@ -169,7 +238,6 @@ function rendreAgenda() {
         btnModifier.style.cursor = "pointer";
         btnModifier.addEventListener("click", function() {
             inputTitre.value = rdv.titre;
-            
             const annee = dateObjet.getFullYear();
             const mois = String(dateObjet.getMonth() + 1).padStart(2, '0');
             const jour = String(dateObjet.getDate()).padStart(2, '0');

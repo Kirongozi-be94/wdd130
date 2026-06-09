@@ -155,3 +155,25 @@ footer {
     margin-bottom: 15px;
     border: 1px solid #eee;
 }
+
+.langue-select {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.btn-lang {
+    background: #e0e0e0;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-lang.active {
+    background: #007bff;
+    color: white;
+}
