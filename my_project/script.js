@@ -132,16 +132,20 @@ if (inputAvatar) {
 }
 
 // ==========================================
-// LOGIQUE COMPTE UTILISATEUR
+// LOGIQUE COMPTE UTILISATEUR AVEC PIN DYNAMIQUE
 // ==========================================
+
 function verifierUtilisateur() {
+    // On récupère le profil créé par l'utilisateur
     const utilisateurStocke = JSON.parse(localStorage.getItem("profilUtilisateur"));
 
     if (utilisateurStocke) {
+        // Si le profil existe, on cache le formulaire et on ouvre l'application
         zoneConnexion.classList.add("d-none");
         zoneProfilActif.classList.remove("d-none");
         contenuApplication.classList.remove("d-none");
 
+        // Affichage des infos créées par l'utilisateur
         affichageNom.textContent = utilisateurStocke.nom;
         affichageEmail.innerHTML = `📩 <a href="mailto:${utilisateurStocke.email}">${utilisateurStocke.email}</a>`;
         
@@ -151,22 +155,33 @@ function verifierUtilisateur() {
             affichageAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
         }
     } else {
+        // Si aucun profil n'existe, on affiche le formulaire d'inscription
         zoneConnexion.classList.remove("d-none");
         zoneProfilActif.classList.add("d-none");
         contenuApplication.classList.add("d-none");
-        if (avatarPreview) avatarPreview.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
-        base64Avatar = "";
     }
 }
 
 if (formLogin) {
     formLogin.addEventListener("submit", function(e) {
         e.preventDefault();
+        
+        const inputPin = document.getElementById("login-pin");
+        
+        // Sécurité : On vérifie que le PIN fait bien 4 chiffres
+        if (inputPin.value.length !== 4) {
+            alert(langueActuelle === "fr" ? "❌ Le code PIN doit contenir exactement 4 chiffres." : "❌ The PIN code must contain exactly 4 digits.");
+            return;
+        }
+
+        // Création de l'objet utilisateur avec son propre PIN personnalisé !
         const infosUser = {
             nom: inputLoginNom.value,
             email: inputLoginEmail.value,
-            avatar: base64Avatar 
+            avatar: base64Avatar,
+            pin: inputPin.value // Le code choisi par l'utilisateur
         };
+
         localStorage.setItem("profilUtilisateur", JSON.stringify(infosUser));
         formLogin.reset();
         verifierUtilisateur();
@@ -175,8 +190,49 @@ if (formLogin) {
 
 if (btnDeconnexion) {
     btnDeconnexion.addEventListener("click", function() {
-        localStorage.removeItem("profilUtilisateur");
-        verifierUtilisateur();
+        // En cas de changement de profil, on efface pour permettre à une nouvelle personne de créer son code
+        if(confirm(langueActuelle === "fr" ? "Voulez-vous vous déconnecter et réinitialiser ce profil ?" : "Do you want to sign out and reset this profile?")) {
+            localStorage.removeItem("profilUtilisateur");
+            zoneListePrivee.classList.add("d-none");
+            verifierUtilisateur();
+        }
+    });
+}
+
+// ==========================================
+// VERROU DE L'AGENDA AVEC LE PIN DE L'UTILISATEUR
+// ==========================================
+if (btnToggleAgenda && zoneListePrivee) {
+    btnToggleAgenda.addEventListener("click", function() {
+        const estCache = zoneListePrivee.classList.contains("d-none");
+        const t = traductions[langueActuelle];
+        
+        // Récupérer le profil actuel pour lire son PIN
+        const utilisateurActuel = JSON.parse(localStorage.getItem("profilUtilisateur"));
+        if (!utilisateurActuel) return;
+
+        if (estCache) {
+            let messageDemande = (langueActuelle === "fr") 
+                ? "Entrez votre code PIN secret pour voir vos rendez-vous :" 
+                : "Enter your secret PIN to view appointments:";
+                
+            let messageErreur = (langueActuelle === "fr")
+                ? "❌ Code PIN incorrect. Accès refusé."
+                : "❌ Incorrect PIN. Access denied.";
+
+            let pinSaisi = prompt(messageDemande);
+
+            // Comparaison directe avec le PIN choisi à l'inscription
+            if (pinSaisi === utilisateurActuel.pin) {
+                zoneListePrivee.classList.remove("d-none");
+                btnToggleAgenda.textContent = t.btnMasquer;
+            } else if (pinSaisi !== null) { 
+                alert(messageErreur);
+            }
+        } else {
+            zoneListePrivee.classList.add("d-none");
+            btnToggleAgenda.textContent = t.btnAfficher;
+        }
     });
 }
 
