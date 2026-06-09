@@ -9,6 +9,11 @@ if ('serviceWorker' in navigator) {
 // ==========================================
 const traductions = {
     fr: {
+        titreLogin: "Créer votre profil",
+        placeholderNom: "Votre nom complet",
+        placeholderEmail: "Votre adresse email",
+        btnAcceder: "Accéder à l'application",
+        btnChangerProfil: "Changer de profil 🔄",
         titreChrono: "Chronomètre",
         titreAgenda: "Rappel de Rendez-vous",
         placeholderObjet: "Objet du rendez-vous",
@@ -17,9 +22,16 @@ const traductions = {
         btnPause: "Pause",
         btnReprendre: "Reprendre",
         alerteRappel: "🔔 RAPPEL :",
+        bulleModifier: "Modifier",
+        bulleSupprimer: "Supprimer",
         langueCode: "fr-FR"
     },
     en: {
+        titreLogin: "Create your profile",
+        placeholderNom: "Your full name",
+        placeholderEmail: "Your email address",
+        btnAcceder: "Access the application",
+        btnChangerProfil: "Change profile 🔄",
         titreChrono: "Stopwatch",
         titreAgenda: "Appointment Reminder",
         placeholderObjet: "Appointment subject",
@@ -28,18 +40,21 @@ const traductions = {
         btnPause: "Pause",
         btnReprendre: "Resume",
         alerteRappel: "🔔 REMINDER:",
+        bulleModifier: "Edit",
+        bulleSupprimer: "Delete",
         langueCode: "en-US"
     }
 };
 
-let langueActuelle = "fr"; // Langue par défaut
+let langueActuelle = "fr"; 
 
 // ==========================================
-// GLOBALS & SÉLECTEURS
+// SÉLECTEURS & GLOBALS
 // ==========================================
 let millisecondes = 0; 
 let chrono = null; 
 let enCours = false; 
+let base64Avatar = ""; // Stockera la photo convertie en texte
 
 const sonAlarme = new Audio('alarme.mp3');
 const horlogeElement = document.getElementById("horloge-temps-reel");
@@ -52,7 +67,24 @@ const inputTitre = document.getElementById("titre-rdv");
 const inputDate = document.getElementById("date-rdv");
 const listElementsRdv = document.getElementById("liste-rdv");
 
-// Sélecteurs pour la traduction
+// Système Utilisateur & Profil
+const zoneConnexion = document.getElementById("zone-connexion");
+const zoneProfilActif = document.getElementById("zone-profil-actif");
+const contenuApplication = document.getElementById("contenu-application");
+const formLogin = document.getElementById("form-login");
+const inputLoginNom = document.getElementById("login-nom");
+const inputLoginEmail = document.getElementById("login-email");
+const inputAvatar = document.getElementById("input-avatar");
+const btnChooseFile = document.getElementById("btn-choose-file");
+const avatarPreview = document.getElementById("avatar-preview");
+const affichageAvatar = document.getElementById("affichage-avatar");
+const affichageNom = document.getElementById("affichage-nom");
+const affichageEmail = document.getElementById("affichage-email");
+const btnDeconnexion = document.getElementById("btn-deconnexion");
+
+// Éléments textuels traduisibles
+const txtTitreLogin = document.getElementById("txt-titre-login");
+const btnLogin = document.getElementById("btn-login");
 const txtTitreChrono = document.getElementById("txt-titre-chrono");
 const txtTitreAgenda = document.getElementById("txt-titre-agenda");
 const btnValiderAgenda = document.getElementById("btn-valider-agenda");
@@ -63,8 +95,74 @@ let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 
 // Initialisation au démarrage
 changerLangue("fr");
+verifierUtilisateur();
 setInterval(afficherDateEtHeureDuJour, 1000);
 mettreAJourAffichageChrono();
+
+// ==========================================
+// GESTION DU TÉLÉVERSEMENT DE LA PHOTO (AVATAR)
+// ==========================================
+btnChooseFile.addEventListener("click", () => inputAvatar.click());
+
+inputAvatar.addEventListener("change", function() {
+    const fichier = this.files[0];
+    if (fichier) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            base64Avatar = e.target.result; // Contient l'image convertie en texte
+            avatarPreview.src = base64Avatar; // Met à jour l'aperçu visuel
+        };
+        reader.readAsDataURL(fichier);
+    }
+});
+
+// ==========================================
+// LOGIQUE COMPTE UTILISATEUR
+// ==========================================
+function verifierUtilisateur() {
+    const utilisateurStocke = JSON.parse(localStorage.getItem("profilUtilisateur"));
+
+    if (utilisateurStocke) {
+        zoneConnexion.classList.add("d-none");
+        zoneProfilActif.classList.remove("d-none");
+        contenuApplication.classList.remove("d-none");
+
+        affichageNom.textContent = utilisateurStocke.nom;
+        affichageEmail.innerHTML = `📩 <a href="mailto:${utilisateurStocke.email}">${utilisateurStocke.email}</a>`;
+        
+        // Si l'utilisateur n'a pas mis de photo, on met un avatar par défaut
+        if (utilisateurStocke.avatar) {
+            affichageAvatar.src = utilisateurStocke.avatar;
+        } else {
+            affichageAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+        }
+    } else {
+        zoneConnexion.classList.remove("d-none");
+        zoneProfilActif.classList.add("d-none");
+        contenuApplication.classList.add("d-none");
+        avatarPreview.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+        base64Avatar = "";
+    }
+}
+
+formLogin.addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const infosUser = {
+        nom: inputLoginNom.value,
+        email: inputLoginEmail.value,
+        avatar: base64Avatar // Sauvegarde de la photo
+    };
+
+    localStorage.setItem("profilUtilisateur", JSON.stringify(infosUser));
+    formLogin.reset();
+    verifierUtilisateur();
+});
+
+btnDeconnexion.addEventListener("click", function() {
+    localStorage.removeItem("profilUtilisateur");
+    verifierUtilisateur();
+});
 
 // ==========================================
 // GESTION DU CHANGEMENT DE LANGUE
@@ -73,13 +171,17 @@ function changerLangue(langue) {
     langueActuelle = langue;
     const t = traductions[langue];
 
-    // Traduction des textes fixes
+    if(txtTitreLogin) txtTitreLogin.textContent = t.titreLogin;
+    if(inputLoginNom) inputLoginNom.placeholder = t.placeholderNom;
+    if(inputLoginEmail) inputLoginEmail.placeholder = t.placeholderEmail;
+    if(btnLogin) btnLogin.textContent = t.btnAcceder;
+    if(btnDeconnexion) btnDeconnexion.textContent = t.btnChangerProfil;
+
     txtTitreChrono.textContent = t.titreChrono;
     txtTitreAgenda.textContent = t.titreAgenda;
     inputTitre.placeholder = t.placeholderObjet;
     btnValiderAgenda.textContent = t.btnAjouter;
     
-    // Traduction du bouton Chrono selon son état
     if (!enCours && millisecondes === 0) {
         btnPausePlay.textContent = t.btnDemarrer;
     } else if (enCours) {
@@ -88,7 +190,6 @@ function changerLangue(langue) {
         btnPausePlay.textContent = t.btnReprendre;
     }
 
-    // Activer le bon bouton visuellement
     if (langue === "fr") {
         btnFr.classList.add("active");
         btnEn.classList.remove("active");
@@ -97,7 +198,6 @@ function changerLangue(langue) {
         btnFr.classList.remove("active");
     }
 
-    // Rafraîchir la date et l'agenda avec le nouveau format de langue
     afficherDateEtHeureDuJour();
     rendreAgenda();
 }
@@ -106,13 +206,12 @@ btnFr.addEventListener("click", () => changerLangue("fr"));
 btnEn.addEventListener("click", () => changerLangue("en"));
 
 // ==========================================
-// 1. HORLOGE DU JOUR & ALARMES
+// 1. HORLOGE DU  JOUR & ALARMES
 // ==========================================
 function afficherDateEtHeureDuJour() {
     const maintenant = new Date();
     const t = traductions[langueActuelle];
     
-    // Utilise le code langue dynamic (fr-FR ou en-US)
     const optionsDate = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     const dateLisible = maintenant.toLocaleDateString(t.langueCode, optionsDate);
     
@@ -122,7 +221,6 @@ function afficherDateEtHeureDuJour() {
     
     horlogeElement.innerHTML = `📅 ${dateLisible} — 🕒 <strong>${heures}:${minutes}:${secondes}</strong>`;
 
-    // Vérification alarme
     const annee = maintenant.getFullYear();
     const mois = String(maintenant.getMonth() + 1).padStart(2, '0');
     const jour = String(maintenant.getDate()).padStart(2, '0');
@@ -196,7 +294,7 @@ btnReset.addEventListener("click", function() {
 });
 
 // ==========================================
-// 3. LOGIQUE DE L'AGENDA (LocalStorage)
+// 3. LOGIQUE DE L'AGENDA
 // ==========================================
 formRdv.addEventListener("submit", function(evenement) {
     evenement.preventDefault();
@@ -224,7 +322,6 @@ function rendreAgenda() {
         const li = document.createElement("li");
         const dateObjet = new Date(rdv.date);
         
-        // Formatage de la date de la liste selon la langue
         const options = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' };
         const dateLisible = dateObjet.toLocaleDateString(t.langueCode, options);
 
@@ -235,6 +332,7 @@ function rendreAgenda() {
 
         const btnModifier = document.createElement("span");
         btnModifier.textContent = "✏️";
+        btnModifier.title = t.bulleModifier;
         btnModifier.style.cursor = "pointer";
         btnModifier.addEventListener("click", function() {
             inputTitre.value = rdv.titre;
@@ -252,6 +350,7 @@ function rendreAgenda() {
 
         const btnSuppr = document.createElement("span");
         btnSuppr.textContent = "❌";
+        btnSuppr.title = t.bulleSupprimer;
         btnSuppr.style.cursor = "pointer";
         btnSuppr.addEventListener("click", function() {
             rendezVousTableau = rendezVousTableau.filter(item => item.id !== rdv.id);
