@@ -99,9 +99,6 @@ const btnEn = document.getElementById("btn-en");
 const btnToggleAgenda = document.getElementById("btn-toggle-agenda");
 const zoneListePrivee = document.getElementById("zone-liste-privee");
 
-// === TON CODE PIN SECRET ===
-const CODE_PIN_SECRET = "1234"; 
-
 let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 
 // Initialisation au démarrage
@@ -124,7 +121,7 @@ if (inputAvatar) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 base64Avatar = e.target.result; 
-                avatarPreview.src = base64Avatar; 
+                if (avatarPreview) avatarPreview.src = base64Avatar; 
             };
             reader.readAsDataURL(fichier);
         }
@@ -134,27 +131,28 @@ if (inputAvatar) {
 // ==========================================
 // LOGIQUE COMPTE UTILISATEUR (PIN OPTIONNEL)
 // ==========================================
-
 function verifierUtilisateur() {
     const utilisateurStocke = JSON.parse(localStorage.getItem("profilUtilisateur"));
 
     if (utilisateurStocke) {
-        zoneConnexion.classList.add("d-none");
-        zoneProfilActif.classList.remove("d-none");
-        contenuApplication.classList.remove("d-none");
+        if(zoneConnexion) zoneConnexion.classList.add("d-none");
+        if(zoneProfilActif) zoneProfilActif.classList.remove("d-none");
+        if(contenuApplication) contenuApplication.classList.remove("d-none");
 
-        affichageNom.textContent = utilisateurStocke.nom;
-        affichageEmail.innerHTML = `📩 <a href="mailto:${utilisateurStocke.email}">${utilisateurStocke.email}</a>`;
+        if(affichageNom) affichageNom.textContent = utilisateurStocke.nom;
+        if(affichageEmail) affichageEmail.innerHTML = `📩 <a href="mailto:${utilisateurStocke.email}">${utilisateurStocke.email}</a>`;
         
-        if (utilisateurStocke.avatar) {
-            affichageAvatar.src = utilisateurStocke.avatar;
-        } else {
-            affichageAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+        if (affichageAvatar) {
+            if (utilisateurStocke.avatar) {
+                affichageAvatar.src = utilisateurStocke.avatar;
+            } else {
+                affichageAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+            }
         }
     } else {
-        zoneConnexion.classList.remove("d-none");
-        zoneProfilActif.classList.add("d-none");
-        contenuApplication.classList.add("d-none");
+        if(zoneConnexion) zoneConnexion.classList.remove("d-none");
+        if(zoneProfilActif) zoneProfilActif.classList.add("d-none");
+        if(contenuApplication) contenuApplication.classList.add("d-none");
     }
 }
 
@@ -163,15 +161,14 @@ if (formLogin) {
         e.preventDefault();
         
         const inputPin = document.getElementById("login-pin");
-        let pinValeur = inputPin.value.trim();
+        let pinValeur = inputPin ? inputPin.value.trim() : "";
         
-        // Sécurité : Si l'utilisateur a tapé quelque chose, on vérifie que c'est bien 4 chiffres
+        // Sécurité : Si un PIN est écrit, il doit faire 4 chiffres
         if (pinValeur.length > 0 && pinValeur.length !== 4) {
             alert(langueActuelle === "fr" ? "❌ Le code PIN doit contenir exactement 4 chiffres." : "❌ The PIN code must contain exactly 4 digits.");
             return;
         }
 
-        // Si rien n'est tapé, la valeur restera une chaîne vide ""
         const infosUser = {
             nom: inputLoginNom.value,
             email: inputLoginEmail.value,
@@ -181,6 +178,8 @@ if (formLogin) {
 
         localStorage.setItem("profilUtilisateur", JSON.stringify(infosUser));
         formLogin.reset();
+        if (avatarPreview) avatarPreview.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+        base64Avatar = ""; // Reset variable globale
         verifierUtilisateur();
     });
 }
@@ -189,14 +188,14 @@ if (btnDeconnexion) {
     btnDeconnexion.addEventListener("click", function() {
         if(confirm(langueActuelle === "fr" ? "Voulez-vous vous déconnecter et réinitialiser ce profil ?" : "Do you want to sign out and reset this profile?")) {
             localStorage.removeItem("profilUtilisateur");
-            zoneListePrivee.classList.add("d-none");
+            if(zoneListePrivee) zoneListePrivee.classList.add("d-none");
             verifierUtilisateur();
         }
     });
 }
 
 // ==========================================
-// VERROU DE L'AGENDA INTELLIGENT (S'ADAPTE AU PIN)
+// VERROU DE L'AGENDA INTELLIGENT (DYNAMIQUE)
 // ==========================================
 if (btnToggleAgenda && zoneListePrivee) {
     btnToggleAgenda.addEventListener("click", function() {
@@ -207,7 +206,7 @@ if (btnToggleAgenda && zoneListePrivee) {
         if (!utilisateurActuel) return;
 
         if (estCache) {
-            // Cas 1 : L'utilisateur a configuré un code PIN
+            // CAS 1 : L'utilisateur possède un code PIN
             if (utilisateurActuel.pin && utilisateurActuel.pin.length === 4) {
                 let messageDemande = (langueActuelle === "fr") 
                     ? "Entrez votre code PIN secret pour voir vos rendez-vous :" 
@@ -226,18 +225,18 @@ if (btnToggleAgenda && zoneListePrivee) {
                     alert(messageErreur);
                 }
             } 
-            // Cas 2 : L'utilisateur n'a PAS mis de code PIN -> On ouvre directement !
+            // CAS 2 : Pas de code PIN -> Ouverture immédiate
             else {
                 zoneListePrivee.classList.remove("d-none");
                 btnToggleAgenda.textContent = t.btnMasquer;
             }
         } else {
-            // Refermer le volet dans tous les cas
             zoneListePrivee.classList.add("d-none");
             btnToggleAgenda.textContent = t.btnAfficher;
         }
     });
 }
+
 // ==========================================
 // GESTION DU CHANGEMENT DE LANGUE
 // ==========================================
@@ -272,7 +271,6 @@ function changerLangue(langue) {
         btnFr.classList.remove("active");
     }
 
-    // Gère la traduction du bouton d'affichage secret
     if (btnToggleAgenda && zoneListePrivee) {
         const estCache = zoneListePrivee.classList.contains("d-none");
         btnToggleAgenda.textContent = estCache ? t.btnAfficher : t.btnMasquer;
@@ -451,37 +449,5 @@ function rendreAgenda() {
         zoneActions.appendChild(btnSuppr);
         li.appendChild(zoneActions);
         listElementsRdv.appendChild(li);
-    });
-}
-
-// ==========================================
-// SYSTEME DE MASQUAGE DE L'AGENDA AVEC CODE PIN
-// ==========================================
-if (btnToggleAgenda && zoneListePrivee) {
-    btnToggleAgenda.addEventListener("click", function() {
-        const estCache = zoneListePrivee.classList.contains("d-none");
-        const t = traductions[langueActuelle];
-        
-        if (estCache) {
-            let messageDemande = (langueActuelle === "fr") 
-                ? "Entrez votre code PIN secret à 4 chiffres :" 
-                : "Enter your 4-digit secret PIN:";
-                
-            let messageErreur = (langueActuelle === "fr")
-                ? "❌ Code PIN incorrect. Accès refusé."
-                : "❌ Incorrect PIN. Access denied.";
-
-            let pinSaisi = prompt(messageDemande);
-
-            if (pinSaisi === CODE_PIN_SECRET) {
-                zoneListePrivee.classList.remove("d-none");
-                btnToggleAgenda.textContent = t.btnMasquer;
-            } else if (pinSaisi !== null) { 
-                alert(messageErreur);
-            }
-        } else {
-            zoneListePrivee.classList.add("d-none");
-            btnToggleAgenda.textContent = t.btnAfficher;
-        }
     });
 }

@@ -354,3 +354,27 @@ footer {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Styles pour l'affichage du profil connecté */
+#zone-profil-actif {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#affichage-avatar {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 3px solid #007bff;
+    display: inline-block;
+}
+
+#affichage-nom {
+    color: #333;
+    font-weight: bold;
+    margin-top: 5px;
+}
