@@ -50,3 +50,10 @@ button:hover {
 #btn-moins:hover {
     background-color: #c0392b;
 }
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #666666; /* Couleur grise discrète */
+}
