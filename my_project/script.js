@@ -12,6 +12,9 @@ let millisecondes = 0;
 let chrono = null; 
 let enCours = false; 
 
+// Sélection de la zone de l'horloge ajoutée dans le HTML
+const horlogeElement = document.getElementById("horloge-temps-reel");
+
 const affichage = document.getElementById("affichage");
 const btnPausePlay = document.getElementById("btn-plus"); 
 const btnReset = document.getElementById("btn-moins"); 
@@ -25,11 +28,33 @@ const listElementsRdv = document.getElementById("liste-rdv");
 let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 
 // Initialisation au démarrage
+afficherDateEtHeureDuJour(); 
+setInterval(afficherDateEtHeureDuJour, 1000); // Relance la fonction toutes les secondes (1000ms)
+
 mettreAJourAffichageChrono();
 rendreAgenda();
 
 // ==========================================
-// 1. LOGIQUE DU CHRONOMÈTRE
+// 1. LOGIQUE DE L'HORLOGE DU JOUR
+// ==========================================
+function afficherDateEtHeureDuJour() {
+    const maintenant = new Date();
+    
+    // Format standardisé français pour le jour et la date
+    const optionsDate = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const dateLisible = maintenant.toLocaleDateString('fr-FR', optionsDate);
+    
+    // Extraction et formatage des heures, minutes et secondes
+    const heures = String(maintenant.getHours()).padStart(2, '0');
+    const minutes = String(maintenant.getMinutes()).padStart(2, '0');
+    const secondes = String(maintenant.getSeconds()).padStart(2, '0');
+    
+    // Remplacement du contenu HTML de la zone dédiée
+    horlogeElement.innerHTML = `📅 ${dateLisible} — 🕒 <strong>${heures}:${minutes}:${secondes}</strong>`;
+}
+
+// ==========================================
+// 2. LOGIQUE DU CHRONOMÈTRE
 // ==========================================
 function formaterChiffre(nombre) {
     return nombre < 10 ? "0" + nombre : nombre;
@@ -76,7 +101,7 @@ btnReset.addEventListener("click", function() {
 });
 
 // ==========================================
-// 2. LOGIQUE DE L'AGENDA (LocalStorage)
+// 3. LOGIQUE DE L'AGENDA (LocalStorage)
 // ==========================================
 formRdv.addEventListener("submit", function(evenement) {
     evenement.preventDefault();
@@ -150,4 +175,5 @@ function rendreAgenda() {
         li.appendChild(zoneActions);
         listElementsRdv.appendChild(li);
     });
+}
 }
