@@ -61,17 +61,21 @@
                 <button id="btn-plus" class="btn btn-primary">Démarrer</button>
             </div>
 
-            <section class="agenda-section">
-                <h3 id="txt-titre-agenda">Rappel de Rendez-vous</h3>
-                
-                <form id="form-rdv">
-                    <input type="text" id="titre-rdv" placeholder="Objet du rendez-vous" required>
-                    <input type="datetime-local" id="date-rdv" required>
-                    <button type="submit" id="btn-valider-agenda" class="btn btn-submit">Ajouter à l'agenda</button>
-                </form>
-                
-                <ul id="liste-rdv"></ul>
-            </section>
+<section class="agenda-section">
+    <h3 id="txt-titre-agenda">Rappel de Rendez-vous</h3>
+    
+    <form id="form-rdv">
+        <input type="text" id="titre-rdv" placeholder="Objet du rendez-vous" required>
+        <input type="datetime-local" id="date-rdv" required>
+        <button type="submit" id="btn-valider-agenda" class="btn btn-submit">Ajouter à l'agenda</button>
+    </form>
+    
+    <button type="button" id="btn-toggle-agenda" class="btn-toggle-view">Afficher mes rendez-vous 👁️</button>
+    
+    <div id="zone-liste-privee" class="d-none">
+        <ul id="liste-rdv"></ul>
+    </div>
+</section>
         </div>
     </main>
 

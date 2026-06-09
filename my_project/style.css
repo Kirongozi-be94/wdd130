@@ -325,3 +325,32 @@ footer {
     background: #e0e0e0;
     margin: 20px 0;
 }
+
+/* --- BOUTON DE MASQUAGE AGENDA --- */
+.btn-toggle-view {
+    width: 100%;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-toggle-view:hover {
+    background-color: #5a6268;
+}
+
+#zone-liste-privee {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
