@@ -378,3 +378,81 @@ footer {
     font-weight: bold;
     margin-top: 5px;
 }
+
+/* ==========================================
+   AJOUTS POUR L'HORLOGE ET LE PROFIL UTILISATEUR
+   ========================================== */
+
+#horloge-temps-reel {
+    background: #f0f4f8;
+    padding: 10px;
+    border-radius: 6px;
+    border-left: 5px solid #007bff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    margin-bottom: 15px;
+}
+
+#zone-profil-actif {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.profil-header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+#affichage-avatar {
+    width: 65px !important;
+    height: 65px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 3px solid #007bff;
+    background-color: #e1e8ed;
+}
+
+.profil-infos-textes {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#affichage-nom {
+    margin: 0 !important;
+    font-size: 1.2rem !important;
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+#affichage-email {
+    font-size: 0.85rem;
+    color: #657786;
+}
+
+.btn-change-profil {
+    background: none;
+    border: 1px solid #ccd6dd;
+    color: #657786;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: auto;
+}
+
+.btn-change-profil:hover {
+    background: #f5f8fa;
+    color: #007bff;
+    border-color: #007bff;
+}
