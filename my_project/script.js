@@ -24,6 +24,8 @@ const traductions = {
         alerteRappel: "🔔 RAPPEL :",
         bulleModifier: "Modifier",
         bulleSupprimer: "Supprimer",
+        btnAfficher: "Afficher mes rendez-vous 👁️",
+        btnMasquer: "Masquer mes rendez-vous 🙈",
         langueCode: "fr-FR"
     },
     en: {
@@ -42,6 +44,8 @@ const traductions = {
         alerteRappel: "🔔 REMINDER:",
         bulleModifier: "Edit",
         bulleSupprimer: "Delete",
+        btnAfficher: "Show my appointments 👁️",
+        btnMasquer: "Hide my appointments 🙈",
         langueCode: "en-US"
     }
 };
@@ -54,7 +58,7 @@ let langueActuelle = "fr";
 let millisecondes = 0; 
 let chrono = null; 
 let enCours = false; 
-let base64Avatar = ""; // Stockera la photo convertie en texte
+let base64Avatar = ""; 
 
 const sonAlarme = new Audio('alarme.mp3');
 const horlogeElement = document.getElementById("horloge-temps-reel");
@@ -91,6 +95,13 @@ const btnValiderAgenda = document.getElementById("btn-valider-agenda");
 const btnFr = document.getElementById("btn-fr");
 const btnEn = document.getElementById("btn-en");
 
+// Système de masquage
+const btnToggleAgenda = document.getElementById("btn-toggle-agenda");
+const zoneListePrivee = document.getElementById("zone-liste-privee");
+
+// === TON CODE PIN SECRET ===
+const CODE_PIN_SECRET = "1234"; 
+
 let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 
 // Initialisation au démarrage
@@ -102,19 +113,23 @@ mettreAJourAffichageChrono();
 // ==========================================
 // GESTION DU TÉLÉVERSEMENT DE LA PHOTO (AVATAR)
 // ==========================================
-btnChooseFile.addEventListener("click", () => inputAvatar.click());
+if (btnChooseFile) {
+    btnChooseFile.addEventListener("click", () => inputAvatar.click());
+}
 
-inputAvatar.addEventListener("change", function() {
-    const fichier = this.files[0];
-    if (fichier) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            base64Avatar = e.target.result; // Contient l'image convertie en texte
-            avatarPreview.src = base64Avatar; // Met à jour l'aperçu visuel
-        };
-        reader.readAsDataURL(fichier);
-    }
-});
+if (inputAvatar) {
+    inputAvatar.addEventListener("change", function() {
+        const fichier = this.files[0];
+        if (fichier) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                base64Avatar = e.target.result; 
+                avatarPreview.src = base64Avatar; 
+            };
+            reader.readAsDataURL(fichier);
+        }
+    });
+}
 
 // ==========================================
 // LOGIQUE COMPTE UTILISATEUR
@@ -130,7 +145,6 @@ function verifierUtilisateur() {
         affichageNom.textContent = utilisateurStocke.nom;
         affichageEmail.innerHTML = `📩 <a href="mailto:${utilisateurStocke.email}">${utilisateurStocke.email}</a>`;
         
-        // Si l'utilisateur n'a pas mis de photo, on met un avatar par défaut
         if (utilisateurStocke.avatar) {
             affichageAvatar.src = utilisateurStocke.avatar;
         } else {
@@ -140,29 +154,31 @@ function verifierUtilisateur() {
         zoneConnexion.classList.remove("d-none");
         zoneProfilActif.classList.add("d-none");
         contenuApplication.classList.add("d-none");
-        avatarPreview.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+        if (avatarPreview) avatarPreview.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
         base64Avatar = "";
     }
 }
 
-formLogin.addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    const infosUser = {
-        nom: inputLoginNom.value,
-        email: inputLoginEmail.value,
-        avatar: base64Avatar // Sauvegarde de la photo
-    };
+if (formLogin) {
+    formLogin.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const infosUser = {
+            nom: inputLoginNom.value,
+            email: inputLoginEmail.value,
+            avatar: base64Avatar 
+        };
+        localStorage.setItem("profilUtilisateur", JSON.stringify(infosUser));
+        formLogin.reset();
+        verifierUtilisateur();
+    });
+}
 
-    localStorage.setItem("profilUtilisateur", JSON.stringify(infosUser));
-    formLogin.reset();
-    verifierUtilisateur();
-});
-
-btnDeconnexion.addEventListener("click", function() {
-    localStorage.removeItem("profilUtilisateur");
-    verifierUtilisateur();
-});
+if (btnDeconnexion) {
+    btnDeconnexion.addEventListener("click", function() {
+        localStorage.removeItem("profilUtilisateur");
+        verifierUtilisateur();
+    });
+}
 
 // ==========================================
 // GESTION DU CHANGEMENT DE LANGUE
@@ -198,17 +214,24 @@ function changerLangue(langue) {
         btnFr.classList.remove("active");
     }
 
+    // Gère la traduction du bouton d'affichage secret
+    if (btnToggleAgenda && zoneListePrivee) {
+        const estCache = zoneListePrivee.classList.contains("d-none");
+        btnToggleAgenda.textContent = estCache ? t.btnAfficher : t.btnMasquer;
+    }
+
     afficherDateEtHeureDuJour();
     rendreAgenda();
 }
 
-btnFr.addEventListener("click", () => changerLangue("fr"));
-btnEn.addEventListener("click", () => changerLangue("en"));
+if (btnFr) btnFr.addEventListener("click", () => changerLangue("fr"));
+if (btnEn) btnEn.addEventListener("click", () => changerLangue("en"));
 
 // ==========================================
-// 1. HORLOGE DU  JOUR & ALARMES
+// 1. HORLOGE DU JOUR & ALARMES
 // ==========================================
 function afficherDateEtHeureDuJour() {
+    if (!horlogeElement) return;
     const maintenant = new Date();
     const t = traductions[langueActuelle];
     
@@ -252,6 +275,7 @@ function formaterChiffre(nombre) {
 }
 
 function mettreAJourAffichageChrono() {
+    if (!affichage) return;
     let hrs = Math.floor(millisecondes / 360000);
     let min = Math.floor((millisecondes % 360000) / 6000);
     let sec = Math.floor((millisecondes % 6000) / 100);
@@ -271,49 +295,56 @@ function lancerChrono() {
     }, 10);
 }
 
-btnPausePlay.addEventListener("click", function() {
-    const t = traductions[langueActuelle];
-    if (!enCours) {
-        lancerChrono();
-        btnPausePlay.textContent = t.btnPause;
-        enCours = true;
-    } else {
-        clearInterval(chrono);
-        btnPausePlay.textContent = t.btnReprendre;
-        enCours = false;
-    }
-});
+if (btnPausePlay) {
+    btnPausePlay.addEventListener("click", function() {
+        const t = traductions[langueActuelle];
+        if (!enCours) {
+            lancerChrono();
+            btnPausePlay.textContent = t.btnPause;
+            enCours = true;
+        } else {
+            clearInterval(chrono);
+            btnPausePlay.textContent = t.btnReprendre;
+            enCours = false;
+        }
+    });
+}
 
-btnReset.addEventListener("click", function() {
-    const t = traductions[langueActuelle];
-    clearInterval(chrono);
-    millisecondes = 0;
-    mettreAJourAffichageChrono();
-    btnPausePlay.textContent = t.btnDemarrer;
-    enCours = false;
-});
+if (btnReset) {
+    btnReset.addEventListener("click", function() {
+        const t = traductions[langueActuelle];
+        clearInterval(chrono);
+        millisecondes = 0;
+        mettreAJourAffichageChrono();
+        btnPausePlay.textContent = t.btnDemarrer;
+        enCours = false;
+    });
+}
 
 // ==========================================
 // 3. LOGIQUE DE L'AGENDA
 // ==========================================
-formRdv.addEventListener("submit", function(evenement) {
-    evenement.preventDefault();
-    const nouveauRdv = {
-        id: Date.now(),
-        titre: inputTitre.value,
-        date: inputDate.value
-    };
-    rendezVousTableau.push(nouveauRdv);
-    sauvegarderDonnees();
-    rendreAgenda();
-    formRdv.reset();
-});
+if (formRdv) {
+    formRdv.addEventListener("submit", function(evenement) {
+        evenement.preventDefault();
+        const nouveauRdv = {
+            id: Date.now(),
+            titre: inputTitre.value,
+            date: inputDate.value
+        };
+        rendezVousTableau.push(nouveauRdv);
+        sauvegarderDonnees();
+        rendreAgenda();
+        formRdv.reset();
+    });
+}
 
 function sauvegarderDonnees() {
     localStorage.setItem("mesRendezVous", JSON.stringify(rendezVousTableau));
 }
 
 function rendreAgenda() {
+    if (!listElementsRdv) return;
     listElementsRdv.innerHTML = ""; 
     const t = traductions[langueActuelle];
     rendezVousTableau.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -364,53 +395,16 @@ function rendreAgenda() {
         listElementsRdv.appendChild(li);
     });
 }
-// ==========================================
-// SYSTEME DE MASQUAGE DE L'AGENDA
-// ==========================================
-const btnToggleAgenda = document.getElementById("btn-toggle-agenda");
-const zoneListePrivee = document.getElementById("zone-liste-privee");
-
-btnToggleAgenda.addEventListener("click", function() {
-    // Permute la classe 'd-none' pour afficher ou cacher
-    zoneListePrivee.classList.toggle("d-none");
-    
-    // Change le texte du bouton selon l'état et la langue
-    const estCache = zoneListePrivee.classList.contains("d-none");
-    
-    if (langueActuelle === "fr") {
-        btnToggleAgenda.textContent = estCache ? "Afficher mes rendez-vous 👁️" : "Masquer mes rendez-vous 🙈";
-    } else {
-        btnToggleAgenda.textContent = estCache ? "Show my appointments 👁️" : "Hide my appointments 🙈";
-    }
-});
-
-// Petit correctif : Forcer la mise à jour du texte du bouton lors du changement de langue
-const ancienneFonctionLangue = changerLangue;
-changerLangue = function(langue) {
-    ancienneFonctionLangue(langue);
-    const estCache = zoneListePrivee.classList.contains("d-none");
-    if (langue === "fr") {
-        btnToggleAgenda.textContent = estCache ? "Afficher mes rendez-vous 👁️" : "Masquer mes rendez-vous 🙈";
-    } else {
-        btnToggleAgenda.textContent = estCache ? "Show my appointments 👁️" : "Hide my appointments 🙈";
-    }
-}
 
 // ==========================================
-// SYSTEME DE MASQUAGE DE L'AGENDA AVEC CODE PIN (CORRIGÉ)
+// SYSTEME DE MASQUAGE DE L'AGENDA AVEC CODE PIN
 // ==========================================
-const btnToggleAgenda = document.getElementById("btn-toggle-agenda");
-const zoneListePrivee = document.getElementById("zone-liste-privee");
-
-// Change ton code PIN ici (Garde les guillemets)
-const CODE_PIN_SECRET = "1234"; 
-
 if (btnToggleAgenda && zoneListePrivee) {
     btnToggleAgenda.addEventListener("click", function() {
         const estCache = zoneListePrivee.classList.contains("d-none");
+        const t = traductions[langueActuelle];
         
         if (estCache) {
-            // Textes des alertes selon la langue
             let messageDemande = (langueActuelle === "fr") 
                 ? "Entrez votre code PIN secret à 4 chiffres :" 
                 : "Enter your 4-digit secret PIN:";
@@ -419,21 +413,17 @@ if (btnToggleAgenda && zoneListePrivee) {
                 ? "❌ Code PIN incorrect. Accès refusé."
                 : "❌ Incorrect PIN. Access denied.";
 
-            // Déclenche la petite boîte de saisie
             let pinSaisi = prompt(messageDemande);
 
             if (pinSaisi === CODE_PIN_SECRET) {
-                // Affiche la liste
                 zoneListePrivee.classList.remove("d-none");
-                btnToggleAgenda.textContent = (langueActuelle === "fr") ? "Masquer mes rendez-vous 🙈" : "Hide my appointments 🙈";
+                btnToggleAgenda.textContent = t.btnMasquer;
             } else if (pinSaisi !== null) { 
-                // Code faux
                 alert(messageErreur);
             }
         } else {
-            // Cache la liste directement
             zoneListePrivee.classList.add("d-none");
-            btnToggleAgenda.textContent = (langueActuelle === "fr") ? "Afficher mes rendez-vous 👁️" : "Show my appointments 👁️";
+            btnToggleAgenda.textContent = t.btnAfficher;
         }
     });
 }
