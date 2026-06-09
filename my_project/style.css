@@ -1,59 +1,146 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Variables de couleurs standards */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --secondary-color: #6c757d;
+    --secondary-hover: #5a6268;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #ccdfdf;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Conteneur Principal */
 .card {
-    background: white;
-    padding: 30px;
+    background-color: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    width: 100%;
+    max-width: 450px;
     text-align: center;
-}
-
-h1 {
-    color: #333;
 }
 
 #affichage {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: bold;
-    color: #2c3e50;
+    font-variant-numeric: tabular-nums;
     margin: 20px 0;
 }
 
-button {
+/* Boutons Standards */
+.boutons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
     font-size: 1rem;
-    padding: 10px 20px;
-    margin: 5px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background-color: #3498db;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.btn-secondary { background-color: var(--secondary-color); color: white; }
+.btn-secondary:hover { background-color: var(--secondary-hover); }
+
+.btn-submit {
+    background-color: #28a745;
     color: white;
-    transition: 0.2s;
+    width: 100%;
+    margin-top: 5px;
+}
+.btn-submit:hover { background-color: #218838; }
+
+/* Section Agenda */
+.agenda-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    text-align: left;
 }
 
-button:hover {
-    background-color: #2980b9;
+.agenda-section h3 {
+    margin-bottom: 15px;
+    text-align: center;
 }
 
-#btn-moins {
-    background-color: #e74c3c;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-#btn-moins:hover {
-    background-color: #c0392b;
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
 }
 
+/* Liste des éléments de l'agenda */
+ul {
+    list-style: none;
+    margin-top: 20px;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+li {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.actions span {
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.1s;
+}
+.actions span:hover { transform: scale(1.2); }
+
+/* Footer */
 footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 0.85rem;
-    color: #666666; /* Couleur grise discrète */
+    color: #666;
+}
+
+/* Reponsive pour petits écrans */
+@media (max-width: 360px) {
+    #affichage { font-size: 2.3rem; }
+    body { padding: 10px; }
 }

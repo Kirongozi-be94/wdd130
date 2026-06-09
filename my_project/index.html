@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
+    <title>Chronomètre & Agenda - WDD 131</title>
     <link rel="manifest" href="manifest.json">
-    <title>Benjamin Kirongozi Mazuya - WDD 131</title>
-    <!-- On relie le fichier CSS ici -->
+    <meta name="theme-color" content="#007bff">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="card">
-        <h1>Chrono</h1>
-        <!-- C'est ce chiffre que JavaScript va modifier -->
-        <p id="affichage">0</p> 
+    <main class="card">
+        <h1>Chronometre</h1>
+        <div id="affichage">00:00:00:00</div> 
         
         <div class="boutons">
-            <button id="btn-moins">Diminuer</button>
-            <button id="btn-plus">Augmenter</button>
+            <button id="btn-moins" class="btn btn-secondary">Reset</button>
+            <button id="btn-plus" class="btn btn-primary">Démarrer</button>
         </div>
-        <footer>
+
+        <section class="agenda-section">
+            <h3>Rappel de Rendez-vous</h3>
+            <form id="form-rdv">
+                <input type="text" id="titre-rdv" placeholder="Objet du rendez-vous" required>
+                <input type="datetime-local" id="date-rdv" required>
+                <button type="submit" class="btn btn-submit">Ajouter à l'agenda</button>
+            </form>
+            <ul id="liste-rdv"></ul>
+        </section>
+    </main>
+
+    <footer>
         <p>&copy; 2026 | Benjamin Kirongozi Mazuya | WDD 131</p>
     </footer>
-    </div>  
-    <!-- On relie le fichier JavaScript tout en bas -->
+
     <script src="script.js"></script>
 </body>
 </html>
