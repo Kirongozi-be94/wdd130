@@ -397,54 +397,43 @@ changerLangue = function(langue) {
 }
 
 // ==========================================
-// SYSTEME DE MASQUAGE DE L'AGENDA AVEC CODE PIN
+// SYSTEME DE MASQUAGE DE L'AGENDA AVEC CODE PIN (CORRIGÉ)
 // ==========================================
 const btnToggleAgenda = document.getElementById("btn-toggle-agenda");
 const zoneListePrivee = document.getElementById("zone-liste-privee");
 
-// Définis ton code PIN secret ici (tu peux le changer)
+// Change ton code PIN ici (Garde les guillemets)
 const CODE_PIN_SECRET = "1234"; 
 
-btnToggleAgenda.addEventListener("click", function() {
-    const estCache = zoneListePrivee.classList.contains("d-none");
-    
-    // Si la liste est cachée, on demande le code PIN avant de l'afficher
-    if (estCache) {
-        let messageDemande = langueActuelle === "fr" 
-            ? "Entrez votre code PIN secret à 4 chiffres :" 
-            : "Enter your 4-digit secret PIN:";
-            
-        let messageErreur = langueActuelle === "fr"
-            ? "❌ Code PIN incorrect. Accès refusé."
-            : "❌ Incorrect PIN. Access denied.";
+if (btnToggleAgenda && zoneListePrivee) {
+    btnToggleAgenda.addEventListener("click", function() {
+        const estCache = zoneListePrivee.classList.contains("d-none");
+        
+        if (estCache) {
+            // Textes des alertes selon la langue
+            let messageDemande = (langueActuelle === "fr") 
+                ? "Entrez votre code PIN secret à 4 chiffres :" 
+                : "Enter your 4-digit secret PIN:";
+                
+            let messageErreur = (langueActuelle === "fr")
+                ? "❌ Code PIN incorrect. Accès refusé."
+                : "❌ Incorrect PIN. Access denied.";
 
-        let pinSaisi = prompt(messageDemande);
+            // Déclenche la petite boîte de saisie
+            let pinSaisi = prompt(messageDemande);
 
-        // Vérification du code PIN
-        if (pinSaisi === CODE_PIN_SECRET) {
-            zoneListePrivee.classList.remove("d-none");
-            btnToggleAgenda.textContent = langueActuelle === "fr" ? "Masquer mes rendez-vous 🙈" : "Hide my appointments 🙈";
-        } else if (pinSaisi !== null) { 
-            // Si le code est faux (et que l'utilisateur n'a pas cliqué sur "Annuler")
-            alert(messageErreur);
+            if (pinSaisi === CODE_PIN_SECRET) {
+                // Affiche la liste
+                zoneListePrivee.classList.remove("d-none");
+                btnToggleAgenda.textContent = (langueActuelle === "fr") ? "Masquer mes rendez-vous 🙈" : "Hide my appointments 🙈";
+            } else if (pinSaisi !== null) { 
+                // Code faux
+                alert(messageErreur);
+            }
+        } else {
+            // Cache la liste directement
+            zoneListePrivee.classList.add("d-none");
+            btnToggleAgenda.textContent = (langueActuelle === "fr") ? "Afficher mes rendez-vous 👁️" : "Show my appointments 👁️";
         }
-    } else {
-        // Si la liste était déjà affichée, on la cache directement sans redemander le PIN
-        zoneListePrivee.classList.add("d-none");
-        btnToggleAgenda.textContent = langueActuelle === "fr" ? "Afficher mes rendez-vous 👁️" : "Show my appointments 👁️";
-    }
-});
-
-/* Mise à jour du texte du bouton lors du changement de langue */
-const ancienneFonctionLangue = changerLangue;
-changerLangue = function(langue) {
-    if (typeof ancienneFonctionLangue === "function") {
-        ancienneFonctionLangue(langue);
-    }
-    const estCache = zoneListePrivee.classList.contains("d-none");
-    if (langue === "fr") {
-        btnToggleAgenda.textContent = estCache ? "Afficher mes rendez-vous 👁️" : "Masquer mes rendez-vous 🙈";
-    } else {
-        btnToggleAgenda.textContent = estCache ? "Show my appointments 👁️" : "Hide my appointments 🙈";
-    }
-};
+    });
+}
