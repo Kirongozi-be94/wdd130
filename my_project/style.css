@@ -456,3 +456,7 @@ footer {
     color: #007bff;
     border-color: #007bff;
 }
+
+.d-none {
+    display: none !important;
+}
