@@ -6,15 +6,20 @@
     <title>Chronomètre & Agenda - WDD 131</title>
     
     <link rel="icon" type="image/png" href="icon-192.png">
+    
     <link rel="apple-touch-icon" href="icon-192.png">
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#007bff">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <main class="card">
+        
+        <div id="horloge-temps-reel">Chargement de la date...</div>
+
         <h1>Chronomètre</h1>
         <div id="affichage">00:00:00:00</div> 
         
@@ -25,13 +30,16 @@
 
         <section class="agenda-section">
             <h3>Rappel de Rendez-vous</h3>
+            
             <form id="form-rdv">
                 <input type="text" id="titre-rdv" placeholder="Objet du rendez-vous" required>
                 <input type="datetime-local" id="date-rdv" required>
                 <button type="submit" class="btn btn-submit">Ajouter à l'agenda</button>
             </form>
+            
             <ul id="liste-rdv"></ul>
         </section>
+        
     </main>
 
     <footer>
