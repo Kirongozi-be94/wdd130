@@ -28,10 +28,10 @@
                         <label for="input-avatar" class="upload-icon-label">
                             <span style="font-size: 16px; color: white; font-weight: bold;">+</span>
                         </label>
-                    </div>
-                    <input type="file" id="input-avatar" accept="image/*" style="display: none;">
-                    <button type="button" id="btn-choose-file" class="btn-secondary-sm">Choisir une photo / Choose Photo</button>
-                </div>
+<div style="margin-bottom: 15px;">
+    <label style="display:block; margin-bottom:5px; color:#555; font-size:0.9rem; font-weight:bold;">Créer un Code PIN Secret (Optionnel - 4 chiffres) :</label>
+    <input type="password" id="login-pin" placeholder="Laisser vide si pas de code" maxlength="4" pattern="[0-9]*" inputmode="numeric" style="text-align: center; font-size: 1.3rem; letter-spacing: 2px;">
+</div>
 
                 <input type="text" id="login-nom" placeholder="Votre nom complet" required>
                 <input type="email" id="login-email" placeholder="Votre adresse email" required>
