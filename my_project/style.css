@@ -33,6 +33,7 @@ body {
     width: 100%;
     max-width: 450px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 #horloge-temps-reel {
@@ -67,13 +68,17 @@ body {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .btn-primary { background: #007bff; color: white; }
+.btn-primary:hover { background: #0056b3; }
 .btn-secondary { background: #6c757d; color: white; }
+.btn-secondary:hover { background: #5a6268; }
 .btn-submit { background: #28a745; color: white; width: 100%; }
+.btn-submit:hover { background: #218838; }
 
-input[type="text"], input[type="email"], input[type="datetime-local"], select {
+input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select {
     width: 100%;
     padding: 10px;
     margin-bottom: 12px;
@@ -83,75 +88,81 @@ input[type="text"], input[type="email"], input[type="datetime-local"], select {
 }
 
 .langue-select { display: flex; justify-content: flex-end; gap: 5px; margin-bottom: 15px; }
-.btn-lang { background: none; border: 1px solid #ccc; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
+.btn-lang { background: none; border: 1px solid #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 .btn-lang.active { background: #007bff; color: white; border-color: #007bff; }
 
-/* Styles Profil */
+/* Styles Avatar & Profil */
+.avatar-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.avatar-preview-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+#avatar-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ccc;
+}
+.upload-icon-label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #007bff;
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.btn-secondary-sm {
+    background: #e1e8ed;
+    border: 1px solid #ccd6dd;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
 #zone-profil-actif {
     background: #fff; border: 1px solid #e1e8ed; border-radius: 12px;
     padding: 15px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;
 }
-.profil-header-container { display: flex; align-items: center; gap: 15px; width: 100%; }
+.profil-header-container { display: flex; align-items: center; gap: 15px; width: 100%; text-align: left; }
 #affichage-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #007bff; }
-.btn-change-profil { background: none; border: 1px solid #ccd6dd; color: #657786; padding: 5px 10px; border-radius: 20px; cursor: pointer; }
+.profil-infos-textes h2 { margin: 0; font-size: 1.2rem; color: #333; }
+.btn-change-profil { background: none; border: 1px solid #ccd6dd; color: #657786; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 500; }
 
-/* Travel planner */
 .resultat-box { margin-top: 15px; padding: 12px; background: #e8f4fd; border-left: 5px solid #007bff; border-radius: 6px; text-align: left; }
 .d-none { display: none !important; }
 .separateur { border: 0; height: 1px; background: #eee; margin: 20px 0; }
-ul { list-style: none; padding: 0; }
-li { display: flex; justify-content: space-between; background: #f8f9fa; padding: 10px; margin-bottom: 5px; border-radius: 6px; }
+ul { list-style: none; padding: 0; margin: 0; }
+li { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #eee; text-align: left; }
 
-/* ==========================================
-   DESIGN DE LA BOUSSOLE ET DES CAPTEURS
-   ========================================== */
-
-.sensors-section {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-}
-
-.compass-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-}
-
-/* Le disque rotatif */
-.compass-disc {
-    width: 140px;
-    height: 140px;
-    border: 5px solid #333;
-    border-radius: 50%;
-    position: relative;
-    background: #fafafa;
-    transition: transform 0.1s ease-out; /* Rotation fluide */
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-}
-
-/* Flèche centrale indiquant le Nord */
-.compass-arrow {
-    position: absolute;
-    top: 10px;
-    left: 65px;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 60px solid #d32f2f; /* Flèche rouge */
-}
-
-/* Positionnement des points cardinaux */
-.direction {
-    position: absolute;
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #222;
-}
+/* Design de la Boussole */
+.sensors-section { background: #ffffff; padding: 5px 0; border-radius: 8px; }
+.compass-container { display: flex; flex-direction: column; align-items: center; margin: 15px 0; }
+.compass-disc { width: 140px; height: 140px; border: 5px solid #333; border-radius: 50%; position: relative; background: #fafafa; transition: transform 0.1s ease-out; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+.compass-arrow { position: absolute; top: 10px; left: 65px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 60px solid #d32f2f; }
+.direction { position: absolute; font-weight: bold; font-size: 0.9rem; color: #222; }
 .nord { top: 5px; left: 63px; color: #d32f2f; }
 .est { top: 60px; right: 10px; }
 .sud { bottom: 5px; left: 64px; }
 .ouest { top: 60px; left: 10px; }
+
+.btn-toggle-view { background: #f1f3f5; color: #495057; border: 1px solid #ced4da; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: #6c757d; }

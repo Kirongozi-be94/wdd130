@@ -4,12 +4,13 @@ if ('serviceWorker' in navigator) {
     .catch(err => console.error("Erreur Service Worker :", err));
 }
 
+// DICTIONNAIRE GLOBAL DE TRADUCTION COMPLET
 const traductions = {
     fr: {
-        titreLogin: "Créer votre profil",
+        titreLogin: "Créer votre profil sécurisé",
         placeholderNom: "Votre nom complet",
         placeholderEmail: "Votre adresse email",
-        btnAcceder: "Accéder à l'application",
+        btnAcceder: "Enregistrer et Déverrouiller",
         btnChangerProfil: "Changer de profil 🔄",
         titreChrono: "Chronomètre",
         titreAgenda: "Rappel de Rendez-vous",
@@ -23,13 +24,55 @@ const traductions = {
         bulleSupprimer: "Supprimer",
         btnAfficher: "Afficher mes rendez-vous 👁️",
         btnMasquer: "Masquer mes rendez-vous 🙈",
+        titreSensors: "🧭 Géolocalisation & Boussole",
+        btnGpsInitial: "Activer mon GPS / GPRS 🛰️",
+        btnGpsLoading: "Recherche du signal... ⏳",
+        btnGpsSuccess: "Position synchronisée ✅",
+        btnGpsError: "⚠️ Impossible d'accéder à votre position. Vérifiez vos autorisations GPS.",
+        txtGpsActuel: "Votre position actuelle :",
+        txtVilleProche: "Ville de RDC la plus proche :",
+        btnBoussoleInitial: "Activer la Boussole 🧭",
+        btnBoussoleActive: "Boussole Active ✅",
+        btnBoussoleRefuse: "❌ Accès aux capteurs refusé.",
+        titreTravel: "🌍 Congo Travel Planner",
+        lblTravelChoice: "Que voulez-vous faire ?",
+        optChoice1: "Calculer la distance entre deux villes",
+        optChoice2: "Calculer la distance depuis Kinshasa",
+        lblCityStart: "Ville de départ :",
+        lblCityEnd: "Ville d'arrivée :",
+        lblRoadCondition: "État de la route :",
+        optRoad1: "Bon (Good)",
+        optRoad2: "Moyen (Average)",
+        optRoad3: "Mauvais (Bad) ⚠️ Avion recommandé",
+        lblTransportMode: "Mode de transport :",
+        optTrans1: "Voiture (Car)",
+        optTrans2: "Avion (Plane)",
+        optTrans3: "Moto (Motorcycle)",
+        optTrans4: "Vélo (Bike)",
+        optTrans5: "À pied (Walking)",
+        btnCalculer: "Calculer l'itinéraire 🚀",
+        errMemeVille: "❌ Veuillez choisir deux villes différentes.",
+        txtItineraire: "Itinéraire",
+        txtDistance: "Distance",
+        txtMode: "Mode",
+        txtRoute: "Route",
+        txtTempsEstime: "Temps de trajet estimé",
+        txtHeures: "heures",
+        alertRouteMauvaise: "⚠️ L'état de la route est mauvais, il est fortement recommandé de prendre l'avion.",
+        confirmDeconnexion: "Voulez-vous vraiment réinitialiser ce profil ?",
+        confirmSupprimerRdv: "Supprimer ce rendez-vous ?",
+        alertPinIncorrect: "❌ Code PIN incorrect.",
+        alertPinLongueur: "❌ Le code PIN doit contenir 4 chiffres.",
+        lblPinSecret: "Créer votre Code PIN Secret (Optionnel) :",
+        placeholderPin: "Laisser vide si pas de code",
+        btnChooseFile: "Choisir une photo",
         langueCode: "fr-FR"
     },
     en: {
-        titreLogin: "Create your profile",
+        titreLogin: "Create your secure profile",
         placeholderNom: "Your full name",
         placeholderEmail: "Your email address",
-        btnAcceder: "Access the application",
+        btnAcceder: "Register and Unlock",
         btnChangerProfil: "Change profile 🔄",
         titreChrono: "Stopwatch",
         titreAgenda: "Appointment Reminder",
@@ -43,6 +86,48 @@ const traductions = {
         bulleSupprimer: "Delete",
         btnAfficher: "Show my appointments 👁️",
         btnMasquer: "Hide my appointments 🙈",
+        titreSensors: "🧭 Geolocation & Compass",
+        btnGpsInitial: "Activate my GPS / GPRS 🛰️",
+        btnGpsLoading: "Searching signal... ⏳",
+        btnGpsSuccess: "Position synchronized ✅",
+        btnGpsError: "⚠️ Unable to access your position. Check your GPS permissions.",
+        txtGpsActuel: "Your current position:",
+        txtVilleProche: "Closest DRC city:",
+        btnBoussoleInitial: "Activate Compass 🧭",
+        btnBoussoleActive: "Compass Active ✅",
+        btnBoussoleRefuse: "❌ Sensor access denied.",
+        titreTravel: "🌍 Congo Travel Planner",
+        lblTravelChoice: "What do you want to do?",
+        optChoice1: "Calculate distance between two cities",
+        optChoice2: "Calculate distance from Kinshasa",
+        lblCityStart: "Departure city:",
+        lblCityEnd: "Arrival city:",
+        lblRoadCondition: "Road condition:",
+        optRoad1: "Good",
+        optRoad2: "Average",
+        optRoad3: "Bad ⚠️ Plane recommended",
+        lblTransportMode: "Transportation mode:",
+        optTrans1: "Car",
+        optTrans2: "Plane",
+        optTrans3: "Motorcycle",
+        optTrans4: "Bike",
+        optTrans5: "Walking",
+        btnCalculer: "Calculate route 🚀",
+        errMemeVille: "❌ Please choose two different cities.",
+        txtItineraire: "Route",
+        txtDistance: "Distance",
+        txtMode: "Mode",
+        txtRoute: "Road",
+        txtTempsEstime: "Estimated travel time",
+        txtHeures: "hours",
+        alertRouteMauvaise: "⚠️ Road conditions are bad, taking a plane is highly recommended.",
+        confirmDeconnexion: "Do you really want to reset this profile?",
+        confirmSupprimerRdv: "Delete this appointment?",
+        alertPinIncorrect: "❌ Incorrect PIN code.",
+        alertPinLongueur: "❌ The PIN code must contain 4 digits.",
+        lblPinSecret: "Create your Secret PIN Code (Optional):",
+        placeholderPin: "Leave blank if no code",
+        btnChooseFile: "Choose a photo",
         langueCode: "en-US"
     }
 };
@@ -89,9 +174,19 @@ const btnEn = document.getElementById("btn-en");
 const btnToggleAgenda = document.getElementById("btn-toggle-agenda");
 const zoneListePrivee = document.getElementById("zone-liste-privee");
 
+// Capteurs DOM
+const btnGps = document.getElementById("btn-gps");
+const affichageGps = document.getElementById("affichage-gps");
+const gpsLat = document.getElementById("gps-lat");
+const gpsLon = document.getElementById("gps-lon");
+const gpsVilleProche = document.getElementById("gps-ville-proche");
+const boussoleDisque = document.getElementById("boussole-disque");
+const boussoleDegres = document.getElementById("boussole-degres");
+const btnBoussole = document.getElementById("btn-boussole");
+
 let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 
-// Base de données géographiques du Congo Travel Planner
+// Base de données géographiques de la RDC
 const cities = {
     "kinshasa": [-4.4419, 15.2663], "lubumbashi": [-11.6708, 27.4792], "kolwezi": [-10.7167, 25.4667],
     "kisangani": [0.5167, 25.1833], "inongo": [-5.3333, 21.4167], "bukavu": [-2.5, 28.3667],
@@ -114,7 +209,7 @@ const selectTransport = document.getElementById("transport-mode-select");
 const btnCalculerVoyage = document.getElementById("btn-calculer-voyage");
 const resultatVoyage = document.getElementById("resultat-voyage");
 
-// Démarrage
+// DÉMARRAGE SYNCHRONISÉ
 changerLangue("fr");
 verifierUtilisateur();
 setInterval(afficherDateEtHeureDuJour, 1000);
@@ -160,21 +255,23 @@ if (formLogin) {
         const inputPin = document.getElementById("login-pin");
         let pinVal = inputPin ? inputPin.value.trim() : "";
         if (pinVal.length > 0 && pinVal.length !== 4) {
-            alert("❌ Le code PIN doit contenir 4 chiffres.");
+            alert(traductions[langueActuelle].alertPinLongueur);
             return;
         }
         localStorage.setItem("profilUtilisateur", JSON.stringify({ nom: inputLoginNom.value, email: inputLoginEmail.value, avatar: base64Avatar, pin: pinVal }));
         formLogin.reset();
         base64Avatar = "";
+        if (avatarPreview) avatarPreview.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
         verifierUtilisateur();
     });
 }
 
 if (btnDeconnexion) {
     btnDeconnexion.addEventListener("click", function() {
-        if(confirm("Réinitialiser ce profil ?")) {
+        if(confirm(traductions[langueActuelle].confirmDeconnexion)) {
             localStorage.removeItem("profilUtilisateur");
             zoneListePrivee.classList.add("d-none");
+            if(btnToggleAgenda) btnToggleAgenda.textContent = traductions[langueActuelle].btnAfficher;
             verifierUtilisateur();
         }
     });
@@ -185,9 +282,9 @@ if (btnToggleAgenda) {
         const estCache = zoneListePrivee.classList.contains("d-none");
         const uti = JSON.parse(localStorage.getItem("profilUtilisateur"));
         if (estCache && uti && uti.pin) {
-            let saisi = prompt("Entrez votre code PIN :");
+            let saisi = prompt("PIN :");
             if (saisi === uti.pin) { zoneListePrivee.classList.remove("d-none"); this.textContent = traductions[langueActuelle].btnMasquer; }
-            else if (saisi !== null) alert("❌ Code PIN incorrect.");
+            else if (saisi !== null) alert(traductions[langueActuelle].alertPinIncorrect);
         } else {
             zoneListePrivee.classList.toggle("d-none");
             this.textContent = zoneListePrivee.classList.contains("d-none") ? traductions[langueActuelle].btnAfficher : traductions[langueActuelle].btnMasquer;
@@ -195,17 +292,69 @@ if (btnToggleAgenda) {
     });
 }
 
+// INTERRUPTEUR DE TRADUCTION DYNAMIQUE GLOBAL
 function changerLangue(langue) {
     langueActuelle = langue; const t = traductions[langue];
+    
     if(txtTitreLogin) txtTitreLogin.textContent = t.titreLogin;
     if(inputLoginNom) inputLoginNom.placeholder = t.placeholderNom;
+    if(inputLoginEmail) inputLoginEmail.placeholder = t.placeholderEmail;
+    if(inputTitre) inputTitre.placeholder = t.placeholderObjet;
     if(btnLogin) btnLogin.textContent = t.btnAcceder;
-    txtTitreChrono.textContent = t.titreChrono; txtTitreAgenda.textContent = t.titreAgenda;
-    btnValiderAgenda.textContent = t.btnAjouter;
-    btnPausePlay.textContent = !enCours && millisecondes === 0 ? t.btnDemarrer : enCours ? t.btnPause : t.btnReprendre;
+    if(txtTitreChrono) txtTitreChrono.textContent = t.titreChrono; 
+    if(txtTitreAgenda) txtTitreAgenda.textContent = t.titreAgenda;
+    if(btnValiderAgenda) btnValiderAgenda.textContent = t.btnAjouter;
+    if(btnChooseFile) btnChooseFile.textContent = t.btnChooseFile;
+    
+    const inputPin = document.getElementById("login-pin");
+    if(inputPin) inputPin.placeholder = t.placeholderPin;
+
+    if(btnPausePlay) btnPausePlay.textContent = !enCours && millisecondes === 0 ? t.btnDemarrer : enCours ? t.btnPause : t.btnReprendre;
+    if(btnToggleAgenda) btnToggleAgenda.textContent = zoneListePrivee.classList.contains("d-none") ? t.btnAfficher : t.btnMasquer;
+
+    const lblPin = document.getElementById("lbl-pin-secret");
+    if (lblPin) lblPin.textContent = t.lblPinSecret;
+    
+    document.getElementById("txt-titre-sensors").textContent = t.titreSensors;
+    document.getElementById("txt-gps-actuel").textContent = t.txtGpsActuel;
+    if(btnGps && !btnGps.innerHTML.includes("✅")) btnGps.textContent = t.btnGpsInitial;
+    if(btnBoussole && !btnBoussole.innerHTML.includes("✅")) btnBoussole.textContent = t.btnBoussoleInitial;
+
+    document.getElementById("txt-titre-travel").textContent = t.titreTravel;
+    document.getElementById("lbl-travel-choice").textContent = t.lblTravelChoice;
+    document.getElementById("opt-choice-1").textContent = t.optChoice1;
+    document.getElementById("opt-choice-2").textContent = t.optChoice2;
+    document.getElementById("lbl-city-start").textContent = t.lblCityStart;
+    document.getElementById("lbl-city-end").textContent = t.lblCityEnd;
+    document.getElementById("lbl-road-condition").textContent = t.lblRoadCondition;
+    document.getElementById("opt-road-1").textContent = t.optRoad1;
+    document.getElementById("opt-road-2").textContent = t.optRoad2;
+    document.getElementById("opt-road-3").textContent = t.optRoad3;
+    document.getElementById("lbl-transport-mode").textContent = t.lblTransportMode;
+    document.getElementById("opt-trans-1").textContent = t.optTrans1;
+    document.getElementById("opt-trans-2").textContent = t.optTrans2;
+    document.getElementById("opt-trans-3").textContent = t.optTrans3;
+    document.getElementById("opt-trans-4").textContent = t.optTrans4;
+    document.getElementById("opt-trans-5").textContent = t.optTrans5;
+    document.getElementById("btn-calculer-voyage").textContent = t.btnCalculer;
+
+    const txtFooter = document.getElementById("txt-footer");
+    if (txtFooter) txtFooter.innerHTML = langue === "fr" ? `&copy; 2026 | Benjamin Kirongozi Mazuya | Développé pour WDD 131` : `&copy; 2026 | Benjamin Kirongozi Mazuya | Developed for WDD 131`;
+
     document.querySelectorAll(".btn-lang").forEach(b => b.classList.remove("active"));
     document.getElementById(`btn-${langue}`).classList.add("active");
-    afficherDateEtHeureDuJour(); rendreAgenda();
+    
+    if (resultatVoyage && !resultatVoyage.classList.contains("d-none")) { resultatVoyage.classList.add("d-none"); }
+    
+    // Forcer la mise à jour de la ville la plus proche si affichée
+    if (affichageGps && !affichageGps.classList.contains("d-none")) {
+        const latActuelle = parseFloat(gpsLat.textContent);
+        const lonActuelle = parseFloat(gpsLon.textContent);
+        if(!isNaN(latActuelle) && !isNaN(lonActuelle)) trouverVilleRdcLaPlusProche(latActuelle, lonActuelle);
+    }
+
+    afficherDateEtHeureDuJour(); 
+    rendreAgenda();
 }
 if (btnFr) btnFr.addEventListener("click", () => changerLangue("fr"));
 if (btnEn) btnEn.addEventListener("click", () => changerLangue("en"));
@@ -249,57 +398,36 @@ if (formRdv) {
 }
 
 function rendreAgenda() {
-    if (!listElementsRdv) return; 
-    listElementsRdv.innerHTML = "";
-    
-    // Trier les rendez-vous du plus proche au plus lointain
+    if (!listElementsRdv) return; listElementsRdv.innerHTML = "";
     rendezVousTableau.sort((a, b) => new Date(a.date) - new Date(b.date));
-    
     rendezVousTableau.forEach(rdv => {
         const li = document.createElement("li");
         li.innerHTML = `<span>📅 <strong>${rdv.titre}</strong> - ${new Date(rdv.date).toLocaleDateString(traductions[langueActuelle].langueCode, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})}</span>`;
         
         const divActions = document.createElement("div"); 
-        divActions.className = "actions";
-        divActions.style.display = "flex";
-        divActions.style.gap = "10px";
+        divActions.className = "actions"; divActions.style.display = "flex"; divActions.style.gap = "10px";
 
-        // 1. BOUTON MODIFIER (✍️)
         const btnModifier = document.createElement("span"); 
-        btnModifier.textContent = "✍️"; 
-        btnModifier.style.cursor = "pointer";
-        btnModifier.title = traductions[langueActuelle].bulleModifier;
+        btnModifier.textContent = "✍️"; btnModifier.style.cursor = "pointer"; btnModifier.title = traductions[langueActuelle].bulleModifier;
         btnModifier.addEventListener("click", () => {
-            // On remet les valeurs dans le formulaire pour modification
-            inputTitre.value = rdv.titre;
-            inputDate.value = rdv.date;
-            
-            // On supprime l'ancienne version du tableau pour la remplacer au prochain clic sur "Ajouter"
+            inputTitre.value = rdv.titre; inputDate.value = rdv.date;
             rendezVousTableau = rendezVousTableau.filter(i => i.id !== rdv.id);
             localStorage.setItem("mesRendezVous", JSON.stringify(rendezVousTableau));
-            rendreAgenda();
-            
-            // Remonter l'écran vers le formulaire
-            inputTitre.focus();
+            rendreAgenda(); inputTitre.focus();
         });
 
-        // 2. BOUTON SUPPRIMER (❌)
         const btnSupprimer = document.createElement("span"); 
-        btnSupprimer.textContent = "❌"; 
-        btnSupprimer.style.cursor = "pointer";
-        btnSupprimer.title = traductions[langueActuelle].bulleSupprimer;
+        btnSupprimer.textContent = "❌"; btnSupprimer.style.cursor = "pointer"; btnSupprimer.title = traductions[langueActuelle].bulleSupprimer;
         btnSupprimer.addEventListener("click", () => {
-            if(confirm(langueActuelle === "fr" ? "Supprimer ce rendez-vous ?" : "Delete this appointment?")) {
+            if(confirm(traductions[langueActuelle].confirmSupprimerRdv)) {
                 rendezVousTableau = rendezVousTableau.filter(i => i.id !== rdv.id); 
                 localStorage.setItem("mesRendezVous", JSON.stringify(rendezVousTableau)); 
                 rendreAgenda(); 
             }
         });
 
-        divActions.appendChild(btnModifier);
-        divActions.appendChild(btnSupprimer); 
-        li.appendChild(divActions); 
-        listElementsRdv.appendChild(li);
+        divActions.appendChild(btnModifier); divActions.appendChild(btnSupprimer); 
+        li.appendChild(divActions); listElementsRdv.appendChild(li);
     });
 }
 
@@ -311,120 +439,114 @@ function initialiserVilles() {
         selectEnd.options[selectEnd.options.length] = new Option(f, c);
     });
 }
-if (selectChoice) { selectChoice.addEventListener("change", function() { if (this.value === "2") { selectStart.value = "kinshasa"; selectStart.disabled = true; } else selectStart.disabled = false; }); }
-if (selectRoad) { selectRoad.addEventListener("change", function() { if (this.value === "bad") { alert("⚠️ Route mauvaise. Avion conseillé !"); selectTransport.value = "plane"; } }); }
+if (selectChoice) { 
+    selectChoice.addEventListener("change", function() { 
+        if (this.value === "2") { 
+            selectStart.value = "kinshasa"; 
+            selectStart.disabled = true; 
+        } else {
+            selectStart.disabled = false; 
+        }
+    }); 
+}
 
-if (btnCalculerVoyage) {
-    btnCalculerVoyage.addEventListener("click", function() {
-        const v1 = selectStart.value, v2 = selectEnd.value, r = selectRoad.value, t = selectTransport.value;
-        if (v1 === v2) { resultatVoyage.textContent = "❌ Choisissez deux villes différentes."; resultatVoyage.classList.remove("d-none"); return; }
-        
-        const dLat = (cities[v2][0] - cities[v1][0]) * Math.PI / 180, dLon = (cities[v2][1] - cities[v1][1]) * Math.PI / 180;
-        const a = Math.sin(dLat/2)**2 + Math.cos(cities[v1][0]*Math.PI/180) * Math.cos(cities[v2][0]*Math.PI/180) * Math.sin(dLon/2)**2;
-        const dist = 6371 * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
-        
-        resultatVoyage.innerHTML = `🏁 <strong>${v1.toUpperCase()} ➔ ${v2.toUpperCase()}</strong><br>📏 <strong>Distance :</strong> ${dist.toFixed(2)} km<br>⏳ <strong>Temps :</strong> ${(dist / speeds[t][r]).toFixed(2)} heures`;
-        resultatVoyage.classList.remove("d-none");
+if (selectRoad && selectTransport) {
+    selectRoad.addEventListener("change", function() {
+        if (this.value === "bad") {
+            alert(traductions[langueActuelle].alertRouteMauvaise);
+            selectTransport.value = "plane";
+        }
     });
 }
 
-// ==========================================
-// 5. GÉOLOCALISATION (GPS) & BOUSSOLE
-// ==========================================
-
-const btnGps = document.getElementById("btn-gps");
-const affichageGps = document.getElementById("affichage-gps");
-const gpsLat = document.getElementById("gps-lat");
-const gpsLon = document.getElementById("gps-lon");
-const gpsVilleProche = document.getElementById("gps-ville-proche");
-const boussoleDisque = document.getElementById("boussole-disque");
-const boussoleDegres = document.getElementById("boussole-degres");
-
-// --- PARTIE A : LE GPS / GPRS ---
+// GEOLOCALISATION GPS
 if (btnGps) {
     btnGps.addEventListener("click", function() {
-        if (!navigator.geolocation) {
-            alert("❌ La géolocalisation n'est pas supportée par votre navigateur.");
-            return;
-        }
-
-        btnGps.textContent = "Recherche du signal... ⏳";
-
+        if (!navigator.geolocation) { alert("Geolocation not supported"); return; }
+        btnGps.textContent = traductions[langueActuelle].btnGpsLoading;
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-
-                // Affichage des coordonnées réelles
-                gpsLat.textContent = lat.toFixed(4);
-                gpsLon.textContent = lon.toFixed(4);
+                const lat = position.coords.latitude; const lon = position.coords.longitude;
+                gpsLat.textContent = lat.toFixed(4); gpsLon.textContent = lon.toFixed(4);
                 affichageGps.classList.remove("d-none");
-                btnGps.innerHTML = "Position synchronisée ✅";
+                btnGps.textContent = traductions[langueActuelle].btnGpsSuccess;
                 btnGps.className = "btn btn-primary";
-
-                // Optionnel : Trouver la ville de RDC la plus proche de l'utilisateur !
                 trouverVilleRdcLaPlusProche(lat, lon);
             },
             (erreur) => {
-                console.error(erreur);
-                alert("⚠️ Impossible d'accéder à votre position. Vérifiez vos autorisations GPS.");
-                btnGps.textContent = "Réessayer l'activation GPS 🛰️";
+                alert(traductions[langueActuelle].btnGpsError);
+                btnGps.textContent = traductions[langueActuelle].btnGpsInitial;
             },
             { enableHighAccuracy: true, timeout: 10000 }
         );
     });
 }
 
-// Algorithme pour lier ta position GPS aux villes de ton Travel Planner
 function trouverVilleRdcLaPlusProche(maLat, maLon) {
-    let villeProche = "";
-    let distanceMin = Infinity;
-
-    // On utilise la fonction de calcul de distance que tu as déjà dans ton script !
+    let villeProche = ""; let distanceMin = Infinity;
     Object.keys(cities).forEach(nomVille => {
         const coordVille = cities[nomVille];
-        // Appel de la formule Haversine déjà présente
         const dLat = (coordVille[0] - maLat) * Math.PI / 180;
         const dLon = (coordVille[1] - maLon) * Math.PI / 180;
         const a = Math.sin(dLat/2)**2 + Math.cos(maLat*Math.PI/180) * Math.cos(coordVille[0]*Math.PI/180) * Math.sin(dLon/2)**2;
         const dist = 6371 * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
-
-        if (dist < distanceMin) {
-            distanceMin = dist;
-            villeProche = nomVille;
-        }
+        if (dist < distanceMin) { distanceMin = dist; villeProche = nomVille; }
     });
-
     if (gpsVilleProche) {
         const nomFormate = villeProche.charAt(0).toUpperCase() + villeProche.slice(1);
-        gpsVilleProche.innerHTML = `📍 Ville de RDC la plus proche : <strong>${nomFormate}</strong> (à env. ${distanceMin.toFixed(0)} km)`;
-        
-        // Bonus : Met automatiquement cette ville comme point de départ du planificateur !
-        const selectStart = document.getElementById("city-start");
+        const trad = traductions[langueActuelle];
+        gpsVilleProche.innerHTML = `📍 ${trad.txtVilleProche} <strong>${nomFormate}</strong> (à env. ${distanceMin.toFixed(0)} km)`;
         if (selectStart) selectStart.value = villeProche;
     }
 }
 
-// --- PARTIE B : LA BOUSSOLE ---
-// Écoute de l'orientation de l'appareil (Fonctionne surtout sur Smartphone)
-window.addEventListener("deviceorientationabsolute", gererOrientation, true);
-window.addEventListener("deviceorientation", gererOrientation, true);
-
+// BOUSSOLE / GYROSCOPE
+if (btnBoussole) {
+    btnBoussole.addEventListener("click", function() {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission().then(response => {
+                if (response === 'granted') activerEcouteBoussole();
+                else alert(traductions[langueActuelle].btnBoussoleRefuse);
+            }).catch(console.error);
+        } else { activerEcouteBoussole(); }
+    });
+}
+function activerEcouteBoussole() {
+    window.addEventListener("deviceorientationabsolute", gererOrientation, true);
+    window.addEventListener("deviceorientation", gererOrientation, true);
+    if (btnBoussole) { btnBoussole.textContent = traductions[langueActuelle].btnBoussoleActive; btnBoussole.className = "btn btn-primary"; }
+}
 function gererOrientation(event) {
-    // Récupération des degrés par rapport au Nord magnétique (alpha ou webkitCompassHeading)
-    let degres = event.alpha;
-    
-    if (event.webkitCompassHeading) {
-        degres = event.webkitCompassHeading; // Spécifique pour iPhone/Safari
-    }
-
+    let degres = event.alpha; if (event.webkitCompassHeading) degres = event.webkitCompassHeading;
     if (degres !== null && degres !== undefined) {
         const angleRationnel = Math.round(degres);
-        boussoleDegres.textContent = `${angleRationnel}°`;
-
-        // Fait tourner visuellement le disque CSS de la boussole
-        if (boussoleDisque) {
-            boussoleDisque.style.transform = `rotate(${-angleRationnel}deg)`;
-        }
+        if (boussoleDegres) boussoleDegres.textContent = `${angleRationnel}°`;
+        if (boussoleDisque) boussoleDisque.style.transform = `rotate(${-angleRationnel}deg)`;
     }
+}
+
+// CONGO TRAVEL PLANNER LOGIC
+if (btnCalculerVoyage) {
+    btnCalculerVoyage.addEventListener("click", function() {
+        const v1 = selectStart.value, v2 = selectEnd.value, r = selectRoad.value, t = selectTransport.value;
+        const trad = traductions[langueActuelle];
+        if (v1 === v2) { resultatVoyage.textContent = trad.errMemeVille; resultatVoyage.classList.remove("d-none"); return; }
+        
+        const dLat = (cities[v2][0] - cities[v1][0]) * Math.PI / 180, dLon = (cities[v2][1] - cities[v1][1]) * Math.PI / 180;
+        const a = Math.sin(dLat/2)**2 + Math.cos(cities[v1][0]*Math.PI/180) * Math.cos(cities[v2][0]*Math.PI/180) * Math.sin(dLon/2)**2;
+        const dist = 6371 * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+        const temps = dist / speeds[t][r];
+        
+        // Traduction stricte de l'affichage du mode et de la route
+        const labelModeTraduit = langueActuelle === "fr" ? document.getElementById(`opt-trans-${["car","plane","motorcycle","bike","walking"].indexOf(t)+1}`).textContent.split(" (")[0] : t.charAt(0).toUpperCase() + t.slice(1);
+        const labelRouteTraduite = langueActuelle === "fr" ? (r === "good" ? "Bon" : r === "average" ? "Moyen" : "Mauvais") : (r === "good" ? "Good" : r === "average" ? "Average" : "Bad");
+
+        resultatVoyage.innerHTML = `
+            🏁 <strong>${trad.txtItineraire} :</strong> ${v1.toUpperCase()} ➔ ${v2.toUpperCase()}<br>
+            📏 <strong>${trad.txtDistance} :</strong> ${dist.toFixed(2)} km<br>
+            🚗 <strong>${trad.txtMode} :</strong> ${labelModeTraduit} (${trad.txtRoute} : ${labelRouteTraduite})<br>
+            ⏳ <strong>${trad.txtTempsEstime} :</strong> ${temps.toFixed(2)} ${trad.txtHeures}
+        `;
+        resultatVoyage.classList.remove("d-none");
+    });
 }
