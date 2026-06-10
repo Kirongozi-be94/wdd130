@@ -69,6 +69,54 @@
             <div class="boutons">
                 <button id="btn-moins" class="btn btn-secondary">Reset</button>
                 <button id="btn-plus" class="btn btn-primary">Démarrer</button>
+                <hr class="separateur">
+            <section class="travel-section">
+                <h3 id="txt-titre-travel">🌍 Congo Travel Planner</h3>
+                
+                <div class="form-group-travel">
+                    <label for="travel-mode">Que voulez-vous faire ?</label>
+                    <select id="travel-choice">
+                        <option value="1">Calculer la distance entre deux villes</option>
+                        <option value="2">Calculer la distance depuis Kinshasa</option>
+                    </select>
+                </div>
+
+                <div class="villes-inputs-container">
+                    <div class="form-group-travel">
+                        <label for="city-start">Ville de départ :</label>
+                        <select id="city-start"></select>
+                    </div>
+                    
+                    <div class="form-group-travel" id="zone-city-end">
+                        <label for="city-end">Ville d'arrivée :</label>
+                        <select id="city-end"></select>
+                    </div>
+                </div>
+
+                <div class="form-group-travel">
+                    <label for="road-condition">État de la route :</label>
+                    <select id="road-condition-select">
+                        <option value="good">Bon (Good)</option>
+                        <option value="average">Moyen (Average)</option>
+                        <option value="bad">Mauvais (Bad) ⚠️ Avion recommandé</option>
+                    </select>
+                </div>
+
+                <div class="form-group-travel">
+                    <label for="transport-mode">Mode de transport :</label>
+                    <select id="transport-mode-select">
+                        <option value="car">Voiture (Car)</option>
+                        <option value="plane">Avion (Plane)</option>
+                        <option value="motorcycle">Moto (Motorcycle)</option>
+                        <option value="bike">Vélo (Bike)</option>
+                        <option value="walking">À pied (Walking)</option>
+                    </select>
+                </div>
+
+                <button type="button" id="btn-calculer-voyage" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Calculer l'itinéraire 🚀</button>
+
+                <div id="resultat-voyage" class="resultat-box d-none"></div>
+            </section>
             </div>
 
             <section class="agenda-section">
