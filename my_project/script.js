@@ -249,15 +249,57 @@ if (formRdv) {
 }
 
 function rendreAgenda() {
-    if (!listElementsRdv) return; listElementsRdv.innerHTML = "";
+    if (!listElementsRdv) return; 
+    listElementsRdv.innerHTML = "";
+    
+    // Trier les rendez-vous du plus proche au plus lointain
     rendezVousTableau.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
     rendezVousTableau.forEach(rdv => {
         const li = document.createElement("li");
         li.innerHTML = `<span>📅 <strong>${rdv.titre}</strong> - ${new Date(rdv.date).toLocaleDateString(traductions[langueActuelle].langueCode, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})}</span>`;
-        const div = document.createElement("div"); div.className = "actions";
-        const del = document.createElement("span"); del.textContent = "❌"; del.style.cursor="pointer";
-        del.addEventListener("click", () => { rendezVousTableau = rendezVousTableau.filter(i => i.id !== rdv.id); localStorage.setItem("mesRendezVous", JSON.stringify(rendezVousTableau)); rendreAgenda(); });
-        div.appendChild(del); li.appendChild(div); listElementsRdv.appendChild(li);
+        
+        const divActions = document.createElement("div"); 
+        divActions.className = "actions";
+        divActions.style.display = "flex";
+        divActions.style.gap = "10px";
+
+        // 1. BOUTON MODIFIER (✍️)
+        const btnModifier = document.createElement("span"); 
+        btnModifier.textContent = "✍️"; 
+        btnModifier.style.cursor = "pointer";
+        btnModifier.title = traductions[langueActuelle].bulleModifier;
+        btnModifier.addEventListener("click", () => {
+            // On remet les valeurs dans le formulaire pour modification
+            inputTitre.value = rdv.titre;
+            inputDate.value = rdv.date;
+            
+            // On supprime l'ancienne version du tableau pour la remplacer au prochain clic sur "Ajouter"
+            rendezVousTableau = rendezVousTableau.filter(i => i.id !== rdv.id);
+            localStorage.setItem("mesRendezVous", JSON.stringify(rendezVousTableau));
+            rendreAgenda();
+            
+            // Remonter l'écran vers le formulaire
+            inputTitre.focus();
+        });
+
+        // 2. BOUTON SUPPRIMER (❌)
+        const btnSupprimer = document.createElement("span"); 
+        btnSupprimer.textContent = "❌"; 
+        btnSupprimer.style.cursor = "pointer";
+        btnSupprimer.title = traductions[langueActuelle].bulleSupprimer;
+        btnSupprimer.addEventListener("click", () => {
+            if(confirm(langueActuelle === "fr" ? "Supprimer ce rendez-vous ?" : "Delete this appointment?")) {
+                rendezVousTableau = rendezVousTableau.filter(i => i.id !== rdv.id); 
+                localStorage.setItem("mesRendezVous", JSON.stringify(rendezVousTableau)); 
+                rendreAgenda(); 
+            }
+        });
+
+        divActions.appendChild(btnModifier);
+        divActions.appendChild(btnSupprimer); 
+        li.appendChild(divActions); 
+        listElementsRdv.appendChild(li);
     });
 }
 
