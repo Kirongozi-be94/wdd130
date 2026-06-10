@@ -11,353 +11,87 @@
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #f4f7fa;
     padding: 20px;
 }
 
-/* Conteneur Principal */
-.card {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
     padding: 25px;
-    width: 100%;
-    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
     text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
 }
 
-/* Boutons Standards */
-.btn {
-    padding: 12px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.2s ease;
-}
-
-.btn-primary { background-color: var(--primary-color); color: white; }
-.btn-primary:hover { background-color: var(--primary-hover); }
-
-.btn-secondary { background-color: var(--secondary-color); color: white; }
-.btn-secondary:hover { background-color: var(--secondary-hover); }
-
-.btn-submit {
-    background-color: #28a745;
-    color: white;
-    width: 100%;
-    margin-top: 5px;
-}
-.btn-submit:hover { background-color: #218838; }
-
-/* Section Agenda */
-.agenda-section {
-    border-top: 1px solid var(--border-color);
-    padding-top: 20px;
-    text-align: left;
-}
-
-.agenda-section h3 {
+h2 {
     margin-bottom: 15px;
-    text-align: center;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
+input {
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 1rem;
 }
 
-/* Liste des éléments de l'agenda */
-ul {
-    list-style: none;
-    margin-top: 20px;
-    max-height: 220px;
-    overflow-y: auto;
-}
-
-li {
-    background: #f9f9f9;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    border-left: 4px solid var(--primary-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.95rem;
-}
-
-.actions span {
-    cursor: pointer;
-    margin-left: 10px;
-    transition: transform 0.1s;
-}
-.actions span:hover { transform: scale(1.2); }
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 0.85rem;
-    color: #666;
-}
-
-/* Responsive */
-@media (max-width: 360px) {
-    body { padding: 10px; }
-}
-
-#horloge-temps-reel {
-    font-size: 0.9rem;
-    color: #666;
-    background-color: #f0f4f8;
-    padding: 10px;
-    border-radius: 6px;
-    border-left: 5px solid #007bff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.langue-select {
-    text-align: right;
-    margin-bottom: 15px;
-    width: 100%;
-    max-width: 450px;
-}
-
-.btn-lang {
-    background: #e0e0e0;
+button {
     border: none;
-    padding: 6px 12px;
-    margin-left: 5px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn-lang.active {
     background: #007bff;
     color: white;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.avatar-zone {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#avatar-preview,
+#affichage-avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+#affichage-nom {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#affichage-email {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .d-none {
-    display: none !important;
-}
-
-/* --- BOX FORMULAIRE D'INSCRIPTION --- */
-.profil-user-form {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 14px;
-    border: 1px solid #e9ecef;
-    margin-bottom: 20px;
-}
-.profil-user-form h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #333;
-    text-align: center;
-}
-
-/* --- ZONE AVATAR / PHOTO UPLOAD --- */
-.avatar-upload-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-.avatar-preview-wrapper {
-    position: relative;
-    width: 90px;
-    height: 90px;
-}
-#avatar-preview, .avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #007bff;
-    background-color: #fff;
-}
-.upload-icon-label {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: #007bff;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.btn-secondary-sm {
-    background: #6c757d;
-    color: white;
-    border: none;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    cursor: pointer;
-}
-
-/* --- CARTE PROFIL ACTIF --- */
-#zone-profil-actif {
-    background: #ffffff;
-    border: 1px solid #e1e8ed;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-}
-.profil-header-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-}
-#affichage-avatar {
-    width: 65px !important;
-    height: 65px !important;
-    border-radius: 50% !important;
-    object-fit: cover !important;
-    border: 3px solid #007bff;
-    background-color: #e1e8ed;
-}
-.profil-infos-textes {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex-grow: 1;
-}
-#affichage-nom {
-    margin: 0 !important;
-    font-size: 1.2rem !important;
-    color: #1a1a1a;
-    font-weight: 700;
-}
-#affichage-email {
-    font-size: 0.85rem;
-    color: #657786;
-}
-#affichage-email a {
-    color: #007bff;
-    text-decoration: none;
-}
-.btn-change-profil {
-    background: none;
-    border: 1px solid #ccd6dd;
-    color: #657786;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: fit-content;
-    margin-top: 5px;
-}
-.btn-change-profil:hover {
-    background: #f5f8fa;
-    color: #007bff;
-    border-color: #007bff;
-}
-
-.separateur {
-    border: 0;
-    height: 1px;
-    background: #e0e0e0;
-    margin: 20px 0;
-}
-
-/* --- BOUTON DE MASQUAGE AGENDA --- */
-.btn-toggle-view {
-    width: 100%;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    transition: background-color 0.2s ease;
-}
-.btn-toggle-view:hover {
-    background-color: #5a6268;
-}
-
-#zone-liste-privee {
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- CONFIGURATION DU CONGO PLANNER --- */
-.travel-section {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-    text-align: left;
-}
-.travel-section h3 {
-    text-align: center;
-    margin-bottom: 15px;
-}
-.form-group-travel {
-    margin-bottom: 12px;
-    text-align: left;
-}
-.form-group-travel label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #495057;
-    margin-bottom: 4px;
-}
-.form-group-travel select {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    display: none;
 }

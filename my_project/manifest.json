@@ -1,10 +1,13 @@
 {
   "name": "Chrono & Agenda Kirongozi",
-  "short_name": "ChronoKirongozi",
+  "short_name": "Kirongozi",
+  "description": "Agenda intelligent avec gestion de profil utilisateur.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#007bff",
   "icons": [
     {
       "src": "icon-192.png",
