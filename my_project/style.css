@@ -460,3 +460,54 @@ footer {
 .d-none {
     display: none !important;
 }
+
+.travel-section {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.form-group-travel {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.form-group-travel label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 4px;
+}
+
+.form-group-travel select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    color: #333;
+}
+
+.villes-inputs-container {
+    display: flex;
+    gap: 10px;
+}
+
+.villes-inputs-container .form-group-travel {
+    flex: 1;
+}
+
+.resultat-box {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #e8f4fd;
+    border-left: 5px solid #007bff;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #1c3d5a;
+    line-height: 1.5;
+    text-align: left;
+}

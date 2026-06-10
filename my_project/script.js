@@ -449,3 +449,129 @@ function rendreAgenda() {
         listElementsRdv.appendChild(li);
     });
 }
+
+// ==========================================
+// 4. LOGIQUE DU CONGO TRAVEL PLANNER
+// ==========================================
+
+const cities = {
+    "kinshasa": [-4.4419, 15.2663],
+    "lubumbashi": [-11.6708, 27.4792],
+    "kolwezi": [-10.7167, 25.4667],
+    "kisangani": [0.5167, 25.1833],
+    "inongo": [-5.3333, 21.4167],
+    "bukavu": [-2.5, 28.3667],
+    "goma": [-1.6833, 29.2167],
+    "bunia": [0.6333, 25.2],
+    "boende": [-1.0333, 23.6],
+    "mbandaka": [-0.5167, 18.4333],
+    "lisala": [-2.8, 23.4333],
+    "kikwit": [-4.3, 20.35],
+    "kenge": [-5.0333, 18.8833],
+    "tshikapa": [-6.1333, 23.6],
+    "kananga": [-5.35, 22.4167],
+    "mbuji-mayi": [-7.05, 23.95],
+    "kamina": [-10.7167, 25.7167],
+    "isiro": [-8.2333, 24.7333],
+    "buta": [3.3667, 25.9333],
+    "gbadolite": [2.8, 27.4833],
+    "gemena": [4.35, 21.0167],
+    "kindu": [-3.3667, 29.3667]
+};
+
+const speeds = {
+    car: { good: 80, average: 60, bad: 40 },
+    plane: { good: 800, average: 800, bad: 800 },
+    motorcycle: { good: 60, average: 40, bad: 20 },
+    bike: { good: 20, average: 15, bad: 10 },
+    walking: { good: 5, average: 4, bad: 3 }
+};
+
+// Initialisation des sélecteurs de villes dans l'interface
+const selectChoice = document.getElementById("travel-choice");
+const selectStart = document.getElementById("city-start");
+const selectEnd = document.getElementById("city-end");
+const zoneCityEnd = document.getElementById("zone-city-end");
+const selectRoad = document.getElementById("road-condition-select");
+const selectTransport = document.getElementById("transport-mode-select");
+const btnCalculerVoyage = document.getElementById("btn-calculer-voyage");
+const resultatVoyage = document.getElementById("resultat-voyage");
+
+function initialiserVilles() {
+    if (!selectStart || !selectEnd) return;
+    Object.keys(cities).forEach(city => {
+        const nomFormate = city.charAt(0).toUpperCase() + city.slice(1);
+        selectStart.options[selectStart.options.length] = new Option(nomFormate, city);
+        selectEnd.options[selectEnd.options.length] = new Option(nomFormate, city);
+    });
+}
+initialiserVilles();
+
+// Gestion dynamique du choix (Entre 2 villes VS Depuis Kinshasa)
+if (selectChoice) {
+    selectChoice.addEventListener("change", function() {
+        if (this.value === "2") {
+            selectStart.value = "kinshasa";
+            selectStart.disabled = true;
+        } else {
+            selectStart.disabled = false;
+        }
+    });
+}
+
+// Alerte automatique si route mauvaise (recommandation avion comme dans ton code Python)
+if (selectRoad && selectTransport) {
+    selectRoad.addEventListener("change", function() {
+        if (this.value === "bad") {
+            alert(langueActuelle === "fr" ? "⚠️ L'état de la route est mauvais, il est fortement recommandé de prendre l'avion." : "⚠️ Road conditions are bad, taking a plane is highly recommended.");
+            selectTransport.value = "plane";
+        }
+    });
+}
+
+// Formule mathématique de Haversine convertie en JS
+function calculerDistanceHaversine(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Rayon de la Terre en km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
+
+if (btnCalculerVoyage) {
+    btnCalculerVoyage.addEventListener("click", function() {
+        const ville1 = selectStart.value;
+        const ville2 = selectEnd.value;
+        const etatRoute = selectRoad.value;
+        const modeTransport = selectTransport.value;
+
+        if (ville1 === ville2) {
+            resultatVoyage.textContent = "❌ Veuillez choisir deux villes différentes.";
+            resultatVoyage.classList.remove("d-none");
+            return;
+        }
+
+        const coord1 = cities[ville1];
+        const coord2 = cities[ville2];
+        const distance = calculerDistanceHaversine(coord1[0], coord1[1], coord2[0], coord2[1]);
+        
+        // Calcul du temps de trajet
+        const vitesse = speeds[modeTransport][etatRoute];
+        const tempsHeures = distance / vitesse;
+
+        // Formater l'affichage textuel
+        const v1Nom = ville1.charAt(0).toUpperCase() + ville1.slice(1);
+        const v2Nom = ville2.charAt(0).toUpperCase() + ville2.slice(1);
+
+        resultatVoyage.innerHTML = `
+            🏁 <strong>Itinéraire :</strong> ${v1Nom} ➔ ${v2Nom}<br>
+            📏 <strong>Distance :</strong> ${distance.toFixed(2)} km<br>
+            🚗 <strong>Mode :</strong> ${modeTransport} (Route : ${etatRoute})<br>
+            ⏳ <strong>Temps de trajet estimé :</strong> ${tempsHeures.toFixed(2)} heures
+        `;
+        resultatVoyage.classList.remove("d-none");
+    });
+}
