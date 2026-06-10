@@ -101,3 +101,57 @@ input[type="text"], input[type="email"], input[type="datetime-local"], select {
 .separateur { border: 0; height: 1px; background: #eee; margin: 20px 0; }
 ul { list-style: none; padding: 0; }
 li { display: flex; justify-content: space-between; background: #f8f9fa; padding: 10px; margin-bottom: 5px; border-radius: 6px; }
+
+/* ==========================================
+   DESIGN DE LA BOUSSOLE ET DES CAPTEURS
+   ========================================== */
+
+.sensors-section {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.compass-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Le disque rotatif */
+.compass-disc {
+    width: 140px;
+    height: 140px;
+    border: 5px solid #333;
+    border-radius: 50%;
+    position: relative;
+    background: #fafafa;
+    transition: transform 0.1s ease-out; /* Rotation fluide */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Flèche centrale indiquant le Nord */
+.compass-arrow {
+    position: absolute;
+    top: 10px;
+    left: 65px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 60px solid #d32f2f; /* Flèche rouge */
+}
+
+/* Positionnement des points cardinaux */
+.direction {
+    position: absolute;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #222;
+}
+.nord { top: 5px; left: 63px; color: #d32f2f; }
+.est { top: 60px; right: 10px; }
+.sud { bottom: 5px; left: 64px; }
+.ouest { top: 60px; left: 10px; }
