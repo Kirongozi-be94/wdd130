@@ -14,13 +14,9 @@ const traductions = {
         placeholderEmail: "Votre adresse email",
         btnAcceder: "Accéder à l'application",
         btnChangerProfil: "Changer de profil 🔄",
-        titreChrono: "Chronomètre",
         titreAgenda: "Rappel de Rendez-vous",
         placeholderObjet: "Objet du rendez-vous",
         btnAjouter: "Ajouter à l'agenda",
-        btnDemarrer: "Démarrer",
-        btnPause: "Pause",
-        btnReprendre: "Reprendre",
         alerteRappel: "🔔 RAPPEL :",
         bulleModifier: "Modifier",
         bulleSupprimer: "Supprimer",
@@ -34,13 +30,9 @@ const traductions = {
         placeholderEmail: "Your email address",
         btnAcceder: "Access the application",
         btnChangerProfil: "Change profile 🔄",
-        titreChrono: "Stopwatch",
         titreAgenda: "Appointment Reminder",
         placeholderObjet: "Appointment subject",
         btnAjouter: "Add to agenda",
-        btnDemarrer: "Start",
-        btnPause: "Pause",
-        btnReprendre: "Resume",
         alerteRappel: "🔔 REMINDER:",
         bulleModifier: "Edit",
         bulleSupprimer: "Delete",
@@ -55,16 +47,10 @@ let langueActuelle = "fr";
 // ==========================================
 // SÉLECTEURS & GLOBALS
 // ==========================================
-let millisecondes = 0; 
-let chrono = null; 
-let enCours = false; 
 let base64Avatar = ""; 
 
 const sonAlarme = new Audio('alarme.mp3');
 const horlogeElement = document.getElementById("horloge-temps-reel");
-const affichage = document.getElementById("affichage");
-const btnPausePlay = document.getElementById("btn-plus"); 
-const btnReset = document.getElementById("btn-moins"); 
 
 const formRdv = document.getElementById("form-rdv");
 const inputTitre = document.getElementById("titre-rdv");
@@ -89,7 +75,6 @@ const btnDeconnexion = document.getElementById("btn-deconnexion");
 // Éléments textuels traduisibles
 const txtTitreLogin = document.getElementById("txt-titre-login");
 const btnLogin = document.getElementById("btn-login");
-const txtTitreChrono = document.getElementById("txt-titre-chrono");
 const txtTitreAgenda = document.getElementById("txt-titre-agenda");
 const btnValiderAgenda = document.getElementById("btn-valider-agenda");
 const btnFr = document.getElementById("btn-fr");
@@ -105,7 +90,6 @@ let rendezVousTableau = JSON.parse(localStorage.getItem("mesRendezVous")) || [];
 changerLangue("fr");
 verifierUtilisateur();
 setInterval(afficherDateEtHeureDuJour, 1000);
-mettreAJourAffichageChrono();
 
 // ==========================================
 // GESTION DU TÉLÉVERSEMENT DE LA PHOTO (AVATAR)
@@ -140,14 +124,18 @@ function verifierUtilisateur() {
         if(contenuApplication) contenuApplication.classList.remove("d-none");
 
         if(affichageNom) affichageNom.textContent = utilisateurStocke.nom;
-        if(affichageEmail) affichageEmail.innerHTML = `📩 <a href="mailto:${utilisateurStocke.email}">${utilisateurStocke.email}</a>`;
+        
+        if(affichageEmail) {
+            affichageEmail.innerHTML = `📩 <a id="email-link" href=""></a>`;
+            const link = document.getElementById("email-link");
+            link.href = `mailto:${utilisateurStocke.email}`;
+            link.textContent = utilisateurStocke.email;
+        }
         
         if (affichageAvatar) {
-            // CORRECTION : On vérifie si la chaîne de l'avatar n'est pas vide
             if (utilisateurStocke.avatar && utilisateurStocke.avatar.trim() !== "") {
                 affichageAvatar.src = utilisateurStocke.avatar;
             } else {
-                // Image par défaut si l'utilisateur n'a pas mis de photo
                 affichageAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
             }
         }
@@ -173,7 +161,7 @@ if (formLogin) {
         const infosUser = {
             nom: inputLoginNom.value,
             email: inputLoginEmail.value,
-            avatar: base64Avatar, // Sera "" s'il n'y a pas de photo, bien géré maintenant
+            avatar: base64Avatar,
             pin: pinValeur 
         };
 
@@ -196,7 +184,7 @@ if (btnDeconnexion) {
 }
 
 // ==========================================
-// VERROU DE L'AGENDA INTELLIGENT (DYNAMIQUE)
+// VERROU DE L'AGENDA INTELLIGENT
 // ==========================================
 if (btnToggleAgenda && zoneListePrivee) {
     btnToggleAgenda.addEventListener("click", function() {
@@ -248,25 +236,16 @@ function changerLangue(langue) {
     if(btnLogin) btnLogin.textContent = t.btnAcceder;
     if(btnDeconnexion) btnDeconnexion.textContent = t.btnChangerProfil;
 
-    txtTitreChrono.textContent = t.titreChrono;
-    txtTitreAgenda.textContent = t.titreAgenda;
-    inputTitre.placeholder = t.placeholderObjet;
-    btnValiderAgenda.textContent = t.btnAjouter;
-    
-    if (!enCours && millisecondes === 0) {
-        btnPausePlay.textContent = t.btnDemarrer;
-    } else if (enCours) {
-        btnPausePlay.textContent = t.btnPause;
-    } else {
-        btnPausePlay.textContent = t.btnReprendre;
-    }
+    if(txtTitreAgenda) txtTitreAgenda.textContent = t.titreAgenda;
+    if(inputTitre) inputTitre.placeholder = t.placeholderObjet;
+    if(btnValiderAgenda) btnValiderAgenda.textContent = t.btnAjouter;
 
     if (langue === "fr") {
-        btnFr.classList.add("active");
-        btnEn.classList.remove("active");
+        if(btnFr) btnFr.classList.add("active");
+        if(btnEn) btnEn.classList.remove("active");
     } else {
-        btnEn.classList.add("active");
-        btnFr.classList.remove("active");
+        if(btnEn) btnEn.classList.add("active");
+        if(btnFr) btnFr.classList.remove("active");
     }
 
     if (btnToggleAgenda && zoneListePrivee) {
@@ -314,7 +293,7 @@ function afficherDateEtHeureDuJour() {
             const dateRdvFormatee = `${anneeR}-${moisR}-${jourR}T${heuresR}:${minutesR}`;
 
             if (dateRdvFormatee === minuteActuelleFormatee) {
-                sonAlarme.play();
+                sonAlarme.play().catch(e => console.log("Audio bloqué par le navigateur"));
                 alert(`${t.alerteRappel} ${rdv.titre}`);
             }
         });
@@ -322,61 +301,7 @@ function afficherDateEtHeureDuJour() {
 }
 
 // ==========================================
-// 2. LOGIQUE DU CHRONOMÈTRE
-// ==========================================
-function formaterChiffre(nombre) {
-    return nombre < 10 ? "0" + nombre : nombre;
-}
-
-function mettreAJourAffichageChrono() {
-    if (!affichage) return;
-    let hrs = Math.floor(millisecondes / 360000);
-    let min = Math.floor((millisecondes % 360000) / 6000);
-    let sec = Math.floor((millisecondes % 6000) / 100);
-    let tierces = millisecondes % 100;
-
-    affichage.textContent = 
-        formaterChiffre(hrs) + ":" + 
-        formaterChiffre(min) + ":" + 
-        formaterChiffre(sec) + ":" + 
-        formaterChiffre(tierces);
-}
-
-function lancerChrono() {
-    chrono = setInterval(function() {
-        millisecondes++;
-        mettreAJourAffichageChrono();
-    }, 10);
-}
-
-if (btnPausePlay) {
-    btnPausePlay.addEventListener("click", function() {
-        const t = traductions[langueActuelle];
-        if (!enCours) {
-            lancerChrono();
-            btnPausePlay.textContent = t.btnPause;
-            enCours = true;
-        } else {
-            clearInterval(chrono);
-            btnPausePlay.textContent = t.btnReprendre;
-            enCours = false;
-        }
-    });
-}
-
-if (btnReset) {
-    btnReset.addEventListener("click", function() {
-        const t = traductions[langueActuelle];
-        clearInterval(chrono);
-        millisecondes = 0;
-        mettreAJourAffichageChrono();
-        btnPausePlay.textContent = t.btnDemarrer;
-        enCours = false;
-    });
-}
-
-// ==========================================
-// 3. LOGIQUE DE L'AGENDA
+// 2. LOGIQUE DE L'AGENDA
 // ==========================================
 if (formRdv) {
     formRdv.addEventListener("submit", function(evenement) {
@@ -410,7 +335,10 @@ function rendreAgenda() {
         const options = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' };
         const dateLisible = dateObjet.toLocaleDateString(t.langueCode, options);
 
-        li.innerHTML = `<span>📅 <strong>${rdv.titre}</strong> - ${dateLisible}</span>`;
+        const infoSpan = document.createElement("span");
+        infoSpan.innerHTML = `📅 <strong></strong> - ${dateLisible}`;
+        infoSpan.querySelector("strong").textContent = rdv.titre;
+        li.appendChild(infoSpan);
 
         const zoneActions = document.createElement("div");
         zoneActions.className = "actions";
@@ -451,9 +379,8 @@ function rendreAgenda() {
 }
 
 // ==========================================
-// 4. LOGIQUE DU CONGO TRAVEL PLANNER
+// 3. LOGIQUE DU CONGO TRAVEL PLANNER
 // ==========================================
-
 const cities = {
     "kinshasa": [-4.4419, 15.2663],
     "lubumbashi": [-11.6708, 27.4792],
@@ -487,11 +414,9 @@ const speeds = {
     walking: { good: 5, average: 4, bad: 3 }
 };
 
-// Initialisation des sélecteurs de villes dans l'interface
 const selectChoice = document.getElementById("travel-choice");
 const selectStart = document.getElementById("city-start");
 const selectEnd = document.getElementById("city-end");
-const zoneCityEnd = document.getElementById("zone-city-end");
 const selectRoad = document.getElementById("road-condition-select");
 const selectTransport = document.getElementById("transport-mode-select");
 const btnCalculerVoyage = document.getElementById("btn-calculer-voyage");
@@ -499,6 +424,8 @@ const resultatVoyage = document.getElementById("resultat-voyage");
 
 function initialiserVilles() {
     if (!selectStart || !selectEnd) return;
+    selectStart.innerHTML = "";
+    selectEnd.innerHTML = "";
     Object.keys(cities).forEach(city => {
         const nomFormate = city.charAt(0).toUpperCase() + city.slice(1);
         selectStart.options[selectStart.options.length] = new Option(nomFormate, city);
@@ -507,7 +434,6 @@ function initialiserVilles() {
 }
 initialiserVilles();
 
-// Gestion dynamique du choix (Entre 2 villes VS Depuis Kinshasa)
 if (selectChoice) {
     selectChoice.addEventListener("change", function() {
         if (this.value === "2") {
@@ -519,7 +445,6 @@ if (selectChoice) {
     });
 }
 
-// Alerte automatique si route mauvaise (recommandation avion comme dans ton code Python)
 if (selectRoad && selectTransport) {
     selectRoad.addEventListener("change", function() {
         if (this.value === "bad") {
@@ -529,9 +454,8 @@ if (selectRoad && selectTransport) {
     });
 }
 
-// Formule mathématique de Haversine convertie en JS
 function calculerDistanceHaversine(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Rayon de la Terre en km
+    const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -558,11 +482,9 @@ if (btnCalculerVoyage) {
         const coord2 = cities[ville2];
         const distance = calculerDistanceHaversine(coord1[0], coord1[1], coord2[0], coord2[1]);
         
-        // Calcul du temps de trajet
         const vitesse = speeds[modeTransport][etatRoute];
         const tempsHeures = distance / vitesse;
 
-        // Formater l'affichage textuel
         const v1Nom = ville1.charAt(0).toUpperCase() + ville1.slice(1);
         const v2Nom = ville2.charAt(0).toUpperCase() + ville2.slice(1);
 
