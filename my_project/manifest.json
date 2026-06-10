@@ -1,5 +1,5 @@
 {
-  "name": "Chrono Agenda Congo Planner",
+  "name": "Agenda Congo Planner",
   "short_name": "CongoApp",
   "description": "Application de gestion de temps et d'itinéraires au Congo.",
   "start_url": "./index.html",
