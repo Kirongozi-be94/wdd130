@@ -285,3 +285,104 @@ if (btnCalculerVoyage) {
         resultatVoyage.classList.remove("d-none");
     });
 }
+
+// ==========================================
+// 5. GÉOLOCALISATION (GPS) & BOUSSOLE
+// ==========================================
+
+const btnGps = document.getElementById("btn-gps");
+const affichageGps = document.getElementById("affichage-gps");
+const gpsLat = document.getElementById("gps-lat");
+const gpsLon = document.getElementById("gps-lon");
+const gpsVilleProche = document.getElementById("gps-ville-proche");
+const boussoleDisque = document.getElementById("boussole-disque");
+const boussoleDegres = document.getElementById("boussole-degres");
+
+// --- PARTIE A : LE GPS / GPRS ---
+if (btnGps) {
+    btnGps.addEventListener("click", function() {
+        if (!navigator.geolocation) {
+            alert("❌ La géolocalisation n'est pas supportée par votre navigateur.");
+            return;
+        }
+
+        btnGps.textContent = "Recherche du signal... ⏳";
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                // Affichage des coordonnées réelles
+                gpsLat.textContent = lat.toFixed(4);
+                gpsLon.textContent = lon.toFixed(4);
+                affichageGps.classList.remove("d-none");
+                btnGps.innerHTML = "Position synchronisée ✅";
+                btnGps.className = "btn btn-primary";
+
+                // Optionnel : Trouver la ville de RDC la plus proche de l'utilisateur !
+                trouverVilleRdcLaPlusProche(lat, lon);
+            },
+            (erreur) => {
+                console.error(erreur);
+                alert("⚠️ Impossible d'accéder à votre position. Vérifiez vos autorisations GPS.");
+                btnGps.textContent = "Réessayer l'activation GPS 🛰️";
+            },
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
+    });
+}
+
+// Algorithme pour lier ta position GPS aux villes de ton Travel Planner
+function trouverVilleRdcLaPlusProche(maLat, maLon) {
+    let villeProche = "";
+    let distanceMin = Infinity;
+
+    // On utilise la fonction de calcul de distance que tu as déjà dans ton script !
+    Object.keys(cities).forEach(nomVille => {
+        const coordVille = cities[nomVille];
+        // Appel de la formule Haversine déjà présente
+        const dLat = (coordVille[0] - maLat) * Math.PI / 180;
+        const dLon = (coordVille[1] - maLon) * Math.PI / 180;
+        const a = Math.sin(dLat/2)**2 + Math.cos(maLat*Math.PI/180) * Math.cos(coordVille[0]*Math.PI/180) * Math.sin(dLon/2)**2;
+        const dist = 6371 * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+
+        if (dist < distanceMin) {
+            distanceMin = dist;
+            villeProche = nomVille;
+        }
+    });
+
+    if (gpsVilleProche) {
+        const nomFormate = villeProche.charAt(0).toUpperCase() + villeProche.slice(1);
+        gpsVilleProche.innerHTML = `📍 Ville de RDC la plus proche : <strong>${nomFormate}</strong> (à env. ${distanceMin.toFixed(0)} km)`;
+        
+        // Bonus : Met automatiquement cette ville comme point de départ du planificateur !
+        const selectStart = document.getElementById("city-start");
+        if (selectStart) selectStart.value = villeProche;
+    }
+}
+
+// --- PARTIE B : LA BOUSSOLE ---
+// Écoute de l'orientation de l'appareil (Fonctionne surtout sur Smartphone)
+window.addEventListener("deviceorientationabsolute", gererOrientation, true);
+window.addEventListener("deviceorientation", gererOrientation, true);
+
+function gererOrientation(event) {
+    // Récupération des degrés par rapport au Nord magnétique (alpha ou webkitCompassHeading)
+    let degres = event.alpha;
+    
+    if (event.webkitCompassHeading) {
+        degres = event.webkitCompassHeading; // Spécifique pour iPhone/Safari
+    }
+
+    if (degres !== null && degres !== undefined) {
+        const angleRationnel = Math.round(degres);
+        boussoleDegres.textContent = `${angleRationnel}°`;
+
+        // Fait tourner visuellement le disque CSS de la boussole
+        if (boussoleDisque) {
+            boussoleDisque.style.transform = `rotate(${-angleRationnel}deg)`;
+        }
+    }
+}

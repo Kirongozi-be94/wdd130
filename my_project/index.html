@@ -86,7 +86,32 @@
                     <ul id="liste-rdv"></ul>
                 </div>
             </section>
+            <hr class="separateur">
+            <section class="sensors-section">
+                <h3 style="text-align: left; color: #007bff; margin-bottom: 15px;">🧭 Géolocalisation & Boussole</h3>
+                
+                <button type="button" id="btn-gps" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">
+                    Activer mon GPS / GPRS 🛰️
+                </button>
+                
+                <div id="affichage-gps" class="resultat-box d-none" style="background-color: #f1f8e9; border-left-color: #4caf50;">
+                    <strong>Votre position actuelle :</strong><br>
+                    Latitude : <span id="gps-lat">0.0</span><br>
+                    Longitude : <span id="gps-lon">0.0</span><br>
+                    <span id="gps-ville-proche" style="font-style: italic; color: #555;"></span>
+                </div>
 
+                <div class="compass-container">
+                    <div id="boussole-disque" class="compass-disc">
+                        <div class="compass-arrow"></div>
+                        <span class="direction nord">N</span>
+                        <span class="direction est">E</span>
+                        <span class="direction sud">S</span>
+                        <span class="direction ouest">O</span>
+                    </div>
+                    <div id="boussole-degres" style="margin-top: 10px; font-weight: bold; color: #333;">0°</div>
+                </div>
+            </section>
             <hr class="separateur">
             <section class="travel-section">
                 <h3 id="txt-titre-travel">🌍 Congo Travel Planner</h3>
