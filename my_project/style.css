@@ -15,83 +15,89 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.container {
-    max-width: 600px;
-    margin: auto;
+.card {
     background: white;
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
 }
 
-h1 {
+#horloge-temps-reel {
+    background: #eef3f8;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 5px solid #007bff;
     text-align: center;
-    color: #007bff;
+    font-weight: 500;
     margin-bottom: 20px;
 }
 
-h2 {
-    margin-bottom: 15px;
+#affichage {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px 0;
+    color: #222;
 }
 
-form {
+.boutons, .villes-inputs-container {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-input {
+.btn {
+    flex: 1;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-button {
     border: none;
-    background: #007bff;
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
-button:hover {
-    background: #0056b3;
+.btn-primary { background: #007bff; color: white; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-submit { background: #28a745; color: white; width: 100%; }
+
+input[type="text"], input[type="email"], input[type="datetime-local"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
-.avatar-zone {
-    text-align: center;
-    margin-bottom: 10px;
-}
+.langue-select { display: flex; justify-content: flex-end; gap: 5px; margin-bottom: 15px; }
+.btn-lang { background: none; border: 1px solid #ccc; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
+.btn-lang.active { background: #007bff; color: white; border-color: #007bff; }
 
-#avatar-preview,
-#affichage-avatar {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #007bff;
-    display: block;
-    margin: 0 auto 10px;
+/* Styles Profil */
+#zone-profil-actif {
+    background: #fff; border: 1px solid #e1e8ed; border-radius: 12px;
+    padding: 15px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;
 }
+.profil-header-container { display: flex; align-items: center; gap: 15px; width: 100%; }
+#affichage-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #007bff; }
+.btn-change-profil { background: none; border: 1px solid #ccd6dd; color: #657786; padding: 5px 10px; border-radius: 20px; cursor: pointer; }
 
-#affichage-nom {
-    margin-top: 15px;
-    text-align: center;
-}
-
-#affichage-email {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.d-none {
-    display: none;
-}
+/* Travel planner */
+.resultat-box { margin-top: 15px; padding: 12px; background: #e8f4fd; border-left: 5px solid #007bff; border-radius: 6px; text-align: left; }
+.d-none { display: none !important; }
+.separateur { border: 0; height: 1px; background: #eee; margin: 20px 0; }
+ul { list-style: none; padding: 0; }
+li { display: flex; justify-content: space-between; background: #f8f9fa; padding: 10px; margin-bottom: 5px; border-radius: 6px; }

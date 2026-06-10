@@ -1,23 +1,16 @@
 {
-  "name": "Chrono & Agenda Kirongozi",
-  "short_name": "Kirongozi",
-  "description": "Agenda intelligent avec gestion de profil utilisateur.",
+  "name": "Chrono Agenda Congo Planner",
+  "short_name": "CongoApp",
+  "description": "Application de gestion de temps et d'itinéraires au Congo.",
   "start_url": "./index.html",
-  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#ffffff",
-  "theme_color": "#007bff",
+  "theme-color": "#007bff",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm3.3 14.79L11 14.2V7h1.5v6.5l3.55 2.1-.76 1.19z'/></svg>",
       "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }
   ]
 }

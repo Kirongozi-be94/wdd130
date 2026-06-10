@@ -3,102 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Chrono & Agenda Kirongozi</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Chronomètre, Agenda & Congo Travel Planner</title>
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="manifest" href="manifest.json">
-
     <meta name="theme-color" content="#007bff">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+    <main class="card">
+        <div class="langue-select">
+            <button id="btn-fr" class="btn-lang active">FR 🇫🇷</button>
+            <button id="btn-en" class="btn-lang">EN 🇺🇸</button>
+        </div>
 
-        <h1>Chrono & Agenda Kirongozi</h1>
+        <div id="horloge-temps-reel">
+            Chargement de la date...
+        </div>
 
-        <!-- FORMULAIRE CONNEXION -->
-        <div id="zone-connexion">
-
-            <h2>Créer votre profil</h2>
-
+        <section id="zone-connexion" class="profil-user-form">
             <form id="form-login">
-
-                <div class="avatar-zone">
-
-                    <img
-                        id="avatar-preview"
-                        src="icon-192.png"
-                        alt="Avatar">
-
-                    <input
-                        type="file"
-                        id="input-avatar"
-                        accept="image/*"
-                        hidden>
-
-                    <button
-                        type="button"
-                        id="btn-choose-file">
-                        Choisir une photo
-                    </button>
-
+                <h3 id="txt-titre-login">Créer votre profil sécurisé</h3>
+                
+                <div class="avatar-upload-container">
+                    <div class="avatar-preview-wrapper">
+                        <img id="avatar-preview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>" alt="Aperçu">
+                        <label for="input-avatar" class="upload-icon-label">
+                            <span>+</span>
+                        </label>
+                    </div>
+                    <input type="file" id="input-avatar" accept="image/*" style="display: none;">
+                    <button type="button" id="btn-choose-file" class="btn-secondary-sm">Choisir une photo / Choose Photo</button>
                 </div>
 
-                <input
-                    type="text"
-                    id="login-nom"
-                    placeholder="Nom complet"
-                    required>
+                <input type="text" id="login-nom" placeholder="Votre nom complet" required>
+                <input type="email" id="login-email" placeholder="Votre adresse email" required>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; color:#555; font-size:0.9rem; font-weight:bold;">Créer votre Code PIN Secret (Optionnel) :</label>
+                    <input type="password" id="login-pin" placeholder="Laisser vide si pas de code" maxlength="4" pattern="[0-9]*" inputmode="numeric" style="text-align: center; font-size: 1.3rem; letter-spacing: 2px;">
+                </div>
 
-                <input
-                    type="email"
-                    id="login-email"
-                    placeholder="Adresse email"
-                    required>
-
-                <input
-                    type="password"
-                    id="login-pin"
-                    maxlength="4"
-                    placeholder="PIN (optionnel)">
-
-                <button type="submit">
-                    Enregistrer
-                </button>
-
+                <button type="submit" id="btn-login" class="btn btn-primary">Enregistrer et Déverrouiller</button>
             </form>
+        </section>
 
-        </div>
-
-        <!-- PROFIL -->
         <div id="zone-profil-actif" class="d-none">
-
-            <img
-                id="affichage-avatar"
-                src="icon-192.png"
-                alt="Avatar">
-
-            <h3 id="affichage-nom"></h3>
-
-            <p id="affichage-email"></p>
-
+            <div class="profil-header-container">
+                <img id="affichage-avatar" src="" alt="Avatar">
+                <div class="profil-infos-textes">
+                    <h2 id="affichage-nom"></h2>
+                    <div id="affichage-email"></div>
+                </div>
+            </div>
+            <button id="btn-deconnexion" class="btn-change-profil">Changer de profil 🔄</button>
         </div>
 
-        <!-- APPLICATION -->
         <div id="contenu-application" class="d-none">
+            <hr class="separateur">
 
-            <h2>Bienvenue dans votre agenda</h2>
+            <h1 id="txt-titre-chrono">Chronomètre</h1>
+            <div id="affichage">00:00:00:00</div> 
+            
+            <div class="boutons">
+                <button id="btn-moins" class="btn btn-secondary">Reset</button>
+                <button id="btn-plus" class="btn btn-primary">Démarrer</button>
+            </div>
 
-            <p>
-                Votre profil est correctement enregistré.
-            </p>
+            <section class="agenda-section">
+                <h3 id="txt-titre-agenda">Rappel de Rendez-vous</h3>
+                
+                <form id="form-rdv">
+                    <input type="text" id="titre-rdv" placeholder="Objet du rendez-vous" required>
+                    <input type="datetime-local" id="date-rdv" required>
+                    <button type="submit" id="btn-valider-agenda" class="btn btn-submit">Ajouter à l'agenda</button>
+                </form>
+                
+                <button type="button" id="btn-toggle-agenda" class="btn-toggle-view">Afficher mes rendez-vous 👁️</button>
+                
+                <div id="zone-liste-privee" class="d-none">
+                    <ul id="liste-rdv"></ul>
+                </div>
+            </section>
 
+            <hr class="separateur">
+            <section class="travel-section">
+                <h3 id="txt-titre-travel">🌍 Congo Travel Planner</h3>
+                
+                <div class="form-group-travel">
+                    <label>Que voulez-vous faire ?</label>
+                    <select id="travel-choice">
+                        <option value="1">Calculer la distance entre deux villes</option>
+                        <option value="2">Calculer la distance depuis Kinshasa</option>
+                    </select>
+                </div>
+
+                <div class="villes-inputs-container">
+                    <div class="form-group-travel">
+                        <label>Ville de départ :</label>
+                        <select id="city-start"></select>
+                    </div>
+                    
+                    <div class="form-group-travel" id="zone-city-end">
+                        <label>Ville d'arrivée :</label>
+                        <select id="city-end"></select>
+                    </div>
+                </div>
+
+                <div class="form-group-travel">
+                    <label>État de la route :</label>
+                    <select id="road-condition-select">
+                        <option value="good">Bon (Good)</option>
+                        <option value="average">Moyen (Average)</option>
+                        <option value="bad">Mauvais (Bad) ⚠️ Avion recommandé</option>
+                    </select>
+                </div>
+
+                <div class="form-group-travel">
+                    <label>Mode de transport :</label>
+                    <select id="transport-mode-select">
+                        <option value="car">Voiture (Car)</option>
+                        <option value="plane">Avion (Plane)</option>
+                        <option value="motorcycle">Moto (Motorcycle)</option>
+                        <option value="bike">Vélo (Bike)</option>
+                        <option value="walking">À pied (Walking)</option>
+                    </select>
+                </div>
+
+                <button type="button" id="btn-calculer-voyage" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Calculer l'itinéraire 🚀</button>
+                <div id="resultat-voyage" class="resultat-box d-none"></div>
+            </section>
         </div>
+    </main>
 
-    </div>
+    <footer>
+        <p>&copy; 2026 | Benjamin Kirongozi Mazuya | WDD 131</p>
+    </footer>
 
-    <script src="script.js" defer></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
