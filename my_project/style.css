@@ -1,97 +1,243 @@
-/* Variables de couleurs standards */
+/**
+ * @file style.css
+ * @description Design Système unifié pour l'application Multi-Outils (WDD 131)
+ */
+
+/* ==========================================================================
+   1. VARIABLES & CONFIGURATION GLOBAL
+   ========================================================================== */
 :root {
     --primary-color: #007bff;
     --primary-hover: #0056b3;
     --secondary-color: #6c757d;
     --secondary-hover: #5a6268;
-    --bg-color: #f4f7f6;
+    --success-color: #28a745;
+    --success-hover: #218838;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --bg-color: #f4f6f9;
     --card-bg: #ffffff;
     --text-color: #333333;
-    --border-color: #ccdfdf;
+    --text-muted: #666666;
+    --border-color: #e0e0e0;
+    --radius: 8px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    margin: 0;
-    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
+/* ==========================================================================
+   2. MISE EN PAGE & CONTENEURS (LAYOUT)
+   ========================================================================== */
 .card {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    background-color: var(--card-bg);
+    max-width: 500px;
     width: 100%;
-    max-width: 450px;
-    box-sizing: border-box;
+    margin: auto;
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     text-align: center;
 }
 
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.separateur {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+    margin: 25px 0;
+}
+
+/* Utilitaires de masquage */
+.d-none {
+    display: none !important;
+}
+
+/* ==========================================================================
+   3. COMPOSANTS D'INTERFACE (COMPONENTS)
+   ========================================================================== */
+
+/* Horloge temps réel */
 #horloge-temps-reel {
-    background: #eef3f8;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    background-color: #e9ecef;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+/* Titres */
+h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+/* Formulaires et entrées */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"],
+select {
+    width: 100%;
     padding: 12px;
-    border-radius: 8px;
-    border-left: 5px solid #007bff;
-    text-align: center;
-    font-weight: 500;
-    margin-bottom: 20px;
-}
-
-#affichage {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    margin: 20px 0;
-    color: #222;
-}
-
-.boutons, .villes-inputs-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.btn {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
     font-size: 1rem;
+    transition: var(--transition);
+    background-color: #fafafa;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    background-color: #ffffff;
+}
+
+/* Boutons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+.btn-secondary:hover { background-color: var(--secondary-hover); }
+
+.btn-submit {
+    background-color: var(--success-color);
+    color: white;
+}
+.btn-submit:hover { background-color: var(--success-hover); }
+
+.btn-secondary-sm {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-secondary-sm:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-change-profil {
+    background: none;
+    border: none;
+    color: var(--danger-color);
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s ease;
+    font-size: 0.95rem;
+    text-decoration: underline;
 }
 
-.btn-primary { background: #007bff; color: white; }
-.btn-primary:hover { background: #0056b3; }
-.btn-secondary { background: #6c757d; color: white; }
-.btn-secondary:hover { background: #5a6268; }
-.btn-submit { background: #28a745; color: white; width: 100%; }
-.btn-submit:hover { background: #218838; }
-
-input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select {
-    width: 100%;
+.btn-toggle-view {
+    background: none;
+    border: 1px dashed var(--primary-color);
+    color: var(--primary-color);
     padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 500;
+}
+.btn-toggle-view:hover {
+    background-color: rgba(0, 123, 255, 0.05);
 }
 
-.langue-select { display: flex; justify-content: flex-end; gap: 5px; margin-bottom: 15px; }
-.btn-lang { background: none; border: 1px solid #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-.btn-lang.active { background: #007bff; color: white; border-color: #007bff; }
+/* Sélecteur de langue */
+.langue-select {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.btn-lang {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-lang.active {
+    background-color: var(--text-color);
+    color: white;
+    border-color: var(--text-color);
+}
 
-/* Styles Avatar & Profil */
+/* Boîtes de résultats */
+.resultat-box {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   4. SECTIONS SPÉCIFIQUES DES MODULES
+   ========================================================================== */
+
+/* Gestion d'Avatar (Index) */
 .avatar-upload-container {
     display: flex;
     flex-direction: column;
@@ -104,65 +250,129 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
     width: 90px;
     height: 90px;
 }
-#avatar-preview {
+#avatar-preview, #affichage-avatar {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ccc;
+    border: 2px solid var(--border-color);
 }
 .upload-icon-label {
     position: absolute;
     bottom: 0;
     right: 0;
-    background: #007bff;
+    background-color: var(--primary-color);
     color: white;
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.btn-secondary-sm {
-    background: #e1e8ed;
-    border: 1px solid #ccd6dd;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 0.85rem;
     cursor: pointer;
-    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-#zone-profil-actif {
-    background: #fff; border: 1px solid #e1e8ed; border-radius: 12px;
-    padding: 15px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+/* En-tête de profil actif */
+.profil-header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: var(--radius);
 }
-.profil-header-container { display: flex; align-items: center; gap: 15px; width: 100%; text-align: left; }
-#affichage-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #007bff; }
-.profil-infos-textes h2 { margin: 0; font-size: 1.2rem; color: #333; }
-.btn-change-profil { background: none; border: 1px solid #ccd6dd; color: #657786; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 500; }
+.profil-infos-textes #affichage-email {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
 
-.resultat-box { margin-top: 15px; padding: 12px; background: #e8f4fd; border-left: 5px solid #007bff; border-radius: 6px; text-align: left; }
-.d-none { display: none !important; }
-.separateur { border: 0; height: 1px; background: #eee; margin: 20px 0; }
-ul { list-style: none; padding: 0; margin: 0; }
-li { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #eee; text-align: left; }
+/* Chronomètre (Module 2) */
+#affichage {
+    font-family: monospace;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 20px 0;
+    letter-spacing: 1px;
+}
+.boutons {
+    display: flex;
+    gap: 15px;
+}
 
-/* Design de la Boussole */
-.sensors-section { background: #ffffff; padding: 5px 0; border-radius: 8px; }
-.compass-container { display: flex; flex-direction: column; align-items: center; margin: 15px 0; }
-.compass-disc { width: 140px; height: 140px; border: 5px solid #333; border-radius: 50%; position: relative; background: #fafafa; transition: transform 0.1s ease-out; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
-.compass-arrow { position: absolute; top: 10px; left: 65px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 60px solid #d32f2f; }
-.direction { position: absolute; font-weight: bold; font-size: 0.9rem; color: #222; }
-.nord { top: 5px; left: 63px; color: #d32f2f; }
-.est { top: 60px; right: 10px; }
-.sud { bottom: 5px; left: 64px; }
-.ouest { top: 60px; left: 10px; }
+/* Agenda / Liste de rappels (Module 2) */
+#liste-rdv {
+    list-style: none;
+    text-align: left;
+}
+#liste-rdv li {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
 
-.btn-toggle-view { background: #f1f3f5; color: #495057; border: 1px solid #ced4da; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+/* Congo Travel Planner Containers (Module 3) */
+.villes-inputs-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
 
-footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: #6c757d; }
+/* Boussole (Module 3) */
+.compass-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+.compass-disc {
+    width: 150px;
+    height: 150px;
+    border: 5px solid var(--text-color);
+    border-radius: 50%;
+    position: relative;
+    transition: transform 0.2s ease-out;
+    background-color: #ffffff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+.compass-arrow {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 65px solid var(--danger-color);
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.compass-arrow::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 65px solid var(--secondary-color);
+    position: absolute;
+    top: 65px;
+    left: -8px;
+}
+.direction {
+    position: absolute;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.direction.nord  { top: 5px; left: 50%; transform: translateX(-50%); color: var(--danger-color); }
+.direction.sud   { bottom: 5px; left: 50%; transform: translateX(-50%); }
+.direction.est   { right: 8px; top: 50%; transform: translateY(-50%); }
+.direction.ouest { left: 8px; top: 50%; transform: translateY(-50%); }

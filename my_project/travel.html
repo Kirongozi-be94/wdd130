@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congo Travel Planner - Outils Logistiques</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="card">
+        <div style="text-align: left; margin-bottom: 20px;">
+            <a href="index.html" style="text-decoration: none; font-weight: bold; color: var(--primary-color);">⬅️ Retour au Tableau de bord</a>
+        </div>
+
+        <section class="sensors-section">
+            <h3 style="text-align: left; color: var(--primary-color); margin-bottom: 15px;">🧭 Géolocalisation & Boussole</h3>
+            <button type="button" id="btn-gps" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">Activer mon GPS / GPRS 🛰️</button>
+            
+            <div id="affichage-gps" class="resultat-box d-none" style="background-color: #f1f8e9; border-left-color: #4caf50; margin-bottom: 15px;">
+                <strong>Position Géodésique :</strong><br>
+                Lat : <span id="gps-lat">0.0</span> | Lon : <span id="gps-lon">0.0</span><br>
+                <span id="gps-ville-proche" style="font-style: italic; color: #555;"></span>
+            </div>
+
+            <div class="compass-container">
+                <button type="button" id="btn-boussole" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">Activer le Gyroscope Boussole 🧭</button>
+                <div id="boussole-disque" class="compass-disc">
+                    <div class="compass-arrow"></div>
+                    <span class="direction nord">N</span><span class="direction est">E</span>
+                    <span class="direction sud">S</span><span class="direction ouest">O</span>
+                </div>
+                <div id="boussole-degres" style="margin-top: 10px; font-weight: bold; color: #333;">0°</div>
+            </div>
+        </section>
+
+        <hr class="separateur">
+        <section class="travel-section">
+            <h3>🌍 Congo Travel Planner</h3>
+            
+            <div class="form-group-travel" style="text-align: left;">
+                <label style="font-weight: bold; color: #555;">Type de calcul de routage :</label>
+                <select id="travel-choice">
+                    <option value="1">Calculer la distance entre deux villes</option>
+                    <option value="2">Calculer le vecteur depuis Kinshasa</option>
+                </select>
+            </div>
+
+            <div class="villes-inputs-container">
+                <div style="flex: 1; text-align: left;">
+                    <label style="font-weight: bold; color: #555;">Ville Départ :</label>
+                    <select id="city-start"></select>
+                </div>
+                <div style="flex: 1; text-align: left;">
+                    <label style="font-weight: bold; color: #555;">Ville Arrivée :</label>
+                    <select id="city-end"></select>
+                </div>
+            </div>
+
+            <div style="text-align: left; margin-top: 12px;">
+                <label style="font-weight: bold; color: #555;">État de l'infrastructure routière :</label>
+                <select id="road-condition-select">
+                    <option value="good">Bon (Asphalte / Stable)</option>
+                    <option value="average">Moyen (Piste praticable)</option>
+                    <option value="bad">Mauvais (Critique) ⚠️ Vecteur Air recommandé</option>
+                </select>
+            </div>
+
+            <div style="text-align: left; margin-top: 12px;">
+                <label style="font-weight: bold; color: #555;">Vecteur de Transport :</label>
+                <select id="transport-mode-select">
+                    <option value="car">Véhicule (Car)</option>
+                    <option value="plane">Aéronef (Plane)</option>
+                    <option value="motorcycle">Moto (Motorcycle)</option>
+                </select>
+            </div>
+
+            <button type="button" id="btn-calculer-voyage" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Calculer la cinématique de l'itinéraire 🚀</button>
+            <div id="resultat-voyage" class="resultat-box d-none"></div>
+        </section>
+    </main>
+
+    <script type="module" src="src/travel.js"></script>
+</body>
+</html>

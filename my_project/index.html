@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronomètre, Agenda & Congo Travel Planner</title>
+    <title>Portail Sécurisé - Menu Principal</title>
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="manifest" href="manifest.json">
@@ -13,25 +13,16 @@
 <body>
 
     <main class="card">
-        <div class="langue-select">
-            <button id="btn-fr" class="btn-lang active">FR 🇫🇷</button>
-            <button id="btn-en" class="btn-lang">EN 🇺🇸</button>
-        </div>
-
-        <div id="horloge-temps-reel">
-            Chargement de la date...
-        </div>
+        <div id="horloge-temps-reel">Chargement du système...</div>
 
         <section id="zone-connexion" class="profil-user-form">
             <form id="form-login">
-                <h3 id="txt-titre-login">Créer votre profil sécurisé</h3>
+                <h3>Créer votre profil sécurisé</h3>
                 
                 <div class="avatar-upload-container">
                     <div class="avatar-preview-wrapper">
                         <img id="avatar-preview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>" alt="Aperçu">
-                        <label for="input-avatar" class="upload-icon-label">
-                            <span>+</span>
-                        </label>
+                        <label for="input-avatar" class="upload-icon-label"><span>+</span></label>
                     </div>
                     <input type="file" id="input-avatar" accept="image/*" style="display: none;">
                     <button type="button" id="btn-choose-file" class="btn-secondary-sm">Choisir une photo</button>
@@ -39,135 +30,41 @@
 
                 <input type="text" id="login-nom" placeholder="Votre nom complet" required>
                 <input type="email" id="login-email" placeholder="Votre adresse email" required>
-                <div id="zone-profil-actif" class="profil-user-form d-none"></div>
+                
                 <div style="margin-bottom: 15px; text-align: left;">
-                    <label id="lbl-pin-secret" style="display:block; margin-bottom:5px; color:#555; font-size:0.9rem; font-weight:bold;">Créer votre Code PIN Secret (Optionnel) :</label>
-                    <input type="password" id="login-pin" placeholder="Laisser vide si pas de code" maxlength="4" pattern="[0-9]*" inputmode="numeric" style="text-align: center; font-size: 1.2rem; letter-spacing: 2px;">
+                    <label style="display:block; margin-bottom:5px; color:#555; font-size:0.9rem; font-weight:bold;">Code PIN d'accès (Optionnel) :</label>
+                    <input type="password" id="login-pin" placeholder="4 chiffres (Ex: 1234)" maxlength="4" pattern="[0-9]*" inputmode="numeric" style="text-align: center; font-size: 1.2rem; letter-spacing: 2px;">
                 </div>
 
-                <button type="submit" id="btn-login" class="btn btn-primary" style="width: 100%;">Enregistrer et Déverrouiller</button>
+                <button type="submit" class="btn btn-primary">Enregistrer et Déverrouiller</button>
             </form>
         </section>
 
-        <div id="zone-profil-actif" class="d-none">
+        <div id="zone-profil-actif" class="profil-user-form d-none">
             <div class="profil-header-container">
                 <img id="affichage-avatar" src="" alt="Avatar">
                 <div class="profil-infos-textes">
-                    <h2 id="affichage-nom"></h2>
-                    <div id="affichage-email"></div>
+                    <h2 id="affichage-nom">...</h2>
+                    <div id="affichage-email">...</div>
                 </div>
             </div>
-            <button id="btn-deconnexion" class="btn-change-profil">Changer de profil 🔄</button>
-        </div>
-
-        <div id="contenu-application" class="d-none">
-            <hr class="separateur">
-
-            <h1 id="txt-titre-chrono">Chronomètre</h1>
-            <div id="affichage">00:00:00:00</div> 
             
-            <div class="boutons">
-                <button id="btn-moins" class="btn btn-secondary">Reset</button>
-                <button id="btn-plus" class="btn btn-primary">Démarrer</button>
+            <hr class="separateur">
+            
+            <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                <a href="chrono.html" class="btn btn-primary" style="text-decoration: none; display: block;">⏱️ Module Chronomètre & Agenda</a>
+                <a href="travel.html" class="btn btn-submit" style="text-decoration: none; display: block;">🌍 Module Congo Travel Planner</a>
             </div>
 
             <hr class="separateur">
-            <section class="agenda-section">
-                <h3 id="txt-titre-agenda">Rappel de Rendez-vous</h3>
-                
-                <form id="form-rdv">
-                    <input type="text" id="titre-rdv" placeholder="Objet du rendez-vous" required>
-                    <input type="datetime-local" id="date-rdv" required>
-                    <button type="submit" id="btn-valider-agenda" class="btn btn-submit">Ajouter à l'agenda</button>
-                </form>
-                
-                <button type="button" id="btn-toggle-agenda" class="btn-toggle-view" style="width: 100%; margin-top: 10px;">Afficher mes rendez-vous 👁️</button>
-                
-                <div id="zone-liste-privee" class="d-none" style="margin-top: 15px;">
-                    <ul id="liste-rdv"></ul>
-                </div>
-            </section>
-
-            <hr class="separateur">
-            <section class="sensors-section">
-                <h3 id="txt-titre-sensors" style="text-align: left; color: #007bff; margin-bottom: 15px;">🧭 Géolocalisation & Boussole</h3>
-                
-                <button type="button" id="btn-gps" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">Activer mon GPS / GPRS 🛰️</button>
-                
-                <div id="affichage-gps" class="resultat-box d-none" style="background-color: #f1f8e9; border-left-color: #4caf50; margin-bottom: 15px;">
-                    <strong id="txt-gps-actuel">Votre position actuelle :</strong><br>
-                    Latitude : <span id="gps-lat">0.0</span><br>
-                    Longitude : <span id="gps-lon">0.0</span><br>
-                    <span id="gps-ville-proche" style="font-style: italic; color: #555;"></span>
-                </div>
-
-                <div class="compass-container">
-                    <button type="button" id="btn-boussole" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">Activer la Boussole 🧭</button>
-                    <div id="boussole-disque" class="compass-disc">
-                        <div class="compass-arrow"></div>
-                        <span class="direction nord">N</span>
-                        <span class="direction est">E</span>
-                        <span class="direction sud">S</span>
-                        <span class="direction ouest">O</span>
-                    </div>
-                    <div id="boussole-degres" style="margin-top: 10px; font-weight: bold; color: #333;">0°</div>
-                </div>
-            </section>
-
-            <hr class="separateur">
-            <section class="travel-section">
-                <h3 id="txt-titre-travel">🌍 Congo Travel Planner</h3>
-                
-                <div class="form-group-travel" style="text-align: left;">
-                    <label id="lbl-travel-choice" style="font-weight: bold; color: #555;">Que voulez-vous faire ?</label>
-                    <select id="travel-choice">
-                        <option value="1" id="opt-choice-1">Calculer la distance entre deux villes</option>
-                        <option value="2" id="opt-choice-2">Calculer la distance depuis Kinshasa</option>
-                    </select>
-                </div>
-
-                <div class="villes-inputs-container">
-                    <div class="form-group-travel" style="flex: 1; text-align: left;">
-                        <label id="lbl-city-start" style="font-weight: bold; color: #555;">Ville de départ :</label>
-                        <select id="city-start"></select>
-                    </div>
-                    
-                    <div class="form-group-travel" id="zone-city-end" style="flex: 1; text-align: left;">
-                        <label id="lbl-city-end" style="font-weight: bold; color: #555;">Ville d'arrivée :</label>
-                        <select id="city-end"></select>
-                    </div>
-                </div>
-
-                <div class="form-group-travel" style="text-align: left;">
-                    <label id="lbl-road-condition" style="font-weight: bold; color: #555;">État de la route :</label>
-                    <select id="road-condition-select">
-                        <option value="good" id="opt-road-1">Bon (Good)</option>
-                        <option value="average" id="opt-road-2">Moyen (Average)</option>
-                        <option value="bad" id="opt-road-3">Mauvais (Bad) ⚠️ Avion recommandé</option>
-                    </select>
-                </div>
-
-                <div class="form-group-travel" style="text-align: left;">
-                    <label id="lbl-transport-mode" style="font-weight: bold; color: #555;">Mode de transport :</label>
-                    <select id="transport-mode-select">
-                        <option value="car" id="opt-trans-1">Voiture (Car)</option>
-                        <option value="plane" id="opt-trans-2">Avion (Plane)</option>
-                        <option value="motorcycle" id="opt-trans-3">Moto (Motorcycle)</option>
-                        <option value="bike" id="opt-trans-4">Vélo (Bike)</option>
-                        <option value="walking" id="opt-trans-5">À pied (Walking)</option>
-                    </select>
-                </div>
-
-                <button type="button" id="btn-calculer-voyage" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Calculer l'itinéraire 🚀</button>
-                <div id="resultat-voyage" class="resultat-box d-none"></div>
-            </section>
+            <button id="btn-deconnexion" class="btn-change-profil">Changer de profil 🔄</button>
         </div>
     </main>
 
     <footer>
-        <p id="txt-footer">&copy; 2026 | Benjamin Kirongozi Mazuya | WDD 131</p>
+        <p>&copy; 2026 | Benjamin Kirongozi Mazuya | WDD 131</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 </html>
