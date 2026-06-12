@@ -1,8 +1,7 @@
 /**
  * @file gps.js
- * @description Calcul de la distance géodésique entre le touriste et le centre de Kolwezi
+ * @description Compiles telemetry vectors against center mass city reference datums.
  */
-
 document.addEventListener("DOMContentLoaded", () => {
     const btnGps = document.getElementById("btn-activate-gps");
     const gpsBox = document.getElementById("tourism-gps-box");
@@ -10,45 +9,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const txtLon = document.getElementById("tourist-lon");
     const txtDist = document.getElementById("tourist-distance");
 
-    // Coordonnées du centre de Kolwezi
-    const KOLWEZI_LAT = -10.7167;
-    const KOLWEZI_LON = 25.4667;
+    const CENTER_KOLWEZI_LAT = -10.7167;
+    const CENTER_KOLWEZI_LON = 25.4667;
 
     btnGps?.addEventListener("click", () => {
         if (!navigator.geolocation) {
-            alert("Your browser does not support GPS Geolocation.");
+            alert("Hardware Alert: Geolocation tracking engine missing from local architecture.");
             return;
         }
 
-        navigator.geolocation.getCurrentPosition((position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+        navigator.geolocation.getCurrentPosition((pos) => {
+            const currentLat = pos.coords.latitude;
+            const currentLon = pos.coords.longitude;
 
-            if (txtLat) txtLat.textContent = lat.toFixed(4);
-            if (txtLon) txtLon.textContent = lon.toFixed(4);
+            if (txtLat) txtLat.textContent = currentLat.toFixed(4);
+            if (txtLon) txtLon.textContent = currentLon.toFixed(4);
 
-            // Calcul de la distance réelle avec la formule de Haversine
-            const R = 6371; // Rayon de la Terre en km
-            const dLat = (lat - KOLWEZI_LAT) * Math.PI / 180;
-            const dLon = (lon - KOLWEZI_LON) * Math.PI / 180;
+            const EARTH_RADIUS_KM = 6371; 
+            const deltaLatRad = (currentLat - CENTER_KOLWEZI_LAT) * Math.PI / 180;
+            const deltaLonRad = (currentLon - CENTER_KOLWEZI_LON) * Math.PI / 180;
             
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                      Math.cos(KOLWEZI_LAT * Math.PI / 180) * Math.cos(lat * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+            const arcEquation = Math.sin(deltaLatRad / 2) * Math.sin(deltaLatRad / 2) +
+                                Math.cos(CENTER_KOLWEZI_LAT * Math.PI / 180) * Math.cos(currentLat * Math.PI / 180) * Math.sin(deltaLonRad / 2) * Math.sin(deltaLonRad / 2);
             
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            const distance = R * c; // Distance en km
+            const angularDistance = 2 * Math.atan2(Math.sqrt(arcEquation), Math.sqrt(1 - arcEquation));
+            const totalKilometers = EARTH_RADIUS_KM * angularDistance;
 
             if (txtDist) {
-                if (distance < 5) {
-                    txtDist.innerHTML = `📍 You are currently inside Kolwezi city center!`;
+                if (totalKilometers < 5) {
+                    txtDist.innerHTML = `📍 Status: You are successfully located within the Kolwezi Urban Core.`;
                 } else {
-                    txtDist.innerHTML = `🚗 You are approximately <strong>${distance.toFixed(1)} km</strong> away from Kolwezi center.`;
+                    txtDist.innerHTML = `🚗 Vector: You are currently approximately <strong>${totalKilometers.toFixed(1)} km</strong> from Kolwezi Center.`;
                 }
             }
-
             gpsBox?.classList.remove("d-none");
-        }, (error) => {
-            alert("Error accessing GPS. Please enable Location Services on your device.");
+        }, () => {
+            alert("Telemetry Error: Unable to extract location coordinates.");
         });
     });
 });

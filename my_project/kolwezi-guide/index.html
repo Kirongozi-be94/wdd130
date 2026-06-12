@@ -13,7 +13,8 @@
         <p>Capital of Lualaba Province - DR Congo</p>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link active">Home & Utilities</a>
-            <a href="tourisme.html" class="nav-link">Tourism & GPS</a>
+            <a href="tourism.html" class="nav-link">Tourism & GPS</a>
+            <a href="apps-hub.html" class="nav-link">System Modules</a>
         </nav>
     </header>
 
@@ -24,20 +25,20 @@
                 <div class="weather-box">
                     <p id="weather-desc">Loading real-time data...</p>
                     <h3 id="weather-temp">--°C</h3>
-                    <p style="font-size: 0.85em; color: #666;">Location: 10.7167° S, 25.4667° E</p>
+                    <p style="font-size: 0.85em; color: #666;">Station Location: 10.7167° S, 25.4667° E</p>
                 </div>
             </section>
 
             <section class="card">
                 <h2>💱 Currency Converter (CDF / USD)</h2>
                 <div class="converter-box">
-                    <label>Amount :</label>
+                    <label for="currency-amount">Amount:</label>
                     <input type="number" id="currency-amount" value="1" min="1">
                     
-                    <label>Direction :</label>
+                    <label for="currency-direction">Conversion Path:</label>
                     <select id="currency-direction">
-                        <option value="USD_CDF">USD to CDF (Franc Congolais)</option>
-                        <option value="CDF_USD">CDF to USD (Dollar)</option>
+                        <option value="USD_CDF">USD to CDF (Congolese Franc)</option>
+                        <option value="CDF_USD">CDF to USD (US Dollar)</option>
                     </select>
                     
                     <button id="btn-convert" class="btn btn-primary">Convert Now 🚀</button>
@@ -48,20 +49,20 @@
 
         <section class="card style-map-section">
             <h2>📍 Essential Directory & Coordinates</h2>
-            <p>Select a location to view its institutional coordinates in Kolwezi :</p>
+            <p>Select a location below to load its official administrative coordinates in Kolwezi:</p>
             
             <div class="grid-2" style="margin-top: 15px;">
                 <div class="places-buttons">
-                    <button class="btn-place" data-lat="-10.7221" data-lon="25.4715" data-desc="Gouvernorat du Lualaba - Avenue du 30 Juin">🏢 Gouvernerat</button>
-                    <button class="btn-place" data-lat="-10.7245" data-lon="25.4740" data-desc="Mairie de Kolwezi - Centre-Ville Administrative">🏛️ Mairie de Kolwezi</button>
-                    <button class="btn-place" data-lat="-10.7190" data-lon="25.4650" data-desc="Hôpital Général de Référence de Mwangeji">🏥 Mwangeji Hospital</button>
-                    <button class="btn-place" data-lat="-10.7280" data-lon="25.4810" data-desc="Plaza Guest House - Premium accommodation in Manika district">🏨 Premium Guest House</button>
+                    <button class="btn-place" data-lat="-10.7221" data-lon="25.4715" data-desc="Lualaba Provincial Government HQ - Avenue du 30 Juin">🏢 Governor's Office (Gouvernorat)</button>
+                    <button class="btn-place" data-lat="-10.7245" data-lon="25.4740" data-desc="Kolwezi City Hall - Central Administrative District">🏛️ Town Hall (Mairie)</button>
+                    <button class="btn-place" data-lat="-10.7190" data-lon="25.4650" data-desc="Mwangeji General Reference Hospital - Emergency Services">🏥 Mwangeji Hospital</button>
+                    <button class="btn-place" data-lat="-10.7280" data-lon="25.4810" data-desc="Premium Guest House Accommodations - Manika District">🏨 Premium Guest House</button>
                 </div>
 
                 <div class="map-display">
                     <div id="map-mock-canvas">
                         <div id="map-marker">📍</div>
-                        <p id="map-text">Click on a place to locate it</p>
+                        <p id="map-text">Click on any corporate office to track it</p>
                     </div>
                 </div>
             </div>
@@ -69,7 +70,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 | Kolwezi Smart Tourism Guide | WDD 131 Project</p>
+        <p>&copy; 2026 | Kolwezi Smart Tourism Guide | Benjamin Kirongozi Mazuya</p>
     </footer>
 
     <script type="module" src="src/app.js"></script>

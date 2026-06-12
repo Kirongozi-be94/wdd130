@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolwezi Guide - System Modules</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Advanced Operations Hub ⏱️</h1>
+        <p>Integrated Infrastructure Tools & Logistics Modules</p>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">Home & Utilities</a>
+            <a href="tourism.html" class="nav-link">Tourism & GPS</a>
+            <a href="apps-hub.html" class="nav-link active">System Modules</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <div class="grid-2">
+            <section class="card">
+                <h2>⏱️ High Precision Chronograph</h2>
+                <p>Track industrial maintenance vectors, shifts, or operational logistics metrics below:</p>
+                <div class="weather-box" style="text-align: center; padding: 25px 10px;">
+                    <div id="affichage" style="font-size: 2.3rem; font-family: monospace; font-weight: bold; color: var(--dark-bg); letter-spacing: 2px; margin-bottom: 15px;">00:00:00:00</div>
+                    <div style="display: flex; gap: 10px;">
+                        <button id="btn-plus" class="btn btn-submit" style="flex: 1;">Start</button>
+                        <button id="btn-moins" class="btn" style="flex: 1; background: #e0e0e0; color: #333;">Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>📅 Corporate Appointment Scheduler</h2>
+                <p>Log appointments, plant audits, or site coordination meetings securely:</p>
+                <form id="form-rdv" style="margin-top: 10px;">
+                    <label for="titre-rdv">Meeting Objective:</label>
+                    <input type="text" id="titre-rdv" placeholder="e.g., LCS Smelter Inspection Meeting" required>
+                    
+                    <label for="date-rdv">Scheduled Deadline & Time:</label>
+                    <input type="datetime-local" id="date-rdv" required>
+                    
+                    <button type="submit" id="btn-add-agenda" class="btn btn-primary">Save Meeting Entry 📥</button>
+                </form>
+                
+                <button id="btn-toggle-agenda" class="btn" style="background:#dee2e6; color:#212529; margin-top: 10px;">Show Logged Schedules 👁️</button>
+                <div id="zone-liste-privee" class="weather-box d-none" style="margin-top: 10px;">
+                    <ul id="liste-rdv" style="list-style: none; padding: 0; margin: 0;"></ul>
+                </div>
+            </section>
+        </div>
+
+        <section class="card" style="margin-top: 20px;">
+            <h2>🌍 Congo Travel Kinematics Planner</h2>
+            <p>Calculate logistics metrics, baseline geographic vectors, and trip durations across DRC centers:</p>
+            
+            <div class="weather-box" style="background: #fff; border: 1px solid #e0e0e0; margin-top: 15px;">
+                <div class="grid-2">
+                    <div>
+                        <label for="travel-choice">Routing Logic Specification:</label>
+                        <select id="travel-choice">
+                            <option value="1">Calculate distance between custom entries</option>
+                            <option value="2">Calculate spatial displacement vector from Kinshasa Base</option>
+                        </select>
+
+                        <label for="city-start">Departure Station:</label>
+                        <select id="city-start"></select>
+
+                        <label for="city-end">Destination Station:</label>
+                        <select id="city-end"></select>
+                    </div>
+
+                    <div>
+                        <label for="road-condition-select">Inter-provincial Route Infrastructure Status:</label>
+                        <select id="road-condition-select">
+                            <option value="good">Stable / High Quality Asphalt System</option>
+                            <option value="average">Passable Technical Dirt Track Network</option>
+                            <option value="bad">Critical Degradation Alert ⚠️ Air Deployment Suggested</option>
+                        </select>
+
+                        <label for="transport-mode-select">Logistical Deployment Vehicle:</label>
+                        <select id="transport-mode-select">
+                            <option value="car">Ground Transport (Car)</option>
+                            <option value="plane">Aviation Asset (Plane)</option>
+                            <option value="motorcycle">Tactical Escort Fleet (Motorcycle)</option>
+                        </select>
+                        
+                        <button id="btn-calculer-voyage" class="btn btn-submit" style="margin-top: 15px;">Compute Kinematic Metrics 🚀</button>
+                    </div>
+                </div>
+                
+                <div id="resultat-voyage" class="result-box d-none" style="background: #fff9db; border-left-color: #f59f00; font-size: 1.1rem;"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 | Kolwezi Smart Tourism Guide | WDD 131 Project</p>
+    </footer>
+
+    <script type="module" src="src/modules.js"></script>
+</body>
+</html>
