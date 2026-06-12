@@ -1,9 +1,29 @@
-// 🌍 DICTIONNAIRE DE TRADUCTION CENTRALISÉ
+/**
+ * @file config.js
+ * @description Constantes globales, bases de données logistiques et dictionnaires linguistiques.
+ */
+
+export const CONFIG = { RAYON_TERRE_KM: 6371 };
+
+export const CITIES_DATABASE = {
+    "kinshasa": { name: "Kinshasa", coords: [-4.4419, 15.2663] },
+    "lubumbashi": { name: "Lubumbashi", coords: [-11.6708, 27.4792] },
+    "kolwezi": { name: "Kolwezi", coords: [-10.7167, 25.4667] },
+    "kisangani": { name: "Kisangani", coords: [0.5167, 25.1833] },
+    "goma": { name: "Goma", coords: [-1.6833, 29.2167] },
+    "bukavu": { name: "Bukavu", coords: [-2.5, 28.3667] }
+};
+
+export const TRANSPORT_SPEEDS = {
+    car: { good: 80, average: 60, bad: 40 },
+    plane: { good: 800, average: 800, bad: 800 },
+    motorcycle: { good: 60, average: 40, bad: 20 }
+};
+
 export const TRANSLATIONS = {
     fr: {
         retourHub: "⬅️ Retour au Tableau de bord",
-        titreLogin: "Créer votre profil sécurisé",
-        lblPin: "Code PIN d'accès (Optionnel) :",
+        titreLogin: "Créer votre profil",
         btnSubmitLogin: "Enregistrer et Déverrouiller",
         btnChronoLink: "⏱️ Module Chronomètre & Agenda",
         btnTravelLink: "🌍 Module Congo Travel Planner",
@@ -35,18 +55,16 @@ export const TRANSLATIONS = {
     },
     en: {
         retourHub: "⬅️ Back to Dashboard",
-        titreLogin: "Create your secure profile",
-        lblPin: "Access PIN Code (Optional):",
+        titreLogin: "Create your profile",
         btnSubmitLogin: "Register and Unlock",
         btnChronoLink: "⏱️ Stopwatch & Schedule Module",
         btnTravelLink: "🌍 Congo Travel Planner Module",
         btnLogout: "Change profile 🔄",
-        retourHub: "⬅️ Back to Dashboard",
         titreChrono: "Stopwatch",
         titreAgenda: "Appointment Reminder",
         btnAddAgenda: "Add to schedule",
         btnToggleAgendaShow: "Show my appointments 👁️",
-        btnToggleAgendaHide: "Hide secure data 🙈",
+        btnToggleAgendaHide: "Hide data 🙈",
         titreCapteurs: "🧭 Geolocation & Compass",
         btnGps: "Activate GPS / GPRS 🛰️",
         posGeodesique: "Geodetic Position:",

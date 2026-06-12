@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronomètre & Rappels Métiers</title>
+    <title>Chronomètre & Rappels</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <main class="card">
-        <div style="text-align: left; margin-bottom: 20px;">
-            <a href="index.html" style="text-decoration: none; font-weight: bold; color: var(--primary-color);">⬅️ Retour au Tableau de bord</a>
+        <div class="langue-select">
+            <button id="btn-fr" class="btn-lang">FR 🇫🇷</button>
+            <button id="btn-en" class="btn-lang">EN 🇺🇸</button>
         </div>
 
-        <h1>Chronomètre</h1>
+        <div style="text-align: left; margin-bottom: 20px;">
+            <a href="index.html" id="link-retour-hub" style="text-decoration: none; font-weight: bold; color: var(--primary-color);">⬅️ Retour au Tableau de bord</a>
+        </div>
+
+        <h1 id="txt-titre-chrono">Chronomètre</h1>
         <div id="affichage">00:00:00:00</div> 
         
         <div class="boutons">
@@ -23,12 +28,12 @@
 
         <hr class="separateur">
         <section class="agenda-section">
-            <h3>Rappel de Rendez-vous</h3>
+            <h3 id="txt-titre-agenda">Rappel de Rendez-vous</h3>
             
             <form id="form-rdv">
                 <input type="text" id="titre-rdv" placeholder="Objet de l'événement" required>
                 <input type="datetime-local" id="date-rdv" required>
-                <button type="submit" class="btn btn-submit">Ajouter à l'agenda</button>
+                <button type="submit" id="btn-add-agenda" class="btn btn-submit">Ajouter à l'agenda</button>
             </form>
             
             <button type="button" id="btn-toggle-agenda" class="btn-toggle-view" style="width: 100%; margin-top: 10px;">Afficher mes rendez-vous 👁️</button>

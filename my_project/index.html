@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portail Sécurisé - Menu Principal</title>
+    <title>Portail - Menu Principal</title>
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="manifest" href="manifest.json">
@@ -13,11 +13,16 @@
 <body>
 
     <main class="card">
-        <div id="horloge-temps-reel">Chargement du système...</div>
+        <div class="langue-select">
+            <button id="btn-fr" class="btn-lang">FR 🇫🇷</button>
+            <button id="btn-en" class="btn-lang">EN 🇺🇸</button>
+        </div>
 
-        <section id="zone-connexion" class="profil-user-form">
+        <div id="horloge-temps-reel">Chargement...</div>
+
+        <section id="zone-connexion">
             <form id="form-login">
-                <h3>Créer votre profil sécurisé</h3>
+                <h3 id="txt-titre-login">Créer votre profil</h3>
                 
                 <div class="avatar-upload-container">
                     <div class="avatar-preview-wrapper">
@@ -30,17 +35,12 @@
 
                 <input type="text" id="login-nom" placeholder="Votre nom complet" required>
                 <input type="email" id="login-email" placeholder="Votre adresse email" required>
-                
-                <div style="margin-bottom: 15px; text-align: left;">
-                    <label style="display:block; margin-bottom:5px; color:#555; font-size:0.9rem; font-weight:bold;">Code PIN d'accès (Optionnel) :</label>
-                    <input type="password" id="login-pin" placeholder="4 chiffres (Ex: 1234)" maxlength="4" pattern="[0-9]*" inputmode="numeric" style="text-align: center; font-size: 1.2rem; letter-spacing: 2px;">
-                </div>
 
-                <button type="submit" class="btn btn-primary">Enregistrer et Déverrouiller</button>
+                <button type="submit" id="btn-submit-login" class="btn btn-primary">Enregistrer et Déverrouiller</button>
             </form>
         </section>
 
-        <div id="zone-profil-actif" class="profil-user-form d-none">
+        <div id="zone-profil-actif" class="d-none">
             <div class="profil-header-container">
                 <img id="affichage-avatar" src="" alt="Avatar">
                 <div class="profil-infos-textes">
@@ -52,8 +52,8 @@
             <hr class="separateur">
             
             <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-                <a href="chrono.html" class="btn btn-primary" style="text-decoration: none; display: block;">⏱️ Module Chronomètre & Agenda</a>
-                <a href="travel.html" class="btn btn-submit" style="text-decoration: none; display: block;">🌍 Module Congo Travel Planner</a>
+                <a href="chrono.html" id="link-chrono" class="btn btn-primary" style="text-decoration: none; display: block;">⏱️ Module Chronomètre & Agenda</a>
+                <a href="travel.html" id="link-travel" class="btn btn-submit" style="text-decoration: none; display: block;">🌍 Module Congo Travel Planner</a>
             </div>
 
             <hr class="separateur">
