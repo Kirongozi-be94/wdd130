@@ -169,6 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- INITIALISATION AUTOMATIQUE ---
-    appliquerLangue(localStorage.getItem("langueSelectionnee") || "fr"); 
-    renderAgenda();
+appliquerLangue(localStorage.getItem("langueSelectionnee") || "en"); // 👈 Changé "fr" par "en"
+renderAgenda();
 });

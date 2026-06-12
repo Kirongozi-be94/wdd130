@@ -115,6 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Initialisation au chargement
-    appliquerLangue(localStorage.getItem("langueSelectionnee") || "fr");
-    checkSession();
+appliquerLangue(localStorage.getItem("langueSelectionnee") || "en"); // 👈 Changé "fr" par "en"
+checkSession();
 });

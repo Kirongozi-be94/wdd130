@@ -161,5 +161,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Initialisation immédiate de la langue enregistrée
-    appliquerLangue(localStorage.getItem("langueSelectionnee") || "fr");
+    appliquerLangue(localStorage.getItem("langueSelectionnee") || "en");
 });
