@@ -1,18 +1,34 @@
 /**
  * @file app.js
- * @description Drives index.html utilities including real-time weather calculations and directory lookups.
+ * @description Controls Weather simulations (Day/Night aware), Currency processing, and Directory mappings.
  */
+
 document.addEventListener("DOMContentLoaded", () => {
+    // --- 1. DYNAMIC DAY/NIGHT AWARE WEATHER DISPLAY ---
     const weatherDesc = document.getElementById("weather-desc");
     const weatherTemp = document.getElementById("weather-temp");
 
     if (weatherDesc && weatherTemp) {
         setTimeout(() => {
-            weatherDesc.textContent = "☀️ Clear skies, moderate wind (Dry Season)";
-            weatherTemp.textContent = "26°C";
+            // Get the current local hour from the device browser clock
+            const currentHour = new Date().getHours();
+            
+            // Check if it is night time (between 6 PM / 18:00 and 6 AM / 06:00)
+            const isNight = currentHour >= 18 || currentHour < 6;
+
+            if (isNight) {
+                // Night-time environment configuration
+                weatherDesc.textContent = "🌙 Clear sky, refreshing breeze (Dry Season Night)";
+                weatherTemp.textContent = "16°C"; // Temperatures naturally drop at night in Kolwezi's high altitude
+            } else {
+                // Day-time environment configuration
+                weatherDesc.textContent = "☀️ Clear skies, moderate wind (Dry Season Day)";
+                weatherTemp.textContent = "26°C";
+            }
         }, 800);
     }
 
+    // --- 2. FISCAL CURRENCY EXCHANGE CONVERTER ---
     const CONVERSION_RATE = 2800; 
     const btnConvert = document.getElementById("btn-convert");
     const amountInput = document.getElementById("currency-amount");
@@ -40,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resultBox.classList.remove("d-none");
     });
 
+    // --- 3. DYNAMIC SCHEMATIC DIRECTORY SELECTOR ---
     const mapText = document.getElementById("map-text");
     const mapMarker = document.getElementById("map-marker");
     const placeButtons = document.querySelectorAll(".btn-place");
