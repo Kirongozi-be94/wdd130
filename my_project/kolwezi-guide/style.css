@@ -147,3 +147,62 @@ footer {
     color: #777;
     font-size: 0.9em;
 }
+
+/* --- NEW IMAGE DESIGN RULES --- */
+
+/* Hero Banner on Homepage */
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background-color: var(--dark-bg);
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image crops perfectly without stretching */
+    opacity: 0.75;
+}
+
+.hero-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Recruitment Profile Avatar Layout */
+.profile-image-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Makes the image perfectly circular */
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #ccc;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 600px) {
+    .hero-banner {
+        height: 150px;
+    }
+    .hero-overlay {
+        font-size: 1rem;
+    }
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
