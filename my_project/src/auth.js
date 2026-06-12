@@ -1,6 +1,6 @@
 /**
  * @file auth.js
- * @description Gestion simplifiée de la session utilisateur sans code PIN.
+ * @description Gestion simplifiée de la session utilisateur (Sans aucun code PIN).
  */
 
 export const AuthService = {
@@ -10,13 +10,19 @@ export const AuthService = {
         return profile;
     },
     getProfile() { 
-        return JSON.parse(localStorage.getItem("profilUtilisateur")); 
+        try {
+            return JSON.parse(localStorage.getItem("profilUtilisateur")); 
+        } catch (e) {
+            return null;
+        }
     },
     logout() { 
         localStorage.removeItem("profilUtilisateur"); 
         window.location.href = "index.html"; 
     },
     requireAuth() { 
-        if (!this.getProfile()) window.location.href = "index.html"; 
+        if (!this.getProfile()) {
+            window.location.href = "index.html"; 
+        }
     }
 };
