@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolwezi Guide - Tourism & Geolocation</title>
+    <title>Kolwezi Guide - Tourism & Telemetry</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,13 +20,19 @@
 
     <main class="container">
         <section class="card">
-            <h2>🛰️ Live Tourist GPS Radar</h2>
-            <p>Allow location access to sync your smartphone's GPS module and calculate your current vector distance to Kolwezi City Center.</p>
-            <button id="btn-activate-gps" class="btn btn-submit" style="width: 100%; margin-top: 10px;">Connect Mobile GPS 📍</button>
+            <h2>🛰️ Dual Positioning Telemetry Radar (GPS / GPRS)</h2>
+            <p>Select your tracking source below. Toggle between high-accuracy Satellite GPS or fallback Cellular GPRS triangulation for indoor/industrial warehouse perimeters.</p>
+            
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button id="btn-activate-gps" class="btn btn-submit" style="flex: 1;">Connect Satellite GPS 📍</button>
+                <button id="btn-activate-gprs" class="btn btn-primary" style="flex: 1; background-color: #6f42c1;">Ping GPRS Cell Towers 📶</button>
+            </div>
             
             <div id="tourism-gps-box" class="result-box d-none" style="margin-top: 15px; background-color: #e3f2fd; border-left-color: #2196f3;">
-                <p><strong>Your Current Geodetic Position:</strong></p>
+                <p><strong>Telemetry Link Status:</strong> <span id="telemetry-status" style="font-weight: bold; color: #2eb85c;">Active</span></p>
+                <p><strong>Tracking Mode:</strong> <span id="tracking-mode" style="font-weight: bold; color: var(--dark-bg);">Unknown</span></p>
                 <p>Latitude: <span id="tourist-lat">0.0</span> | Longitude: <span id="tourist-lon">0.0</span></p>
+                <p id="gprs-meta" class="d-none" style="font-size: 0.85em; color: #555; margin-top: 5px; font-family: monospace;"></p>
                 <p id="tourist-distance" style="font-weight: bold; margin-top: 5px; color: #0d47a1;"></p>
             </div>
         </section>
@@ -34,7 +40,6 @@
         <section class="card" style="margin-top: 20px;">
             <h2>✨ Major Historical & Natural Sights in Lualaba</h2>
             <div class="tourism-grid">
-                
                 <article class="tourist-item">
                     <h3>🌊 Nzilo Dam & Reservoir Lake</h3>
                     <p>Engineered on the upper runs of the Lualaba River (Congo River source), located roughly 30 km north of Kolwezi. A panoramic industrial landscape, widely popular for engineering field trips and weekend boat assessments.</p>
@@ -49,13 +54,12 @@
                     <h3>🎨 Manika Cultural Artisanal Markets</h3>
                     <p>Witness authentic local processing of raw materials. Explore handcrafted malachite sculptures, custom Katangan copper art work, local metalsmith networks, and discover the culinary legacy of the Katanga region.</p>
                 </article>
-
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 | Kolwezi Smart Tourism Guide | Benjamin Kirongozi Mazuya</p>
+        <p>&copy; 2026 | Kolwezi Smart Tourism Guide | Benjamin K. Mazuya</p>
     </footer>
 
     <script type="module" src="src/gps.js"></script>
