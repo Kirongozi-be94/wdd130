@@ -1,0 +1,59 @@
+{
+  "projectInfo": {
+    "title": "Kolwezi Smart Tourism & Logistics Guide",
+    "author": "Benjamin K. Mazuya",
+    "year": 2026,
+    "version": "1.1.0"
+  },
+  "operationalCoordinates": {
+    "location": "Kolwezi, Lualaba Province, DR Congo",
+    "ktoMineSector": {
+      "reference": "pHTit 428'",
+      "latitudeVector": "+556.77824°R",
+      "longitudeVector": "+536.713442"
+    }
+  },
+  "drcStations": [
+    {
+      "id": "FIH",
+      "name": "Kinshasa Base",
+      "province": "Kinshasa",
+      "type": "Main Center"
+    },
+    {
+      "id": "KWZ",
+      "name": "Kolwezi Station (LCS Smelter Area)",
+      "province": "Lualaba",
+      "type": "Industrial Hub"
+    },
+    {
+      "id": "FBM",
+      "name": "Lubumbashi Hub",
+      "province": "Haut-Katanga",
+      "type": "Logistics Center"
+    },
+    {
+      "id": "GOM",
+      "name": "Goma Station",
+      "province": "Nord-Kivu",
+      "type": "Deployment Base"
+    }
+  ],
+  "infrastructureStatus": [
+    {
+      "code": "good",
+      "description": "Stable / High Quality Asphalt System",
+      "speedFactor": 1.0
+    },
+    {
+      "code": "average",
+      "description": "Passable Technical Dirt Track Network",
+      "speedFactor": 0.5
+    },
+    {
+      "code": "bad",
+      "description": "Critical Degradation Alert - Air Deployment Suggested",
+      "speedFactor": 0.1
+    }
+  ]
+}
