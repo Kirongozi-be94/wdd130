@@ -6,61 +6,131 @@
     <title>Kolwezi Guide - Contact Us</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="professional-white-glass"> <header class="main-header glass-header" style="color: #1a252f;">
-        <div class="header-content">
-            <div class="logo-area">
-                <img src="images/votre-logo.png" alt="KG Kolwezi Guide Logo" class="site-logo"> </div>
-            <div class="title-area">
+<body>
+
+    <header class="main-header professional-white-glass" style="color: #1a252f; padding: 20px 15px;">
+        <div class="header-content" style="display: flex; align-items: center; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto; flex-wrap: wrap;">
+            
+            <div class="logo-area" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+                <img src="images/logo.png" alt="KG Logo" class="site-logo" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'font-size:2rem;\'>💎</div>'">
+            </div>
+            
+            <div class="title-area" style="text-align: left;">
                 <h1 style="color: #1a252f; margin: 0 0 5px 0;">Get In Touch ✉️</h1>
                 <p style="color: #556375; margin: 0; font-weight: 500;">Connect with Benjamin K. Mazuya for Operations & Development</p>
             </div>
         </div>
         
-        <nav class="nav-menu" style="margin-top: 20px;">
-            <a href="index.html" class="nav-link">Home & Utilities</a>
-            <a href="tourism.html" class="nav-link">Tourism & GPS</a>
-            <a href="apps-hub.html" class="nav-link">System Modules</a>
+        <nav class="nav-menu" style="margin-top: 25px;">
+            <a href="index.html" class="nav-link" style="color: #4a5568;">Home & Utilities</a>
+            <a href="tourism.html" class="nav-link" style="color: #4a5568;">Tourism & GPS</a>
+            <a href="apps-hub.html" class="nav-link" style="color: #4a5568;">System Modules</a>
             <a href="contact.html" class="nav-link active" style="color: var(--primary-color); border-bottom: 2px solid var(--primary-color);">Contact Us</a>
         </nav>
     </header>
 
     <main class="container">
         
-        <section class="card photos-grid-section" style="margin-top: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-            <div class="photos-grid">
+        <section class="card" style="padding: 15px; margin-top: 20px;">
+            <div class="photos-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                 
-                <figure class="photo-item">
-                    <img src="images/kto-mine.jpg" alt="Aerial view of KTO open-pit mine operations in Kolwezi" class="photo-img">
-                    <figcaption>KTO Mine Operations</figcaption>
+                <figure class="photo-item" style="margin: 0; overflow: hidden; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; background: white;">
+                    <img src="images/kto-mine.jpg" alt="KTO Mine Operations" class="photo-img" style="width: 100%; height: 200px; object-fit: cover; display: block;" onerror="this.src='https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=500';">
+                    <figcaption style="padding: 10px; font-weight: 600; color: #1a252f; font-size: 0.9em; border-top: 1px solid #eee;">KTO Mine Operations</figcaption>
                 </figure>
 
-                <figure class="photo-item">
-                    <img src="images/copper-extraction.jpg" alt="Close-up of industrial copper extraction machinery" class="photo-img">
-                    <figcaption>Copper Extraction Detail</figcaption>
+                <figure class="photo-item" style="margin: 0; overflow: hidden; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; background: white;">
+                    <img src="images/copper-extraction.jpg" alt="Copper Extraction Detail" class="photo-img" style="width: 100%; height: 200px; object-fit: cover; display: block;" onerror="this.src='https://images.unsplash.com/photo-1535557142533-b5e1cc6e2a5d?w=500';">
+                    <figcaption style="padding: 10px; font-weight: 600; color: #1a252f; font-size: 0.9em; border-top: 1px solid #eee;">Copper Extraction Detail</figcaption>
                 </figure>
 
-                <figure class="photo-item">
-                    <img src="images/kolwezi-panorama.jpg" alt="Panorama of Kolwezi city center at twilight" class="photo-img">
-                    <figcaption>Kolwezi City Panorama</figcaption>
+                <figure class="photo-item" style="margin: 0; overflow: hidden; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; background: white;">
+                    <img src="images/kolwezi-panorama.jpg" alt="Kolwezi City Panorama" class="photo-img" style="width: 100%; height: 200px; object-fit: cover; display: block;" onerror="this.src='https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500';">
+                    <figcaption style="padding: 10px; font-weight: 600; color: #1a252f; font-size: 0.9em; border-top: 1px solid #eee;">Kolwezi City Panorama</figcaption>
                 </figure>
 
             </div>
         </section>
 
         <div class="grid-2" style="margin-top: 20px;">
-            </div>
+            
+            <section class="card">
+                <h2>📩 Send a Message</h2>
+                <p>Fill out the operational request form below. Your input will be processed securely:</p>
+                
+                <form id="contact-form" style="margin-top: 15px;">
+                    <label for="contact-name">Full Name / Company:</label>
+                    <input type="text" id="contact-name" placeholder="e.g., Lualaba Mining Corp" required>
+                    
+                    <label for="contact-email">Professional Email Address:</label>
+                    <input type="email" id="contact-email" placeholder="name@company.com" required>
+                    
+                    <label for="contact-subject">Inquiry Subject:</label>
+                    <select id="contact-subject">
+                        <option value="recruitment">Talent Acquisition / Recruitment</option>
+                        <option value="logistics">Logistics & Supply Chain Operations</option>
+                        <option value="software">Software Development Collaboration</option>
+                        <option value="other">General Inquiry</option>
+                    </select>
+                    
+                    <label for="contact-message">Detailed Message:</label>
+                    <textarea id="contact-message" rows="5" placeholder="Type your corporate specifications or interview proposal here..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; margin-bottom: 15px;" required></textarea>
+                    
+                    <button type="submit" class="btn btn-primary">Submit Secure Message 🚀</button>
+                </form>
+                
+                <div id="contact-success" class="result-box d-none" style="background: #e8f5e9; border-left-color: var(--submit-color); color: #2e7d32;">
+                    <strong>Success!</strong> Your transmission has been simulated. In a production environment, this data connects directly to your backend API.
+                </div>
+            </section>
 
-        <section class="card coordinates-section" style="margin-top: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
-             <p><strong>Direct coordinates:</strong> KTO mine (e.g. pHTit 428' +556.77824°R, and +536.713442)</p>
-             </section>
+            <section class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2>🏢 Direct Coordinates</h2>
+                    <p>For urgent operational audits, logistics consulting, or developer briefings:</p>
+                    
+                    <div class="weather-box" style="margin-top: 15px; line-height: 1.8;">
+                        <p><strong>📍 Operational Base:</strong> Kolwezi, Lualaba Province, DR Congo</p>
+                        <p><strong>📧 Email Address:</strong> <a href="mailto:kirongozinotes1@gmail.com" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">kirongozinotes1@gmail.com</a></p>
+                        <p><strong>📞 Primary Line:</strong> <a href="tel:+243890924824" style="color: #333; text-decoration: none; font-family: monospace; font-weight: bold;">+243 890 924 824</a></p>
+                        <p><strong>📞 Secondary Line:</strong> <a href="tel:+243973292227" style="color: #333; text-decoration: none; font-family: monospace; font-weight: bold;">+243 973 292 227</a></p>
+                        <p><strong>🔬 Specialization:</strong> Pyrometallurgy Warehousing & Front-End Architecture</p>
+                    </div>
+                </div>
+
+                <div class="weather-box" style="background: #e3f2fd; border-left: 4px solid var(--primary-color); margin-top: 20px;">
+                    <h4 style="margin: 0 0 5px 0; color: var(--primary-color);">Looking for the CV?</h4>
+                    <p style="font-size: 0.85em; margin: 0 0 10px 0; color: #555;">Get a direct copy of Benjamin's tech and industrial matrix profile.</p>
+                    <a href="Benjamin_Mazuya_CV.pdf" download class="btn btn-submit" style="text-align: center; text-decoration: none; font-size: 0.9em; padding: 8px; display: block; box-sizing: border-box;">Download PDF Profile 📥</a>
+                </div>
+            </section>
+
+        </div>
+
+        <section class="card" style="margin-top: 20px; border-left: 4px solid var(--primary-color);">
+            <h3>📍 Spatial Core Vector Anchors</h3>
+            <p style="font-family: monospace; font-size: 0.95rem; color: #444; margin: 5px 0 0 0;">
+                <strong>Direct Coordinates:</strong> KTO Mine Sector Perimeter (Ref: pHTit 428' +556.77824°R, and +536.713442)
+            </p>
+        </section>
 
     </main>
 
-    <footer class="main-footer" style="background-color: var(--dark-bg); color: white; padding: 20px 10px; text-align: center; margin-top: 40px;">
-        </footer>
+    <footer class="main-footer" style="background-color: var(--dark-bg); color: white; padding: 25px 10px; text-align: center; margin-top: 40px;">
+        <p style="margin: 0 0 15px 0;">&copy; 2026 | Kolwezi Smart Tourism Guide | Benjamin K. Mazuya</p>
+        <div class="social-links" style="display: flex; justify-content: center; gap: 25px; font-size: 0.95em;">
+            <a href="https://linkedin.com" target="_blank" rel="noopener" style="color: #0077b5; text-decoration: none; font-weight: bold;">💼 LinkedIn</a>
+            <a href="https://github.com" target="_blank" rel="noopener" style="color: #fafafa; text-decoration: none; font-weight: bold;">💻 GitHub</a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" style="color: #ff0000; text-decoration: none; font-weight: bold;">📺 YouTube Channel</a>
+        </div>
+    </footer>
 
-    <script style="display:none;">
-        // ... votre script de formulaire
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('contact-success').classList.remove('d-none');
+            this.reset();
+        });
     </script>
 </body>
 </html>
