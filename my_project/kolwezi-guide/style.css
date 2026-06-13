@@ -211,3 +211,11 @@ footer {
     text-decoration: underline !important;
     opacity: 0.8;
 }
+/* Tinted Dark Glass Effect (Glassmorphism) */
+.dark-tinted-glass {
+    background: rgba(26, 37, 47, 0.75) !important; /* Semi-transparent dark-bg (75% opacity) */
+    backdrop-filter: blur(10px) !important;        /* Blurs whatever is behind the header */
+    -webkit-backdrop-filter: blur(10px);           /* Safari support */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Subtle glass edge highlight */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);   /* Deep premium shadow effect */
+}
