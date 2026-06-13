@@ -1,3 +1,4 @@
+/* --- GLOBAL DESIGN SYSTEMS --- */
 :root {
     --primary-color: #007bff;
     --submit-color: #2eb85c;
@@ -14,6 +15,7 @@ body {
     color: #333;
 }
 
+/* --- SITE LAYERED HEADER LAYOUTS --- */
 .main-header {
     background-color: var(--dark-bg);
     color: white;
@@ -39,6 +41,7 @@ body {
     border-bottom: 2px solid var(--primary-color);
 }
 
+/* --- STRUCTURAL CONTAINERS & GRIDS --- */
 .container {
     max-width: 1000px;
     margin: 20px auto;
@@ -49,7 +52,7 @@ body {
     background: white;
     border-radius: var(--border-radius);
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(80, 79, 79, 0.05);
     margin-bottom: 20px;
 }
 
@@ -71,8 +74,11 @@ body {
     margin-top: 15px;
 }
 
-.d-none { display: none !important; }
+.d-none { 
+    display: none !important; 
+}
 
+/* --- CORE INTERFACE ELEMENTS --- */
 input, select {
     width: 100%;
     padding: 10px;
@@ -94,6 +100,7 @@ input, select {
 .btn-primary { background-color: var(--primary-color); color: white; }
 .btn-submit { background-color: var(--submit-color); color: white; }
 
+/* --- SECTOR GEOLOCATION DIRECTORY UI --- */
 .places-buttons {
     display: flex;
     flex-direction: column;
@@ -110,7 +117,9 @@ input, select {
     font-weight: 500;
 }
 
-.btn-place:hover { background: #eef1f6; }
+.btn-place:hover { 
+    background: #eef1f6; 
+}
 
 #map-mock-canvas {
     height: 200px;
@@ -125,8 +134,12 @@ input, select {
     padding: 10px;
 }
 
-#map-marker { font-size: 2.5rem; transition: transform 0.2s ease; }
+#map-marker { 
+    font-size: 2.5rem; 
+    transition: transform 0.2s ease; 
+}
 
+/* --- REGIONAL TOURISM DISPLAY TILES --- */
 .tourism-grid {
     display: flex;
     flex-direction: column;
@@ -141,16 +154,7 @@ input, select {
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #777;
-    font-size: 0.9em;
-}
-
-/* --- NEW IMAGE DESIGN RULES --- */
-
-/* Hero Banner on Homepage */
+/* --- HOME PAGE HERO BANNER --- */
 .hero-banner {
     position: relative;
     width: 100%;
@@ -162,7 +166,7 @@ footer {
 .hero-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image crops perfectly without stretching */
+    object-fit: cover;
     opacity: 0.75;
 }
 
@@ -176,11 +180,11 @@ footer {
     font-weight: bold;
 }
 
-/* Recruitment Profile Avatar Layout */
+/* --- RECRUITMENT PROFILE IMAGE WRAPPERS --- */
 .profile-image-wrapper {
     width: 120px;
     height: 120px;
-    border-radius: 50%; /* Makes the image perfectly circular */
+    border-radius: 50%;
     overflow: hidden;
     border: 3px solid white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -193,7 +197,36 @@ footer {
     object-fit: cover;
 }
 
-/* Responsive adjustment for small screens */
+/* --- FOOTER & EXTERNAL PLATFORM LINKS --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+.social-links a:hover {
+    text-decoration: underline !important;
+    opacity: 0.8;
+}
+
+/* Premium White Corporate Glass Effect */
+.professional-white-glass {
+    /* Fond blanc pur à 80% d'opacité */
+    background: rgba(255, 255, 255, 0.80) !important; 
+    
+    /* Effet flou de verre moderne */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important; 
+    
+    /* Ligne de séparation fine et élégante */
+    border-bottom: 1px solid #e2e8f0; 
+    
+    /* Ombre légère pour décoller l'en-tête du reste de la page */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* --- RESPONSIVE MEDIA BREAKPOINTS --- */
 @media (max-width: 600px) {
     .hero-banner {
         height: 150px;
@@ -206,16 +239,4 @@ footer {
         text-align: center;
     }
 }
-/* Social Links Hover Effects */
-.social-links a:hover {
-    text-decoration: underline !important;
-    opacity: 0.8;
-}
-/* Tinted Dark Glass Effect (Glassmorphism) */
-.dark-tinted-glass {
-    background: rgba(26, 37, 47, 0.75) !important; /* Semi-transparent dark-bg (75% opacity) */
-    backdrop-filter: blur(10px) !important;        /* Blurs whatever is behind the header */
-    -webkit-backdrop-filter: blur(10px);           /* Safari support */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Subtle glass edge highlight */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);   /* Deep premium shadow effect */
-}
+
