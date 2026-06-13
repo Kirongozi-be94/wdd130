@@ -58,15 +58,16 @@
                 <h2>📩 Send a Message</h2>
                 <p>Fill out the operational request form below. Your input will be processed securely:</p>
                 
-                <form action="https://formspree.io/f/xqeoggeb" method="POST" style="margin-top: 15px;">
-                    <label for="contact-name">Benjamin Kirongozi Mazuya / Lualaba Mining Corp:</label>
-                    <input type="text" id="contact-name" placeholder="e.g., Lualaba Mining Corp" required>
+                <form id="ajax-contact-form" action="https://formspree.io/f/xqeoggeb" method="POST" style="margin-top: 15px;">
+                    
+                    <label for="contact-name">Full Name / Company:</label>
+                    <input type="text" id="contact-name" name="name" placeholder="e.g., Lualaba Mining Corp" required>
                     
                     <label for="contact-email">Professional Email Address:</label>
-                    <input type="email" id="contact-email" placeholder="kirongozinotes1@gmail.com" required>
+                    <input type="email" id="contact-email" name="email" placeholder="kirongozinotes1@gmail.com" required>
                     
                     <label for="contact-subject">Inquiry Subject:</label>
-                    <select id="contact-subject">
+                    <select id="contact-subject" name="subject">
                         <option value="recruitment">Talent Acquisition / Recruitment</option>
                         <option value="logistics">Logistics & Supply Chain Operations</option>
                         <option value="software">Software Development Collaboration</option>
@@ -74,13 +75,13 @@
                     </select>
                     
                     <label for="contact-message">Detailed Message:</label>
-                    <textarea id="contact-message" rows="5" placeholder="Type your corporate specifications or interview proposal here..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; margin-bottom: 15px;" required></textarea>
+                    <textarea id="contact-message" name="message" rows="5" placeholder="Type your corporate specifications or interview proposal here..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; margin-bottom: 15px;" required></textarea>
                     
                     <button type="submit" class="btn btn-primary">Submit Secure Message 🚀</button>
                 </form>
                 
-                <div id="contact-success" class="result-box d-none" style="background: #e8f5e9; border-left-color: var(--submit-color); color: #2e7d32;">
-                    <strong>Success!</strong> Your transmission has been simulated. In a production environment, this data connects directly to your backend API.
+                <div id="contact-success" class="result-box" style="display: none; background: #e8f5e9; border-left: 4px solid #2e7d32; color: #2e7d32; padding: 15px; margin-top: 15px; border-radius: 4px;">
+                    <strong>Success!</strong> Your message has been encrypted and processed into a valid JSON object. Formspree has successfully routed your transmission to your operational mailbox.
                 </div>
             </section>
 
@@ -124,5 +125,44 @@
             <a href="https://youtube.com" target="_blank" rel="noopener" style="color: #ff0000; text-decoration: none; font-weight: bold;">📺 YouTube Channel</a>
         </div>
     </footer>
+
+    <script>
+        const form = document.getElementById("ajax-contact-form");
+        const successBox = document.getElementById("contact-success");
+
+        if (form) {
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Bloque le rechargement brut de la page
+                
+                // 1. Extraction et transformation des inputs en objet de données valides
+                const data = new FormData(event.target);
+                
+                // 2. Envoi AJAX asynchrone avec spécification de l'en-tête JSON requis par Formspree
+                fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json' // Dit explicitement à Formspree de s'attendre et répondre en JSON
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Si le serveur valide l'envoi
+                        successBox.style.display = "block";
+                        form.reset(); // Vide les champs du formulaire
+                    } else {
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                alert(data["errors"].map(error => error["message"]).join(", "));
+                            } else {
+                                alert("Oops! There was a problem submitting your form");
+                            }
+                        })
+                    }
+                }).catch(error => {
+                    alert("Network error: Check your API connection parameters");
+                });
+            });
+        }
+    </script>
 </body>
 </html>
