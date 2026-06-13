@@ -170,3 +170,104 @@ document.addEventListener("DOMContentLoaded", () => {
         resultatVoyage.classList.remove("d-none");
     });
 });
+// ==========================================
+// 1. GESTION DU CHRONOGRAPHE HIGH PRECISION
+// ==========================================
+let chronoInterval = null;
+let millisecondes = 0;
+let secondes = 0;
+let minutes = 0;
+let heures = 0;
+
+const affichage = document.getElementById('affichage');
+const btnStart = document.getElementById('btn-plus');
+const btnReset = document.getElementById('btn-moins');
+
+if (btnStart && btnReset && affichage) {
+    btnStart.addEventListener('click', () => {
+        if (chronoInterval === null) {
+            // Lancer le chrono
+            chronoInterval = setInterval(mettreAJourChrono, 10);
+            btnStart.textContent = "Stop";
+            btnStart.style.background = "#e63946"; // Rouge quand il tourne
+        } else {
+            // Arrêter le chrono
+            clearInterval(chronoInterval);
+            chronoInterval = null;
+            btnStart.textContent = "Start";
+            btnStart.style.background = ""; // Reprend la couleur de base
+        }
+    });
+
+    btnReset.addEventListener('click', () => {
+        clearInterval(chronoInterval);
+        chronoInterval = null;
+        millisecondes = 0; secondes = 0; minutes = 0; heures = 0;
+        affichage.textContent = "00:00:00:00";
+        btnStart.textContent = "Start";
+        btnStart.style.background = "";
+    });
+}
+
+function mettreAJourChrono() {
+    millisecondes += 10;
+    if (millisecondes >= 1000) { millisecondes = 0; secondes++; }
+    if (secondes >= 60) { secondes = 0; minutes++; }
+    if (minutes >= 60) { minutes = 0; heures++; }
+
+    // Formatage avec deux chiffres (01, 02, etc.)
+    let h = heures < 10 ? "0" + heures : heures;
+    let m = minutes < 10 ? "0" + minutes : minutes;
+    let s = secondes < 10 ? "0" + secondes : secondes;
+    let ms = Math.floor(millisecondes / 10);
+    ms = ms < 10 ? "0" + ms : ms;
+
+    affichage.textContent = `${h}:${m}:${s}:${ms}`;
+}
+
+// ==========================================
+// 2. CONGO TRAVEL KINEMATICS PLANNER (JSON)
+// ==========================================
+const btnCalculer = document.getElementById('btn-calculer-voyage');
+const selectStart = document.getElementById('city-start');
+const selectEnd = document.getElementById('city-end');
+const resultatVoyage = document.getElementById('resultat-voyage');
+
+// Charger dynamiquement les gares depuis le fichier data.json
+fetch('data.json')
+    .then(response => response.json())
+    .then(data => {
+        if (selectStart && selectEnd) {
+            data.drcStations.forEach(station => {
+                let opt1 = document.createElement('option');
+                let opt2 = document.createElement('option');
+                opt1.value = opt2.value = station.id;
+                opt1.textContent = opt2.textContent = station.name;
+                
+                selectStart.appendChild(opt1);
+                selectEnd.appendChild(opt2);
+            });
+            // Sélection par défaut différente
+            if(selectEnd.options[1]) selectEnd.selectedIndex = 1;
+        }
+    })
+    .catch(err => console.error("Erreur de chargement du JSON :", err));
+
+if (btnCalculer) {
+    btnCalculer.addEventListener('click', () => {
+        const depart = selectStart.options[selectStart.selectedIndex].text;
+        const arrivee = selectEnd.options[selectEnd.selectedIndex].text;
+        const condition = document.getElementById('road-condition-select').value;
+        const mode = document.getElementById('transport-mode-select').value;
+
+        // Simulation de calcul logistique
+        let tempsEstime = "14 heures";
+        if (mode === "plane") tempsEstime = "2 heures 15 minutes";
+        if (condition === "bad" && mode !== "plane") tempsEstime = "48 heures (Alerte dégradation ⚠️)";
+
+        if (resultatVoyage) {
+            resultatVoyage.innerHTML = `<strong>Logistics Vector Computed:</strong> Deployment from <em>${depart}</em> to <em>${arrivee}</em> via <strong>${mode}</strong>. Estimated transit window: <strong>${tempsEstime}</strong>.`;
+            resultatVoyage.classList.remove('d-none');
+        }
+    });
+}
