@@ -240,3 +240,86 @@ footer {
     }
 }
 
+/* --- HEADER WITH LOGO STYLING --- */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralise logo e títulos */
+    gap: 20px; /* Espaço entre o logo e o texto */
+}
+
+.logo-area {
+    width: 60px; /* Ajuste conforme necessário */
+    height: 60px;
+}
+
+.site-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Mantém a proporção do logo */
+}
+
+.title-area {
+    text-align: left; /* Alinha o texto à esquerda quando o logo está ao lado */
+}
+
+/* --- PHOTOS GRID ON CONTACT PAGE --- */
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas iguais */
+    gap: 15px; /* Espaço entre as fotos */
+    padding: 15px;
+}
+
+.photo-item {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px; /* Cantos arredondados nas fotos */
+    border: 1px solid #e2e8f0; /* Borda sutil */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra leve */
+    text-align: center;
+}
+
+.photo-img {
+    width: 100%;
+    height: 200px; /* Define uma altura fixa para as fotos na grade */
+    object-fit: cover; /* Recorta a imagem para preencher o espaço sem distorcer */
+    display: block;
+}
+
+.photo-item figcaption {
+    background-color: white; /* Fundo para a legenda */
+    color: #1a252f;
+    padding: 10px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* --- ADICIONE ESTA CLASSE SE NÃO EXISTIR, PARA APLICAR O EFEITO DE VIDRO AO BODY --- */
+.professional-white-glass {
+    /* Fond blanc pur à 80% d'opacité */
+    background-color: rgba(255, 255, 255, 0.80) !important; 
+    
+    /* Effet flou de verre moderne */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important; 
+    
+    /* Outros estilos do body podem ir aqui se necessário, mas essa classe foca no vidro */
+}
+
+/* --- Ajuste para mobile --- */
+@media (max-width: 768px) {
+    .photos-grid {
+        grid-template-columns: 1fr; /* 1 coluna no celular */
+    }
+    
+    .header-content {
+        flex-direction: column; /* Logo acima do texto no celular */
+        text-align: center;
+    }
+    
+    .title-area {
+        text-align: center;
+    }
+}
+
