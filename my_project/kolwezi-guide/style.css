@@ -295,16 +295,12 @@ footer {
     font-weight: 600;
 }
 
-/* --- ADICIONE ESTA CLASSE SE NÃO EXISTIR, PARA APLICAR O EFEITO DE VIDRO AO BODY --- */
 .professional-white-glass {
-    /* Fond blanc pur à 80% d'opacité */
-    background-color: rgba(255, 255, 255, 0.80) !important; 
-    
-    /* Effet flou de verre moderne */
+    background: rgba(255, 255, 255, 0.80) !important; 
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important; 
-    
-    /* Outros estilos do body podem ir aqui se necessário, mas essa classe foca no vidro */
+    border-bottom: 1px solid #e2e8f0; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* --- Ajuste para mobile --- */
