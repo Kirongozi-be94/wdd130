@@ -14,7 +14,6 @@
         <div class="editor-panel no-print">
             <h2 id="ui-app-title">📝 Option de Configuration</h2>
             
-            <!-- SECTEURS DE CONFIGURATION (LANGUE & COULEUR) -->
             <div class="config-row">
                 <div class="form-group">
                     <label id="ui-lbl-lang">Langue</label>
@@ -33,9 +32,8 @@
                 </div>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+            <hr style="border: 0; border-top: 1px solid #334155; margin: 15px 0;">
 
-            <!-- FORMULAIRE DYNAMIQUE -->
             <div class="form-group">
                 <label id="ui-lbl-photo">Photo de profil</label>
                 <input type="file" id="input-photo" accept="image/*">
@@ -91,7 +89,7 @@
             </div>
             <div class="form-group">
                 <label id="ui-lbl-exp-details">Missions (Une par ligne)</label>
-                <textarea id="in-exp-details" rows="3">Diriger l'ensemble de la gestion des inventaires.\nOptimiser les bases de données logistiques.</textarea>
+                <textarea id="in-exp-details" rows="3">Diriger l'ensemble de la gestion des inventaires.&#10;Optimiser les bases de données logistiques.</textarea>
             </div>
 
             <h3 id="ui-sub-edu">🎓 Éducation</h3>
@@ -111,9 +109,8 @@
             <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️ Télécharger le CV en PDF</button>
         </div>
 
-        <!-- PANNEAU APERÇU (Le CV Réel au format A4) -->
+        <!-- PANNEAU APERÇU -->
         <div class="preview-panel">
-            <!-- La classe du thème sera injectée ici par JS (ex: theme-navy, theme-emerald...) -->
             <div id="cv-target" class="cv-container theme-navy">
                 <header>
                     <div class="header-grid">

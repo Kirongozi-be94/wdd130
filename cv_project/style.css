@@ -2,28 +2,24 @@
    ARCHITECTURE DES THÈMES DE COULEURS VIA VARIABLES CSS
    ========================================================================== */
 
-/* Thème 1 : Midnight Navy (Par défaut) */
 .theme-navy {
-    --primary-color: #0f172a;  /* Bleu nuit profond */
-    --accent-color: #475569;   /* Gris acier */
-    --text-light: #94a3b8;     /* Gris lumineux */
+    --primary-color: #0f172a;  
+    --accent-color: #475569;   
+    --text-light: #94a3b8;     
 }
 
-/* Thème 2 : Emerald Green (Ambiance Émeraude / Corporate Durable) */
 .theme-emerald {
-    --primary-color: #064e3b;  /* Vert forêt très sombre */
-    --accent-color: #059669;   /* Vert émeraude sobre */
-    --text-light: #a7f3d0;     /* Menthe douce claire */
+    --primary-color: #064e3b;  
+    --accent-color: #059669;   
+    --text-light: #a7f3d0;     
 }
 
-/* Thème 3 : Executive Ruby (Ambiance Bordeaux / Haute direction) */
 .theme-ruby {
-    --primary-color: #450a0a;  /* Rouge bordeaux très élégant */
-    --accent-color: #b91c1c;   /* Rouge sombre */
-    --text-light: #fca5a5;     /* Rose poudré très léger */
+    --primary-color: #450a0a;  
+    --accent-color: #b91c1c;   
+    --text-light: #fca5a5;     
 }
 
-/* Style de l'Application */
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #0f172a;
@@ -38,7 +34,7 @@ body {
     width: 35%; min-width: 330px; background-color: #1e293b; color: #f8fafc;
     padding: 25px; overflow-y: auto; box-sizing: border-box;
 }
-.editor-panel h2 { margin-top: 0; font-size: 18px; color: #38bdf8; text-transform: uppercase;}
+.editor-panel h2 { margin-top: 0; font-size: 16px; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px;}
 .editor-panel h3 { font-size: 13px; color: #94a3b8; text-transform: uppercase; margin-top: 25px; border-bottom: 1px solid #334155; padding-bottom: 5px;}
 .config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
 .form-group { margin-bottom: 12px; }
@@ -55,11 +51,11 @@ body {
 
 /* APPLICATION DYNAMIQUE DES VARIABLES DANS LE CV */
 header {
-    background-color: var(--primary-color); /* Dynamique */
+    background-color: var(--primary-color); 
     color: #ffffff;
     padding: 35px 40px;
-    border-bottom: 3px solid var(--accent-color); /* Dynamique */
-    transition: all 0.3s ease;
+    border-bottom: 3px solid var(--accent-color); 
+    transition: all 0.2s ease;
 }
 .header-grid { display: grid; grid-template-columns: 100px 1fr; gap: 30px; align-items: center; }
 .photo-container { width: 100px; height: 130px; border: 1px solid var(--accent-color); background-color: #1e293b; overflow: hidden; }
@@ -74,9 +70,9 @@ header .contacts, header .links { font-size: 11px; color: #cbd5e1; margin-top: 5
 .section { margin-bottom: 20px; }
 .section-title {
     font-size: 11.5px; font-weight: 700; 
-    color: var(--primary-color); /* Dynamique */
+    color: var(--primary-color); 
     text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 10px; letter-spacing: 1px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 p { margin: 0; font-size: 11.5px; line-height: 1.6; color: #334155; }
 .comp-group { font-size: 11.5px; }
