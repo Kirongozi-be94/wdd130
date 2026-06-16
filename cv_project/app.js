@@ -1,4 +1,4 @@
-// Dictionnaire bilingue pour l'interface de saisie et les titres fixes du CV
+// Dictionnaire bilingue complet pour l'éditeur et l'aperçu du CV
 const dictionnaire = {
     fr: {
         app_title: "📝 Configuration du CV",
@@ -24,7 +24,7 @@ const dictionnaire = {
         lbl_edu_details: "Établissement / Précisions",
         btn_print: "🖨️ Télécharger le CV en PDF",
         
-        // Titres sur le CV réel
+        // Titres fixes affichés sur le CV
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Profil Professionnel",
         cv_sec_comp: "Matrice des Compétences",
@@ -57,7 +57,7 @@ const dictionnaire = {
         lbl_edu_details: "University / Institution",
         btn_print: "🖨️ Download CV as PDF",
         
-        // Titres sur le CV réel
+        // Titres fixes affichés sur le CV
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Professional Summary",
         cv_sec_comp: "Skills Matrix",
@@ -74,11 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectTheme = document.getElementById("select-theme");
     const cvTarget = document.getElementById("cv-target");
 
-    // 1. Fonction de traduction de l'interface
+    // 1. Fonction d'application de la langue sélectionnée
     function appliquerLangue(langue) {
         const txt = dictionnaire[langue];
         
-        // Traduction des labels de l'éditeur
+        // Mise à jour de l'interface d'édition
         document.getElementById("ui-app-title").textContent = txt.app_title;
         document.getElementById("ui-lbl-lang").textContent = txt.lbl_lang;
         document.getElementById("ui-lbl-theme").textContent = txt.lbl_theme;
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("ui-lbl-edu-details").textContent = txt.lbl_edu_details;
         document.getElementById("ui-btn-print").textContent = txt.btn_print;
 
-        // Traduction des en-têtes du CV réel
+        // Mise à jour des titres de blocs sur le document CV
         document.getElementById("ui-cv-photo-lbl").textContent = txt.cv_photo_lbl;
         document.getElementById("cv-sec-profil").textContent = txt.cv_sec_profil;
         document.getElementById("cv-sec-comp").textContent = txt.cv_sec_comp;
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cv-lbl-comp2").textContent = txt.cv_lbl_comp2;
     }
 
-    // 2. Fonction de rafraîchissement des textes saisis
+    // 2. Récupération des données utilisateur et actualisation de l'aperçu
     function updatePreview() {
         document.getElementById("cv-nom").textContent = document.getElementById("in-nom").value.toUpperCase();
         document.getElementById("cv-titre").textContent = document.getElementById("in-titre").value.toUpperCase();
@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cv-exp-cie").textContent = document.getElementById("in-exp-cie").value;
         document.getElementById("cv-exp-dates").textContent = document.getElementById("in-exp-dates").value;
         
+        // Traitement de l'affichage des lignes de missions en puces HTML
         const lignesMission = document.getElementById("in-exp-details").value.split('\n');
         const ulMissions = document.getElementById("cv-exp-details");
         ulMissions.innerHTML = "";
@@ -142,17 +143,17 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cv-edu-details").textContent = document.getElementById("in-edu-details").value;
     }
 
-    // 3. Écouteur pour le changement de Thème couleur
+    // 3. Écouteur du sélecteur de style graphique
     selectTheme.addEventListener("change", (e) => {
         cvTarget.className = "cv-container " + e.target.value;
     });
 
-    // 4. Écouteur pour le changement de Langue
+    // 4. Écouteur du sélecteur bilingue
     selectLang.addEventListener("change", (e) => {
         appliquerLangue(e.target.value);
     });
 
-    // 5. Gestion de l'upload d'image en Base64
+    // 5. Traitement de l'image de profil utilisateur (Conversion Base64)
     const inputPhoto = document.getElementById("input-photo");
     inputPhoto.addEventListener("change", function() {
         const fichier = this.files[0];
@@ -169,13 +170,47 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Écoute de la saisie sur tous les champs
+    // 6. Gestionnaire de reconnaissance automatique de texte (OCR via Tesseract.js)
+    const inputOcr = document.getElementById("input-ocr");
+    const ocrStatus = document.getElementById("ocr-status");
+    const ocrResult = document.getElementById("ocr-result");
+
+    inputOcr.addEventListener("change", function() {
+        const fichier = this.files[0];
+        if (fichier) {
+            ocrStatus.textContent = "⏳ Le programme analyse le document...";
+            ocrStatus.style.color = "#fbbf24";
+            ocrResult.value = "";
+
+            Tesseract.recognize(
+                fichier,
+                'fra+eng', // Analyse bilingue simultanée
+                { 
+                    logger: m => {
+                        if (m.status === 'recognizing text') {
+                            ocrStatus.textContent = `⏳ Analyse en cours : ${Math.round(m.progress * 100)}%`;
+                        }
+                    } 
+                }
+            ).then(({ data: { text } }) => {
+                ocrStatus.textContent = "✅ Lecture réussie ! Le texte est extrait ci-dessous.";
+                ocrStatus.style.color = "#34d399";
+                ocrResult.value = text; // Le programme écrit automatiquement ce qu'il a lu
+            }).catch(err => {
+                ocrStatus.textContent = "❌ Impossible de lire ce document.";
+                ocrStatus.style.color = "#f87171";
+                console.error(err);
+            });
+        }
+    });
+
+    // Synchronisation en direct de la saisie utilisateur avec l'aperçu
     const allInputs = document.querySelectorAll(".editor-panel input, .editor-panel textarea");
     allInputs.forEach(input => {
         input.addEventListener("input", updatePreview);
     });
 
-    // Démarrage initial
+    // Initialisation par défaut de l'application
     appliquerLangue("fr");
     updatePreview();
 });

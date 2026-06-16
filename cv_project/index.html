@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de CV Universel Multi-Thèmes</title>
+    <title>Générateur de CV Universel Multi-Thèmes & OCR</title>
+    <!-- Importation du moteur de reconnaissance de texte (OCR) -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="app-container">
         
-        <!-- PANNEAU ÉDITEUR (Masqué à l'impression) -->
+        <!-- PANNEAU ÉDITEUR (Masqué lors de l'impression PDF) -->
         <div class="editor-panel no-print">
             <h2 id="ui-app-title">📝 Option de Configuration</h2>
             
+            <!-- CONFIGURATION DE L'INTERFACE -->
             <div class="config-row">
                 <div class="form-group">
                     <label id="ui-lbl-lang">Langue</label>
@@ -32,8 +35,21 @@
                 </div>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid #334155; margin: 15px 0;">
+            <!-- MODULE DE LECTURE AUTOMATIQUE D'ANCIEN CV -->
+            <div class="form-group" style="background-color: #0f172a; padding: 12px; border-radius: 4px; border: 1px dashed #38bdf8; margin-top: 15px;">
+                <label style="color: #38bdf8; font-weight: bold;">🤖 Scanner un ancien CV (Image)</label>
+                <input type="file" id="input-ocr" accept="image/*" style="margin-top: 5px;">
+                <div id="ocr-status" style="font-size: 11px; color: #94a3b8; margin-top: 6px;">En attente d'un document...</div>
+            </div>
 
+            <div class="form-group">
+                <label>Texte extrait par l'application :</label>
+                <textarea id="ocr-result" rows="4" placeholder="Le texte lu dans votre image s'écrira ici tout seul..." style="background-color: #0f172a; color: #38bdf8; font-family: monospace; font-size: 11px; resize: vertical;"></textarea>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+
+            <!-- FORMULAIRE DE SAISIE DYNAMIQUE -->
             <div class="form-group">
                 <label id="ui-lbl-photo">Photo de profil</label>
                 <input type="file" id="input-photo" accept="image/*">
@@ -56,18 +72,18 @@
 
             <div class="form-group">
                 <label id="ui-lbl-liens">Liens (Email, GitHub)</label>
-                <input type="text" id="in-liens" value="Email: monadresse@gmail.com">
+                <input type="text" id="in-liens" value="Email: monadresse@gmail.com  |  GitHub: github.com">
             </div>
 
             <div class="form-group">
                 <label id="ui-lbl-profil">Accroche Professionnelle</label>
-                <textarea id="in-profil" rows="3">Expert chevronné en gestion logistique avec plus de 10 ans d'expérience...</textarea>
+                <textarea id="in-profil" rows="3">Expert chevronné en gestion logistique, maintenance et sécurité industrielle avec plus de 10 ans d'expérience dans les secteurs miniers et industriels.</textarea>
             </div>
 
             <h3 id="ui-sub-comp">🛠️ Compétences</h3>
             <div class="form-group">
                 <label id="ui-lbl-comp1">Expertises Métier</label>
-                <input type="text" id="in-comp1" value="Gestion des stocks, HSE, Audits, Inventaires">
+                <input type="text" id="in-comp1" value="Gestion des stocks, HSE, Audits, Inventaires, Supervisions">
             </div>
             <div class="form-group">
                 <label id="ui-lbl-comp2">Technologies & Outils</label>
@@ -77,7 +93,7 @@
             <h3 id="ui-sub-exp">💼 Expérience</h3>
             <div class="form-group">
                 <label id="ui-lbl-exp-titre">Poste Occupé</label>
-                <input type="text" id="in-exp-titre" value="Chief Storekeeper (Gestionnaire Principal)">
+                <input type="text" id="in-exp-titre" value="Chief Storekeeper (Gestionnaire Principal des Stocks)">
             </div>
             <div class="form-group">
                 <label id="ui-lbl-exp-cie">Entreprise & Ville</label>
@@ -89,7 +105,7 @@
             </div>
             <div class="form-group">
                 <label id="ui-lbl-exp-details">Missions (Une par ligne)</label>
-                <textarea id="in-exp-details" rows="3">Diriger l'ensemble de la gestion des inventaires.&#10;Optimiser les bases de données logistiques.</textarea>
+                <textarea id="in-exp-details" rows="3">Diriger l'ensemble de la gestion des inventaires et des flux logistiques.&#10;Garantir l'application stricte des normes HSE et de sécurité industrielle.&#10;Optimiser les bases de données d'approvisionnement.</textarea>
             </div>
 
             <h3 id="ui-sub-edu">🎓 Éducation</h3>
@@ -103,13 +119,13 @@
             </div>
             <div class="form-group">
                 <label id="ui-lbl-edu-details">Établissement / Précisions</label>
-                <input type="text" id="in-edu-details" value="Focus Académique : Architectures logicielles.">
+                <input type="text" id="in-edu-details" value="Focus Académique : Algorithmique, architectures logicielles et web.">
             </div>
 
             <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️ Télécharger le CV en PDF</button>
         </div>
 
-        <!-- PANNEAU APERÇU -->
+        <!-- PANNEAU APERÇU (Le rendu final A4) -->
         <div class="preview-panel">
             <div id="cv-target" class="cv-container theme-navy">
                 <header>
