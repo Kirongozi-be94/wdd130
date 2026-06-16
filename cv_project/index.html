@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de CV Universel Multi-Thèmes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- PANNEAU ÉDITEUR (Masqué à l'impression) -->
+        <div class="editor-panel no-print">
+            <h2 id="ui-app-title">📝 Option de Configuration</h2>
+            
+            <!-- SECTEURS DE CONFIGURATION (LANGUE & COULEUR) -->
+            <div class="config-row">
+                <div class="form-group">
+                    <label id="ui-lbl-lang">Langue</label>
+                    <select id="select-lang">
+                        <option value="fr">Français 🇫🇷</option>
+                        <option value="en">English 🇬🇧</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="ui-lbl-theme">Style / Couleur</label>
+                    <select id="select-theme">
+                        <option value="theme-navy">Midnight Navy</option>
+                        <option value="theme-emerald">Emerald Green</option>
+                        <option value="theme-ruby">Executive Ruby</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+
+            <!-- FORMULAIRE DYNAMIQUE -->
+            <div class="form-group">
+                <label id="ui-lbl-photo">Photo de profil</label>
+                <input type="file" id="input-photo" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label id="ui-lbl-nom">Nom complet</label>
+                <input type="text" id="in-nom" value="BENJAMIN KIRONGOZI MAZUYA">
+            </div>
+
+            <div class="form-group">
+                <label id="ui-lbl-titre">Titre du poste / Profil</label>
+                <input type="text" id="in-titre" value="LOGISTICS SPECIALIST & SOFTWARE SYSTEMS DEVELOPER">
+            </div>
+
+            <div class="form-group">
+                <label id="ui-lbl-contacts">Contacts (Adresse, Tél)</label>
+                <input type="text" id="in-contacts" value="Kolwezi, Lualaba, RDC  |  +243 890 924 824">
+            </div>
+
+            <div class="form-group">
+                <label id="ui-lbl-liens">Liens (Email, GitHub)</label>
+                <input type="text" id="in-liens" value="Email: monadresse@gmail.com">
+            </div>
+
+            <div class="form-group">
+                <label id="ui-lbl-profil">Accroche Professionnelle</label>
+                <textarea id="in-profil" rows="3">Expert chevronné en gestion logistique avec plus de 10 ans d'expérience...</textarea>
+            </div>
+
+            <h3 id="ui-sub-comp">🛠️ Compétences</h3>
+            <div class="form-group">
+                <label id="ui-lbl-comp1">Expertises Métier</label>
+                <input type="text" id="in-comp1" value="Gestion des stocks, HSE, Audits, Inventaires">
+            </div>
+            <div class="form-group">
+                <label id="ui-lbl-comp2">Technologies & Outils</label>
+                <input type="text" id="in-comp2" value="Python, JavaScript, HTML5/CSS3, Git & GitHub">
+            </div>
+
+            <h3 id="ui-sub-exp">💼 Expérience</h3>
+            <div class="form-group">
+                <label id="ui-lbl-exp-titre">Poste Occupé</label>
+                <input type="text" id="in-exp-titre" value="Chief Storekeeper (Gestionnaire Principal)">
+            </div>
+            <div class="form-group">
+                <label id="ui-lbl-exp-cie">Entreprise & Ville</label>
+                <input type="text" id="in-exp-cie" value="Complexe Industriel & Minier - Kolwezi">
+            </div>
+            <div class="form-group">
+                <label id="ui-lbl-exp-dates">Dates</label>
+                <input type="text" id="in-exp-dates" value="Nov 2019 - Présent">
+            </div>
+            <div class="form-group">
+                <label id="ui-lbl-exp-details">Missions (Une par ligne)</label>
+                <textarea id="in-exp-details" rows="3">Diriger l'ensemble de la gestion des inventaires.\nOptimiser les bases de données logistiques.</textarea>
+            </div>
+
+            <h3 id="ui-sub-edu">🎓 Éducation</h3>
+            <div class="form-group">
+                <label id="ui-lbl-edu-titre">Diplôme obtenu ou visé</label>
+                <input type="text" id="in-edu-titre" value="Bachelor of Science in Software Development">
+            </div>
+            <div class="form-group">
+                <label id="ui-lbl-edu-dates">Années</label>
+                <input type="text" id="in-edu-dates" value="2024 - 2027">
+            </div>
+            <div class="form-group">
+                <label id="ui-lbl-edu-details">Établissement / Précisions</label>
+                <input type="text" id="in-edu-details" value="Focus Académique : Architectures logicielles.">
+            </div>
+
+            <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️ Télécharger le CV en PDF</button>
+        </div>
+
+        <!-- PANNEAU APERÇU (Le CV Réel au format A4) -->
+        <div class="preview-panel">
+            <!-- La classe du thème sera injectée ici par JS (ex: theme-navy, theme-emerald...) -->
+            <div id="cv-target" class="cv-container theme-navy">
+                <header>
+                    <div class="header-grid">
+                        <div class="photo-container">
+                            <img id="cv-photo" src="" alt="Profil" style="display:none;">
+                            <div id="photo-placeholder" class="photo-blank"><span id="ui-cv-photo-lbl">PHOTO</span></div>
+                        </div>
+                        <div class="header-text">
+                            <h1 id="cv-nom"></h1>
+                            <div class="subtitle" id="cv-titre"></div>
+                            <div class="contacts" id="cv-contacts"></div>
+                            <div class="links" id="cv-liens"></div>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="cv-content">
+                    <section class="section">
+                        <h2 class="section-title" id="cv-sec-profil">Profil Professionnel</h2>
+                        <p id="cv-profil"></p>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title" id="cv-sec-comp">Matrice des Compétences</h2>
+                        <div class="comp-group">
+                            <strong id="cv-lbl-comp1">Expertises :</strong> <span id="cv-comp1"></span>
+                        </div>
+                        <div class="comp-group" style="margin-top: 8px;">
+                            <strong id="cv-lbl-comp2">Technologies :</strong> <span id="cv-comp2"></span>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title" id="cv-sec-exp">Expérience Professionnelle</h2>
+                        <div class="item">
+                            <div class="item-header">
+                                <span class="item-title" id="cv-exp-titre"></span>
+                                <span class="item-date" id="cv-exp-dates"></span>
+                            </div>
+                            <div class="item-sub" id="cv-exp-cie"></div>
+                            <ul class="item-details" id="cv-exp-details"></ul>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title" id="cv-sec-edu">Éducation & Formation</h2>
+                        <div class="item">
+                            <div class="item-header">
+                                <span class="item-title" id="cv-edu-titre"></span>
+                                <span class="item-date" id="cv-edu-dates"></span>
+                            </div>
+                            <div class="item-sub" id="cv-edu-details" style="font-style:normal; color:#334155; margin-top:4px;"></div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
