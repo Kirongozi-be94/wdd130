@@ -1,70 +1,133 @@
-body {
+/* ==========================================
+   1. VARIABLES STANDARDS (CHARTE GRAPHIQUE)
+   ========================================== */
+:root {
+    /* Couleurs principales (Inspirées du logo BKM Nexus) */
+    --bg-main: #0a192f;
+    --bg-sidebar: #020c1b;
+    --accent-blue: #00A2FF;
+    --accent-neon: #00C8FF;
+    --text-primary: #ffffff;
+    --text-muted: #8A99AD;
+    --border-color: #1e293b;
+
+    /* Polices et Espacements */
+    --font-stack: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* ==========================================
+   2. RE-INITIALISATION (RESET)
+   ========================================== */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     display: flex;
     height: 100vh;
     overflow: hidden;
-    background-color: #1a1a1a;
-    color: white;
 }
 
+/* ==========================================
+   3. BARRE LATÉRALE (SIDEBAR)
+   ========================================== */
 #sidebar {
-    width: 300px;
-    background-color: #252526;
+    width: 320px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
     padding: 20px;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    z-index: 10;
+    gap: 15px;
+    overflow-y: auto;
 }
 
-h2 {
-    color: #0078d4;
-    font-size: 1.2rem;
-    margin-top: 15px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
+/* Intégration du Logo BKM */
+#brand-container {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 10px;
 }
 
-label {
+#app-logo {
+    max-width: 85%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+}
+
+#app-logo:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(0, 162, 255, 0.3);
+}
+
+/* Titres et Formulaires */
+#sidebar h2 {
+    font-size: 1.1rem;
+    color: var(--accent-neon);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#sidebar label {
     font-size: 0.9rem;
-    color: #ccc;
+    color: var(--text-muted);
+    margin-bottom: -5px;
 }
 
-input {
-    background-color: #333;
-    border: 1px solid #555;
-    color: white;
-    padding: 8px;
-    border-radius: 4px;
+#sidebar input {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius);
+    font-family: inherit;
+    transition: var(--transition);
 }
 
-button {
-    background-color: #0078d4;
+#sidebar input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 5px rgba(0, 162, 255, 0.5);
+}
+
+/* Bouton principal */
+#btnCalculer {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-blue);
     color: white;
     border: none;
-    padding: 12px;
+    border-radius: var(--radius);
     font-weight: bold;
-    border-radius: 4px;
     cursor: pointer;
+    transition: var(--transition);
     margin-top: 10px;
-    transition: background 0.2s;
 }
 
-button:hover {
-    background-color: #005a9e;
+#btnCalculer:hover {
+    background-color: #0086d4;
+    box-shadow: 0 0 10px rgba(0, 162, 255, 0.4);
 }
 
-#resultats {
-    margin-top: 15px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
+/* ==========================================
+   4. ZONE DU MOTEUR 3D (CANVAS)
+   ========================================== */
 #canvas-container {
-    flex-grow: 1;
+    flex: 1;
     height: 100%;
     position: relative;
+    background-color: #050505;
+    /* Sécurité si Three.js met du temps à s'allumer */
 }
