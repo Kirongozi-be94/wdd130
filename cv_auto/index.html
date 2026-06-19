@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de CV Universel Multi-Thèmes & OCR</title>
-    <!-- Importation du moteur de reconnaissance de texte (OCR) -->
+    <title>Générateur de CV Universel Multi-Thèmes & OCR (SaaS)</title>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="app-container">
-        
-        <!-- PANNEAU ÉDITEUR (Masqué lors de l'impression PDF) -->
+
         <div class="editor-panel no-print">
             <h2 id="ui-app-title">📝 Option de Configuration</h2>
-            
-            <!-- CONFIGURATION DE L'INTERFACE -->
+
             <div class="config-row">
                 <div class="form-group">
                     <label id="ui-lbl-lang">Langue</label>
@@ -28,28 +28,33 @@
                 <div class="form-group">
                     <label id="ui-lbl-theme">Style / Couleur</label>
                     <select id="select-theme">
-                        <option value="theme-navy">Midnight Navy</option>
-                        <option value="theme-emerald">Emerald Green</option>
-                        <option value="theme-ruby">Executive Ruby</option>
+                        <option value="theme-navy">Midnight Navy (Gratuit)</option>
+                        <option value="theme-emerald">Emerald Green (Gratuit)</option>
+                        <option value="theme-ruby" data-premium="true">👑 Executive Ruby (Premium)
+                        </option>
+                        <option value="theme-gold" data-premium="true">👑 Luxury Gold (Premium)
+                        </option>
                     </select>
                 </div>
             </div>
 
-            <!-- MODULE DE LECTURE AUTOMATIQUE D'ANCIEN CV -->
-            <div class="form-group" style="background-color: #0f172a; padding: 12px; border-radius: 4px; border: 1px dashed #38bdf8; margin-top: 15px;">
-                <label style="color: #38bdf8; font-weight: bold;">🤖 Scanner un ancien CV (Image)</label>
+            <div class="form-group ocr-box">
+                <label style="color: #38bdf8; font-weight: bold;">🤖 Scanner un ancien CV
+                    (Image)</label>
                 <input type="file" id="input-ocr" accept="image/*" style="margin-top: 5px;">
-                <div id="ocr-status" style="font-size: 11px; color: #94a3b8; margin-top: 6px;">En attente d'un document...</div>
+                <div id="ocr-status" style="font-size: 11px; color: #94a3b8; margin-top: 6px;">En
+                    attente d'un document...</div>
             </div>
 
             <div class="form-group">
                 <label>Texte extrait par l'application :</label>
-                <textarea id="ocr-result" rows="4" placeholder="Le texte lu dans votre image s'écrira ici tout seul..." style="background-color: #0f172a; color: #38bdf8; font-family: monospace; font-size: 11px; resize: vertical;"></textarea>
+                <textarea id="ocr-result" rows="4"
+                  placeholder="Le texte lu dans votre image s'écrira ici tout seul..."
+                  style="background-color: #0f172a; color: #38bdf8; font-family: monospace; font-size: 11px; resize: vertical;"></textarea>
             </div>
 
             <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
 
-            <!-- FORMULAIRE DE SAISIE DYNAMIQUE -->
             <div class="form-group">
                 <label id="ui-lbl-photo">Photo de profil</label>
                 <input type="file" id="input-photo" accept="image/*">
@@ -62,38 +67,45 @@
 
             <div class="form-group">
                 <label id="ui-lbl-titre">Titre du poste / Profil</label>
-                <input type="text" id="in-titre" value="LOGISTICS SPECIALIST & SOFTWARE SYSTEMS DEVELOPER">
+                <input type="text" id="in-titre"
+                  value="LOGISTICS SPECIALIST & SOFTWARE SYSTEMS DEVELOPER">
             </div>
 
             <div class="form-group">
                 <label id="ui-lbl-contacts">Contacts (Adresse, Tél)</label>
-                <input type="text" id="in-contacts" value="Kolwezi, Lualaba, RDC  |  +243 890 924 824">
+                <input type="text" id="in-contacts"
+                  value="Kolwezi, Lualaba, RDC  |  +243 890 924 824">
             </div>
 
             <div class="form-group">
                 <label id="ui-lbl-liens">Liens (Email, GitHub)</label>
-                <input type="text" id="in-liens" value="Email: monadresse@gmail.com  |  GitHub: github.com">
+                <input type="text" id="in-liens"
+                  value="Email: monadresse@gmail.com  |  GitHub: github.com">
             </div>
 
             <div class="form-group">
                 <label id="ui-lbl-profil">Accroche Professionnelle</label>
-                <textarea id="in-profil" rows="3">Expert chevronné en gestion logistique, maintenance et sécurité industrielle avec plus de 10 ans d'expérience dans les secteurs miniers et industriels.</textarea>
+                <textarea id="in-profil"
+                  rows="3">Expert chevronné en gestion logistique, maintenance et sécurité industrielle avec plus de 10 ans d'expérience dans les secteurs miniers et industriels.</textarea>
             </div>
 
             <h3 id="ui-sub-comp">🛠️ Compétences</h3>
             <div class="form-group">
                 <label id="ui-lbl-comp1">Expertises Métier</label>
-                <input type="text" id="in-comp1" value="Gestion des stocks, HSE, Audits, Inventaires, Supervisions">
+                <input type="text" id="in-comp1"
+                  value="Gestion des stocks, HSE, Audits, Inventaires, Supervisions">
             </div>
             <div class="form-group">
                 <label id="ui-lbl-comp2">Technologies & Outils</label>
-                <input type="text" id="in-comp2" value="Python, JavaScript, HTML5/CSS3, Git & GitHub">
+                <input type="text" id="in-comp2"
+                  value="Python, JavaScript, HTML5/CSS3, Git & GitHub">
             </div>
 
             <h3 id="ui-sub-exp">💼 Expérience</h3>
             <div class="form-group">
                 <label id="ui-lbl-exp-titre">Poste Occupé</label>
-                <input type="text" id="in-exp-titre" value="Chief Storekeeper (Gestionnaire Principal des Stocks)">
+                <input type="text" id="in-exp-titre"
+                  value="Chief Storekeeper (Gestionnaire Principal des Stocks)">
             </div>
             <div class="form-group">
                 <label id="ui-lbl-exp-cie">Entreprise & Ville</label>
@@ -105,13 +117,15 @@
             </div>
             <div class="form-group">
                 <label id="ui-lbl-exp-details">Missions (Une par ligne)</label>
-                <textarea id="in-exp-details" rows="3">Diriger l'ensemble de la gestion des inventaires et des flux logistiques.&#10;Garantir l'application stricte des normes HSE et de sécurité industrielle.&#10;Optimiser les bases de données d'approvisionnement.</textarea>
+                <textarea id="in-exp-details"
+                  rows="3">Diriger l'ensemble de la gestion des inventaires et des flux logistiques.&#10;Garantir l'application stricte des normes HSE et de sécurité industrielle.&#10;Optimiser les bases de données d'approvisionnement.</textarea>
             </div>
 
             <h3 id="ui-sub-edu">🎓 Éducation</h3>
             <div class="form-group">
                 <label id="ui-lbl-edu-titre">Diplôme obtenu ou visé</label>
-                <input type="text" id="in-edu-titre" value="Bachelor of Science in Software Development">
+                <input type="text" id="in-edu-titre"
+                  value="Bachelor of Science in Software Development">
             </div>
             <div class="form-group">
                 <label id="ui-lbl-edu-dates">Années</label>
@@ -119,20 +133,26 @@
             </div>
             <div class="form-group">
                 <label id="ui-lbl-edu-details">Établissement / Précisions</label>
-                <input type="text" id="in-edu-details" value="Focus Académique : Algorithmique, architectures logicielles et web.">
+                <input type="text" id="in-edu-details"
+                  value="Focus Académique : Algorithmique, architectures logicielles et web.">
             </div>
 
-            <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️ Télécharger le CV en PDF</button>
+            <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️
+                Télécharger le CV en PDF</button>
         </div>
 
-        <!-- PANNEAU APERÇU (Le rendu final A4) -->
         <div class="preview-panel">
             <div id="cv-target" class="cv-container theme-navy">
+
+                <div id="cv-watermark" class="watermark-premium">CV_Auto byu-tools.com
+                </div>
+
                 <header>
                     <div class="header-grid">
                         <div class="photo-container">
                             <img id="cv-photo" src="" alt="Profil" style="display:none;">
-                            <div id="photo-placeholder" class="photo-blank"><span id="ui-cv-photo-lbl">PHOTO</span></div>
+                            <div id="photo-placeholder" class="photo-blank"><span
+                                  id="ui-cv-photo-lbl">PHOTO</span></div>
                         </div>
                         <div class="header-text">
                             <h1 id="cv-nom"></h1>
@@ -152,10 +172,12 @@
                     <section class="section">
                         <h2 class="section-title" id="cv-sec-comp">Matrice des Compétences</h2>
                         <div class="comp-group">
-                            <strong id="cv-lbl-comp1">Expertises :</strong> <span id="cv-comp1"></span>
+                            <strong id="cv-lbl-comp1">Expertises :</strong> <span
+                              id="cv-comp1"></span>
                         </div>
                         <div class="comp-group" style="margin-top: 8px;">
-                            <strong id="cv-lbl-comp2">Technologies :</strong> <span id="cv-comp2"></span>
+                            <strong id="cv-lbl-comp2">Technologies :</strong> <span
+                              id="cv-comp2"></span>
                         </div>
                     </section>
 
@@ -178,7 +200,8 @@
                                 <span class="item-title" id="cv-edu-titre"></span>
                                 <span class="item-date" id="cv-edu-dates"></span>
                             </div>
-                            <div class="item-sub" id="cv-edu-details" style="font-style:normal; color:#334155; margin-top:4px;"></div>
+                            <div class="item-sub" id="cv-edu-details"
+                              style="font-style:normal; color:#334155; margin-top:4px;"></div>
                         </div>
                     </section>
                 </main>
@@ -186,10 +209,27 @@
         </div>
 
     </div>
-    <div class="no-print" style="text-align: center; padding: 20px; color: #64748b; font-size: 12px; font-family: sans-serif;">
-        Application développée par © 2026 <strong>Benjamin K. Mazuya</strong>
+
+    <div id="paywall-modal" class="paywall-overlay no-print" style="display: none;">
+        <div class="paywall-card">
+            <div class="crown-icon">👑</div>
+            <h2 id="pw-title">Débloquez l'Espace Premium</h2>
+            <p id="pw-text">Activez l'accès illimité à tous nos thèmes de design haute définition et
+                supprimez définitivement le filigrane sur vos impressions PDF.</p>
+            <div class="paywall-price">$4.99 <span style="font-size:14px; color:#94a3b8;">/ à
+                    vie</span></div>
+            <button id="btn-pay-now" class="btn-pay" onclick="declencherPaiement()">💳 Activer
+                maintenant via Mobile Money / Carte</button>
+            <button class="btn-close" onclick="fermerPaywall()">Plus tard</button>
+        </div>
+    </div>
+
+    <div class="no-print"
+      style="text-align: center; padding: 20px; color: #64748b; font-size: 12px; font-family: sans-serif;">
+        © 2026 <strong>Benjamin K. Mazuya</strong>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>
