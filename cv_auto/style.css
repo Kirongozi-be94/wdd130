@@ -147,7 +147,7 @@ body {
     background-color: #b45309;
 }
 
-/* GRILLE DES PETITS BOUTONS MOBILE MONEY SECONDATIRES */
+/* GRILLE DES PETITS BOUTONS MOBILE MONEY SECONDAIRES */
 .momo-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -376,6 +376,17 @@ p {
    OPTIMISATION DE LA SORTIE PDF LORS DE L'IMPRESSION
    ========================================================================== */
 @media print {
+
+    /* Enlève les marges de la feuille pour éliminer les en-têtes/pieds de page du navigateur */
+    @page {
+        margin: 0;
+    }
+
+    /* Ajoute un espacement autour du corps de la page pour éviter que le contenu touche les bords physiques */
+    body {
+        padding: 20mm;
+        background-color: transparent;
+    }
 
     .editor-panel,
     .no-print,
