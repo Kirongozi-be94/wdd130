@@ -1,7 +1,7 @@
 /**
  * CV_Auto - Main Application Script
  * Developer: Benjamin K. Mazuya
- * Features: Multi-theme rendering, Bilingual support, OCR Scanner, and illicocash SaaS Paywall alongside PDF button
+ * Features: Multi-theme rendering, Bilingual support, OCR Scanner, and Multi-Gateway MoMo integration ($1.99 with 3-day trial)
  */
 
 const dictionary = {
@@ -28,7 +28,7 @@ const dictionary = {
         lbl_edu_dates: "Années",
         lbl_edu_details: "Établissement / Précisions",
         btn_print: "🖨️ Imprimer PDF",
-        btn_premium: "👑 Activer Premium",
+        btn_premium: "👑 Essai 3j puis $1.99",
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Profil Professionnel",
         cv_sec_comp: "Matrice des Compétences",
@@ -60,7 +60,7 @@ const dictionary = {
         lbl_edu_dates: "Years",
         lbl_edu_details: "University / Institution",
         btn_print: "🖨️ Print PDF",
-        btn_premium: "👑 Go Premium",
+        btn_premium: "👑 3d Trial then $1.99",
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Professional Summary",
         cv_sec_comp: "Skills Matrix",
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("ui-btn-print").textContent = txt.btn_print;
         
         if(!userHasPaid) {
-            document.getElementById("btn-pay-now").textContent = txt.btn_premium + " ($1.99)";
+            document.getElementById("btn-pay-now").textContent = txt.btn_premium;
         }
 
         document.getElementById("ui-cv-photo-lbl").textContent = txt.cv_photo_lbl;
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isPremium = selectedOption.getAttribute("data-premium") === "true";
 
         if (isPremium && !userHasPaid) {
-            alert("⚠️ Ce thème est Premium. Veuillez l'activer en cliquant sur le bouton 'Activer Premium' à côté du bouton PDF.");
+            alert("⚠️ Ce thème exige l'activation Premium. Profitez de nos 3 jours gratuits (puis $1.99) en activant l'offre via l'un des boutons de paiement.");
             selectTheme.value = "theme-navy";
             cvTarget.className = "cv-container theme-navy";
         } else {
@@ -220,20 +220,21 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePreview();
 });
 
-window.declencherPaiement = function() {
+// PASSAGE DU FLUX À LA NOUVELLE STRATÉGIE DE 3 JOURS GRATUITS PUIS $1.99
+window.declencherPaiement = function(gatewayName = 'illicocash', defaultNumber = '+243973292227') {
     if(userHasPaid) {
-        alert("🎉 Votre compte est déjà Premium ! Modification des styles débloquée.");
+        alert("🎉 Votre offre Premium (Essai 3 jours) est déjà en cours !");
         return;
     }
 
-    const phoneNumber = prompt("Entrez votre numéro de téléphone lié à votre compte illicocash (ex: +243973292227) :");
+    const phoneNumber = prompt(`Offre : 3 Jours Gratuits, puis $1.99.\nOpérateur : ${gatewayName}.\nConfirmez ou entrez votre numéro de compte :`, defaultNumber);
     if (!phoneNumber || phoneNumber.trim() === "") {
-        alert("❌ Un numéro de téléphone valide est requis.");
+        alert("❌ Un numéro de téléphone valide est requis pour valider l'essai gratuit.");
         return;
     }
 
     const btnPay = document.getElementById("btn-pay-now");
-    btnPay.textContent = "⏳ Envoi...";
+    btnPay.textContent = "⏳ Traitement...";
     btnPay.disabled = true;
 
     setTimeout(() => {
@@ -244,9 +245,12 @@ window.declencherPaiement = function() {
         stylePrintCleanup.innerHTML = "@media print { .watermark-premium { display: none !important; } }";
         document.head.appendChild(stylePrintCleanup);
 
-        btnPay.textContent = "✅ Premium Actif";
+        btnPay.textContent = "✅ Essai 3j Actif";
         btnPay.style.backgroundColor = "#10b981";
         
-        alert(`🎉 Succès ! Paiement de $1.99 vérifié via illicocash. Le filigrane est supprimé et tous vos thèmes Premium sont maintenant débloqués.`);
+        // Cache la ligne MoMo secondaire après validation
+        document.querySelector('.momo-container').style.display = "none";
+        
+        alert(`🎉 Félicitations ! Votre essai gratuit de 3 jours a été configuré avec succès via ${gatewayName} sur le numéro ${phoneNumber}.\nLe filigrane a été supprimé. Le prélèvement de $1.99 interviendra automatiquement après l'expiration de vos 3 jours gratuits.`);
     }, 3000); 
 }

@@ -122,7 +122,7 @@ body {
     color: white;
     border: none;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 11px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -137,13 +137,48 @@ body {
     color: white;
     border: none;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 10.5px;
     border-radius: 4px;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 .btn-premium-action:hover {
     background-color: #b45309;
+}
+
+/* GRILLE DES PETITS BOUTONS MOBILE MONEY SECONDATIRES */
+.momo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-momo {
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+}
+
+.btn-momo:hover {
+    opacity: 0.9;
+}
+
+.btn-momo.airtel {
+    background-color: #e11d48;
+    /* Rouge Airtel */
+}
+
+.btn-momo.orange {
+    background-color: #ea580c;
+    /* Orange MoMo */
 }
 
 /* Aperçu Panel droite */
@@ -168,7 +203,6 @@ body {
 /* SECURITE DE BORDURE ET DES TEXTES DU CV */
 .text-block {
     word-break: break-word;
-    /* Force le retour à la ligne si le mot est trop long */
     overflow-wrap: break-word;
     hyphens: auto;
 }
@@ -197,7 +231,7 @@ header {
     transition: all 0.2s ease;
 }
 
-/* GRILLE DU HEADER MODIFIÉE : TEXTE A GAUCHE, PHOTO A DROITE */
+/* GRILLE DU HEADER : TEXTE A GAUCHE, PHOTO A DROITE PERFECTEMENT CADREE */
 .header-grid {
     display: grid;
     grid-template-columns: 1fr 100px;
@@ -216,7 +250,6 @@ header {
     background-color: #1e293b;
     overflow: hidden;
     justify-self: end;
-    /* Aligne le bloc photo parfaitement à droite */
 }
 
 .photo-container img {
@@ -317,7 +350,6 @@ p {
     font-weight: 600;
     color: #475569;
     white-space: nowrap;
-    /* Empêche la date de s'effondrer */
 }
 
 .item-sub {
@@ -349,7 +381,8 @@ p {
     .no-print,
     footer,
     button,
-    .action-buttons-row {
+    .action-buttons-row,
+    .momo-container {
         display: none !important;
     }
 

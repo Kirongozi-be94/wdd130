@@ -13,6 +13,7 @@
 
     <div class="app-container">
 
+        <!-- PANNEAU DE CONFIGURATION (GAUCHE) -->
         <div class="editor-panel no-print">
             <h2 id="ui-app-title">📝 Option de Configuration</h2>
 
@@ -136,17 +137,31 @@
                   value="Focus Académique : Algorithmique, architectures logicielles et web.">
             </div>
 
+            <!-- CONTENEUR DES BOUTONS D'ACTION CÔTE À CÔTE -->
             <div class="action-buttons-row">
                 <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️
                     Imprimer PDF</button>
                 <button id="btn-pay-now" class="btn-premium-action"
-                  onclick="declencherPaiement()">👑 Activer Premium ($1.99)</button>
+                  onclick="declencherPaiement('illicocash', '+243973292227')">👑 Essai 3j puis
+                    $1.99</button>
+            </div>
+
+            <!-- PETITS BOUTONS DE PAIEMENT MOBILE MONEY DIRECTS -->
+            <div class="momo-container">
+                <button class="btn-momo airtel"
+                  onclick="declencherPaiement('Airtel Money', '+243973292227')">🔴 Airtel
+                    Money</button>
+                <button class="btn-momo orange"
+                  onclick="declencherPaiement('Orange Money', '+243890924824')">🟠 Orange
+                    Money</button>
             </div>
         </div>
 
+        <!-- RENDER DU CV (DROITE) -->
         <div class="preview-panel">
             <div id="cv-target" class="cv-container theme-navy">
 
+                <!-- FILIGRANE PAR DÉFAUT -->
                 <div id="cv-watermark" class="watermark-premium">CV_Auto byu-tools.com</div>
 
                 <header>
