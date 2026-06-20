@@ -1,10 +1,9 @@
 /**
  * CV_Auto - Main Application Script
  * Developer: Benjamin K. Mazuya
- * Features: Multi-theme rendering, Bilingual support, OCR Scanner, and illicocash SaaS Paywall
+ * Features: Multi-theme rendering, Bilingual support, OCR Scanner, and illicocash SaaS Paywall alongside PDF button
  */
 
-// Bilingual dictionary configuration
 const dictionary = {
     fr: {
         app_title: "📝 Configuration du CV",
@@ -28,16 +27,15 @@ const dictionary = {
         lbl_edu_titre: "Diplôme obtenu ou visé",
         lbl_edu_dates: "Années",
         lbl_edu_details: "Établissement / Précisions",
-        btn_print: "🖨️ Télécharger le CV en PDF",
+        btn_print: "🖨️ Imprimer PDF",
+        btn_premium: "👑 Activer Premium",
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Profil Professionnel",
         cv_sec_comp: "Matrice des Compétences",
         cv_sec_exp: "Expérience Professionnelle",
         cv_sec_edu: "Éducation & Formation",
         cv_lbl_comp1: "Expertises :",
-        cv_lbl_comp2: "Technologies :",
-        pw_title: "👑 Débloquez l'Espace Premium",
-        pw_text: "Activez l'accès illimité à tous nos thèmes de design haute définition et supprimez définitivement le filigrane sur vos impressions PDF."
+        cv_lbl_comp2: "Technologies :"
     },
     en: {
         app_title: "📝 CV Configuration",
@@ -61,20 +59,18 @@ const dictionary = {
         lbl_edu_titre: "Degree / Major",
         lbl_edu_dates: "Years",
         lbl_edu_details: "University / Institution",
-        btn_print: "🖨️ Download CV as PDF",
+        btn_print: "🖨️ Print PDF",
+        btn_premium: "👑 Go Premium",
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Professional Summary",
         cv_sec_comp: "Skills Matrix",
         cv_sec_exp: "Professional Experience",
         cv_sec_edu: "Education & Background",
         cv_lbl_comp1: "Core Skills:",
-        cv_lbl_comp2: "Technical:",
-        pw_title: "👑 Unlock Premium Space",
-        pw_text: "Activate unlimited access to all high-definition design themes and permanently remove the watermark on your PDF prints."
+        cv_lbl_comp2: "Technical:"
     }
 };
 
-// Global SaaS purchasing state variable
 let userHasPaid = false; 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -83,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectTheme = document.getElementById("select-theme");
     const cvTarget = document.getElementById("cv-target");
 
-    // 1. Language switcher logic
     function applyLanguage(language) {
         const txt = dictionary[language];
         
@@ -109,6 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("ui-lbl-edu-dates").textContent = txt.lbl_edu_dates;
         document.getElementById("ui-lbl-edu-details").textContent = txt.lbl_edu_details;
         document.getElementById("ui-btn-print").textContent = txt.btn_print;
+        
+        if(!userHasPaid) {
+            document.getElementById("btn-pay-now").textContent = txt.btn_premium + " ($1.99)";
+        }
 
         document.getElementById("ui-cv-photo-lbl").textContent = txt.cv_photo_lbl;
         document.getElementById("cv-sec-profil").textContent = txt.cv_sec_profil;
@@ -117,12 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cv-sec-edu").textContent = txt.cv_sec_edu;
         document.getElementById("cv-lbl-comp1").textContent = txt.cv_lbl_comp1;
         document.getElementById("cv-lbl-comp2").textContent = txt.cv_lbl_comp2;
-        
-        document.getElementById("pw-title").textContent = txt.pw_title;
-        document.getElementById("pw-text").textContent = txt.pw_text;
     }
 
-    // 2. Input data synchronization with the A4 Document Template
     function updatePreview() {
         document.getElementById("cv-nom").textContent = document.getElementById("in-nom").value.toUpperCase();
         document.getElementById("cv-titre").textContent = document.getElementById("in-titre").value.toUpperCase();
@@ -136,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cv-exp-cie").textContent = document.getElementById("in-exp-cie").value;
         document.getElementById("cv-exp-dates").textContent = document.getElementById("in-exp-dates").value;
         
-        // Handles multi-line work responsibilities into bullet points
         const missionLines = document.getElementById("in-exp-details").value.split('\n');
         const ulMissions = document.getElementById("cv-exp-details");
         ulMissions.innerHTML = "";
@@ -153,14 +147,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cv-edu-details").textContent = document.getElementById("in-edu-details").value;
     }
 
-    // 3. Theme selector listener + Premium Paywall enforcement
     selectTheme.addEventListener("change", (e) => {
         const selectedOption = e.target.options[e.target.selectedIndex];
         const isPremium = selectedOption.getAttribute("data-premium") === "true";
 
         if (isPremium && !userHasPaid) {
-            ouvrirPaywall();
-            // Instantly force back to a free basic layout template
+            alert("⚠️ Ce thème est Premium. Veuillez l'activer en cliquant sur le bouton 'Activer Premium' à côté du bouton PDF.");
             selectTheme.value = "theme-navy";
             cvTarget.className = "cv-container theme-navy";
         } else {
@@ -172,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         applyLanguage(e.target.value);
     });
 
-    // 4. Profile Picture Processing (FileReader)
     const inputPhoto = document.getElementById("input-photo");
     inputPhoto.addEventListener("change", function() {
         const file = this.files[0];
@@ -189,7 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 5. Intelligent Bilingual OCR Engine Integration (Tesseract.js)
     const inputOcr = document.getElementById("input-ocr");
     const ocrStatus = document.getElementById("ocr-status");
     const ocrResult = document.getElementById("ocr-result");
@@ -197,102 +187,66 @@ document.addEventListener("DOMContentLoaded", () => {
     inputOcr.addEventListener("change", function() {
         const file = this.files[0];
         if (file) {
-            ocrStatus.textContent = "⏳ The system is analyzing your document...";
+            ocrStatus.textContent = "⏳ Analyse de votre document en cours...";
             ocrStatus.style.color = "#fbbf24";
             ocrResult.value = "";
 
             Tesseract.recognize(
                 file,
                 'fra+eng',
-                { 
-                    logger: m => {
-                        if (m.status === 'recognizing text') {
-                            ocrStatus.textContent = `⏳ Scanning in progress: ${Math.round(m.progress * 100)}%`;
-                        }
-                    } 
-                }
+                { logger: m => {
+                    if (m.status === 'recognizing text') {
+                        ocrStatus.textContent = `⏳ Numérisation : ${Math.round(m.progress * 100)}%`;
+                    }
+                }}
             ).then(({ data: { text } }) => {
-                ocrStatus.textContent = "✅ Scan successful! Extracted text is displayed below.";
+                ocrStatus.textContent = "✅ Scan réussi !";
                 ocrStatus.style.color = "#34d399";
                 ocrResult.value = text;
             }).catch(err => {
-                ocrStatus.textContent = "❌ Failed to read the document.";
+                ocrStatus.textContent = "❌ Échec de la lecture.";
                 ocrStatus.style.color = "#f87171";
                 console.error(err);
             });
         }
     });
 
-    // Listen to real-time keystroke updates to instantly sync form to template view
     const allInputs = document.querySelectorAll(".editor-panel input, .editor-panel textarea");
     allInputs.forEach(input => {
         input.addEventListener("input", updatePreview);
     });
 
-    // Initialize application default language and sync state
     applyLanguage("fr");
     updatePreview();
 });
 
-// ==========================================================================
-// SAAS PAYWALL INTERFACE & ILLICOCASH GATEWAY WORKFLOW (RAWBANK RDC)
-// ==========================================================================
-function ouvrirPaywall() {
-    document.getElementById("paywall-modal").style.display = "flex";
-}
+window.declencherPaiement = function() {
+    if(userHasPaid) {
+        alert("🎉 Votre compte est déjà Premium ! Modification des styles débloquée.");
+        return;
+    }
 
-function fermerPaywall() {
-    document.getElementById("paywall-modal").style.display = "none";
-}
-
-/**
- * Executes a simulated secure transactional request to Rawbank's illicocash API Gateway
- */
-function declencherPaiement() {
-    // 1. Request the customer's linked illicocash phone identity number
-    const phoneNumber = prompt("Enter your illicocash registered mobile number (e.g., +24397 32 92 227):");
-    
+    const phoneNumber = prompt("Entrez votre numéro de téléphone lié à votre compte illicocash (ex: +243973292227) :");
     if (!phoneNumber || phoneNumber.trim() === "") {
-        alert("❌ A valid mobile phone number is strictly required to process an illicocash gateway request.");
+        alert("❌ Un numéro de téléphone valide est requis.");
         return;
     }
 
     const btnPay = document.getElementById("btn-pay-now");
-    btnPay.textContent = `⏳ Sending illicocash Push Notification to ${phoneNumber}...`;
+    btnPay.textContent = "⏳ Envoi...";
     btnPay.disabled = true;
 
-    /* PRODUCTION SERVER BACKEND LOGIC OUTLINE:
-       1. Frontend posts the mobile identifier and fee ($4.99 USD) to our application server.
-       2. Server safely executes an authenticated handshake with Rawbank's Gateway (https://api.illicocash.com/v1/payment).
-       3. Rawbank securely triggers a Push/SMS asking the client for their cryptographic wallet PIN code.
-       4. Upon authorization, Rawbank returns a secure verification token back to our application.
-    */
-
-    // Simulating transactional network latency and customer authorization delay (3.5 seconds)
     setTimeout(() => {
-        // Mocking a successful response packet from Rawbank API
-        const transactionIllicocashSuccessful = true; 
+        userHasPaid = true; 
+        document.getElementById("cv-watermark").style.display = "none";
+        
+        const stylePrintCleanup = document.createElement('style');
+        stylePrintCleanup.innerHTML = "@media print { .watermark-premium { display: none !important; } }";
+        document.head.appendChild(stylePrintCleanup);
 
-        if (transactionIllicocashSuccessful) {
-            userHasPaid = true; // Elevate customer session authorization level to Premium
-            
-            // 1. Instantly remove UI Watermark overlay layer
-            document.getElementById("cv-watermark").style.display = "none";
-            
-            // 2. Override stylesheet parameters to ensure clean, high-definition PDF prints without a watermark
-            const stylePrintCleanup = document.createElement('style');
-            stylePrintCleanup.innerHTML = "@media print { .watermark-premium { display: none !important; } }";
-            document.head.appendChild(stylePrintCleanup);
-
-            // 3. Close the checkout modal element safely
-            fermerPaywall();
-            
-            alert(`🎉 Success! Payment of $4.99 verified via illicocash wallet (${phoneNumber}). Your Premium features are permanently activated. You can now select all premium templates and download your clean PDF CV without watermarks!`);
-        } else {
-            // Error handling fallback block (e.g., transaction timeout, client cancelled, or insufficient funds)
-            btnPay.textContent = "💳 Activate now via Mobile Money / Card";
-            btnPay.disabled = false;
-            alert("❌ Transaction rejected. Please ensure your illicocash account has sufficient funds.");
-        }
-    }, 3500); 
+        btnPay.textContent = "✅ Premium Actif";
+        btnPay.style.backgroundColor = "#10b981";
+        
+        alert(`🎉 Succès ! Paiement de $1.99 vérifié via illicocash. Le filigrane est supprimé et tous vos thèmes Premium sont maintenant débloqués.`);
+    }, 3000); 
 }

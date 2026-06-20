@@ -108,21 +108,42 @@ body {
     margin-top: 15px;
 }
 
+/* CONTENEUR BOUTONS CÔTE À CÔTE */
+.action-buttons-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 .btn-print-action {
-    width: 100%;
     padding: 12px;
     background-color: #0284c7;
     color: white;
     border: none;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 15px;
 }
 
 .btn-print-action:hover {
     background-color: #0369a1;
+}
+
+.btn-premium-action {
+    padding: 12px;
+    background-color: #d97706;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-premium-action:hover {
+    background-color: #b45309;
 }
 
 /* Aperçu Panel droite */
@@ -144,7 +165,14 @@ body {
     position: relative;
 }
 
-/* FILIGRANE PREMIUM (WATERMARK) */
+/* SECURITE DE BORDURE ET DES TEXTES DU CV */
+.text-block {
+    word-break: break-word;
+    /* Force le retour à la ligne si le mot est trop long */
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
 .watermark-premium {
     position: absolute;
     top: 50%;
@@ -169,11 +197,16 @@ header {
     transition: all 0.2s ease;
 }
 
+/* GRILLE DU HEADER MODIFIÉE : TEXTE A GAUCHE, PHOTO A DROITE */
 .header-grid {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 1fr 100px;
     gap: 30px;
     align-items: center;
+}
+
+.header-text {
+    text-align: left;
 }
 
 .photo-container {
@@ -182,6 +215,8 @@ header {
     border: 1px solid var(--accent-color);
     background-color: #1e293b;
     overflow: hidden;
+    justify-self: end;
+    /* Aligne le bloc photo parfaitement à droite */
 }
 
 .photo-container img {
@@ -205,6 +240,7 @@ header h1 {
     margin: 0;
     font-size: 20px;
     letter-spacing: 0.8px;
+    word-break: break-word;
 }
 
 header .subtitle {
@@ -213,6 +249,7 @@ header .subtitle {
     font-size: 12px;
     margin-top: 5px;
     text-transform: uppercase;
+    word-break: break-word;
 }
 
 header .contacts,
@@ -220,6 +257,7 @@ header .links {
     font-size: 11px;
     color: #cbd5e1;
     margin-top: 5px;
+    word-break: break-word;
 }
 
 .cv-content {
@@ -264,18 +302,22 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    gap: 15px;
 }
 
 .item-title {
     font-weight: 700;
     font-size: 12px;
     color: var(--primary-color);
+    word-break: break-word;
 }
 
 .item-date {
     font-size: 11px;
     font-weight: 600;
     color: #475569;
+    white-space: nowrap;
+    /* Empêche la date de s'effondrer */
 }
 
 .item-sub {
@@ -283,6 +325,7 @@ p {
     font-size: 11px;
     color: #64748b;
     margin-top: 1px;
+    word-break: break-word;
 }
 
 .item-details {
@@ -297,140 +340,37 @@ p {
     color: #334155;
 }
 
-/* INTERFACE POP-UP DU PAYWALL */
-.paywall-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100000;
-}
-
-.paywall-card {
-    background-color: #1e293b;
-    color: white;
-    padding: 40px;
-    max-width: 450px;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid #d97706;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-}
-
-.crown-icon {
-    font-size: 45px;
-    margin-bottom: 10px;
-    animation: bounce 2s infinite;
-}
-
-.paywall-card h2 {
-    margin: 0 0 15px 0;
-    color: #f59e0b;
-    font-size: 22px;
-}
-
-.paywall-card p {
-    color: #94a3b8;
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.paywall-price {
-    font-size: 32px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 25px;
-}
-
-.btn-pay {
-    width: 100%;
-    padding: 14px;
-    background-color: #d97706;
-    color: white;
-    border: none;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 13px;
-    margin-bottom: 10px;
-}
-
-.btn-pay:hover {
-    background-color: #b45309;
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    color: #64748b;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.btn-close:hover {
-    color: #94a3b8;
-}
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-/* CONFIGURATION IMPRESSION PRINT */
+/* ==========================================================================
+   OPTIMISATION DE LA SORTIE PDF LORS DE L'IMPRESSION
+   ========================================================================== */
 @media print {
-    body {
-        background-color: #ffffff;
-        padding: 0;
-    }
 
-    .no-print {
+    .editor-panel,
+    .no-print,
+    footer,
+    button,
+    .action-buttons-row {
         display: none !important;
     }
 
     .app-container {
         display: block;
         height: auto;
+        overflow: visible;
     }
 
     .preview-panel {
         width: 100%;
         padding: 0;
+        background-color: transparent;
         overflow: visible;
     }
 
     .cv-container {
         box-shadow: none;
-        max-width: 100%;
-        width: 100%;
-    }
-
-    header {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-
-    .watermark-premium {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        display: block;
-    }
-
-    @page {
-        size: A4;
         margin: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
     }
 }

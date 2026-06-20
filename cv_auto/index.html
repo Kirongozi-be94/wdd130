@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de CV Universel Multi-Thèmes & OCR (SaaS)</title>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -137,28 +136,31 @@
                   value="Focus Académique : Algorithmique, architectures logicielles et web.">
             </div>
 
-            <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️
-                Télécharger le CV en PDF</button>
+            <div class="action-buttons-row">
+                <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️
+                    Imprimer PDF</button>
+                <button id="btn-pay-now" class="btn-premium-action"
+                  onclick="declencherPaiement()">👑 Activer Premium ($1.99)</button>
+            </div>
         </div>
 
         <div class="preview-panel">
             <div id="cv-target" class="cv-container theme-navy">
 
-                <div id="cv-watermark" class="watermark-premium">CV_Auto byu-tools.com
-                </div>
+                <div id="cv-watermark" class="watermark-premium">CV_Auto byu-tools.com</div>
 
                 <header>
                     <div class="header-grid">
-                        <div class="photo-container">
-                            <img id="cv-photo" src="" alt="Profil" style="display:none;">
-                            <div id="photo-placeholder" class="photo-blank"><span
-                                  id="ui-cv-photo-lbl">PHOTO</span></div>
-                        </div>
                         <div class="header-text">
                             <h1 id="cv-nom"></h1>
                             <div class="subtitle" id="cv-titre"></div>
                             <div class="contacts" id="cv-contacts"></div>
                             <div class="links" id="cv-liens"></div>
+                        </div>
+                        <div class="photo-container">
+                            <img id="cv-photo" src="" alt="Profil" style="display:none;">
+                            <div id="photo-placeholder" class="photo-blank"><span
+                                  id="ui-cv-photo-lbl">PHOTO</span></div>
                         </div>
                     </div>
                 </header>
@@ -166,16 +168,16 @@
                 <main class="cv-content">
                     <section class="section">
                         <h2 class="section-title" id="cv-sec-profil">Profil Professionnel</h2>
-                        <p id="cv-profil"></p>
+                        <p id="cv-profil" class="text-block"></p>
                     </section>
 
                     <section class="section">
                         <h2 class="section-title" id="cv-sec-comp">Matrice des Compétences</h2>
-                        <div class="comp-group">
+                        <div class="comp-group text-block">
                             <strong id="cv-lbl-comp1">Expertises :</strong> <span
                               id="cv-comp1"></span>
                         </div>
-                        <div class="comp-group" style="margin-top: 8px;">
+                        <div class="comp-group text-block" style="margin-top: 8px;">
                             <strong id="cv-lbl-comp2">Technologies :</strong> <span
                               id="cv-comp2"></span>
                         </div>
@@ -189,7 +191,7 @@
                                 <span class="item-date" id="cv-exp-dates"></span>
                             </div>
                             <div class="item-sub" id="cv-exp-cie"></div>
-                            <ul class="item-details" id="cv-exp-details"></ul>
+                            <ul class="item-details text-block" id="cv-exp-details"></ul>
                         </div>
                     </section>
 
@@ -200,7 +202,7 @@
                                 <span class="item-title" id="cv-edu-titre"></span>
                                 <span class="item-date" id="cv-edu-dates"></span>
                             </div>
-                            <div class="item-sub" id="cv-edu-details"
+                            <div class="item-sub text-block" id="cv-edu-details"
                               style="font-style:normal; color:#334155; margin-top:4px;"></div>
                         </div>
                     </section>
@@ -208,20 +210,6 @@
             </div>
         </div>
 
-    </div>
-
-    <div id="paywall-modal" class="paywall-overlay no-print" style="display: none;">
-        <div class="paywall-card">
-            <div class="crown-icon">👑</div>
-            <h2 id="pw-title">Débloquez l'Espace Premium</h2>
-            <p id="pw-text">Activez l'accès illimité à tous nos thèmes de design haute définition et
-                supprimez définitivement le filigrane sur vos impressions PDF.</p>
-            <div class="paywall-price">$4.99 <span style="font-size:14px; color:#94a3b8;">/ à
-                    vie</span></div>
-            <button id="btn-pay-now" class="btn-pay" onclick="declencherPaiement()">💳 Activer
-                maintenant via Mobile Money / Carte</button>
-            <button class="btn-close" onclick="fermerPaywall()">Plus tard</button>
-        </div>
     </div>
 
     <div class="no-print"
