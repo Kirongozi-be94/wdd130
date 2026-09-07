@@ -6,19 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de CV Universel Multi-Thèmes & OCR (SaaS)</title>
 
-    <!-- 1. Favicon (La petite icône dans l'onglet du navigateur) -->
-    <link rel="icon" type="images/bkm.png" href="votre-image.png">
+    <!-- 1. Favicon (Icône de l'onglet du navigateur) -->
+    <link rel="icon" type="image/png" href="bkm.png">
 
-    <!-- 2. Image pour les réseaux sociaux (Open Graph / Aperçu Facebook, WhatsApp, LinkedIn, etc.) -->
+    <!-- 2. Image pour les réseaux sociaux (Open Graph) -->
     <meta property="og:image" content="https://votre-site.com/chemin-vers-votre-image.jpg">
     <meta property="og:title" content="Générateur de CV Universel Multi-Thèmes & OCR (SaaS)">
     <meta property="og:description"
       content="Générez, personnalisez et imprimez votre CV professionnel instantanément.">
 
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <link rel="stylesheet" href="votre-style.css">
+    <!-- 3. Description générale -->
     <meta name="description"
       content="Générez, personnalisez et imprimez votre CV professionnel instantanément grâce à notre application SaaS multi-thèmes avec support OCR.">
+
+    <!-- Scripts et styles externes -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -148,7 +151,7 @@
                   value="Focus Académique : Algorithmique, architectures logicielles et web.">
             </div>
 
-            <!-- ACTIONS PRINCIPALES ET PAIEMENT SOBRE -->
+            <!-- ACTIONS PRINCIPALES -->
             <div class="action-buttons-row">
                 <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️
                     Imprimer / PDF</button>
@@ -156,7 +159,7 @@
                   onclick="declencherPaiement('Mobile Money')">💳 Soutenir ($1.99)</button>
             </div>
 
-            <!-- PETITS BOUTONS DE PAIEMENT DISCRETS -->
+            <!-- BOUTONS DE PAIEMENT DISCRETS -->
             <div class="momo-container">
                 <button class="btn-momo airtel" onclick="declencherPaiement('Airtel Money')">🔴
                     Airtel</button>
