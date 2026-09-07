@@ -246,6 +246,8 @@ header {
 .photo-container {
     width: 100px;
     height: 130px;
+    /* Fixe la hauteur pour éviter les sauts de page */
+    min-height: 130px;
     border: 1px solid var(--accent-color);
     background-color: #1e293b;
     overflow: hidden;
