@@ -1,6 +1,9 @@
-/* ==========================================================================
-   THEMES EN VARIABLES CSS
-   ========================================================================== */
+:root {
+    --primary-color: #0f172a;
+    --accent-color: #475569;
+    --text-light: #94a3b8;
+}
+
 .theme-navy {
     --primary-color: #0f172a;
     --accent-color: #475569;
@@ -39,7 +42,6 @@ body {
     overflow: hidden;
 }
 
-/* Éditeur Panel gauche */
 .editor-panel {
     width: 35%;
     min-width: 340px;
@@ -108,7 +110,6 @@ body {
     margin-top: 15px;
 }
 
-/* CONTENEUR BOUTONS CÔTE À CÔTE */
 .action-buttons-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -131,23 +132,21 @@ body {
     background-color: #0369a1;
 }
 
-.btn-premium-action {
+.btn-support-action {
     padding: 12px;
-    background-color: #d97706;
+    background-color: #059669;
     color: white;
     border: none;
     font-weight: bold;
-    font-size: 10.5px;
+    font-size: 11px;
     border-radius: 4px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
-.btn-premium-action:hover {
-    background-color: #b45309;
+.btn-support-action:hover {
+    background-color: #047857;
 }
 
-/* GRILLE DES PETITS BOUTONS MOBILE MONEY SECONDAIRES */
 .momo-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -173,15 +172,12 @@ body {
 
 .btn-momo.airtel {
     background-color: #e11d48;
-    /* Rouge Airtel */
 }
 
 .btn-momo.orange {
     background-color: #ea580c;
-    /* Orange MoMo */
 }
 
-/* Aperçu Panel droite */
 .preview-panel {
     width: 65%;
     background-color: #334155;
@@ -200,27 +196,10 @@ body {
     position: relative;
 }
 
-/* SECURITE DE BORDURE ET DES TEXTES DU CV */
 .text-block {
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-}
-
-.watermark-premium {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 50px;
-    font-weight: 900;
-    color: rgba(15, 23, 42, 0.07);
-    letter-spacing: 4px;
-    z-index: 9999;
-    pointer-events: none;
-    user-select: none;
-    display: block;
-    text-transform: uppercase;
 }
 
 header {
@@ -231,7 +210,6 @@ header {
     transition: all 0.2s ease;
 }
 
-/* GRILLE DU HEADER : TEXTE A GAUCHE, PHOTO A DROITE PERFECTEMENT CADREE */
 .header-grid {
     display: grid;
     grid-template-columns: 1fr 100px;
@@ -246,7 +224,6 @@ header {
 .photo-container {
     width: 100px;
     height: 130px;
-    /* Fixe la hauteur pour éviter les sauts de page */
     min-height: 130px;
     border: 1px solid var(--accent-color);
     background-color: #1e293b;
@@ -374,17 +351,11 @@ p {
     color: #334155;
 }
 
-/* ==========================================================================
-   OPTIMISATION DE LA SORTIE PDF LORS DE L'IMPRESSION
-   ========================================================================== */
 @media print {
-
-    /* Enlève les marges de la feuille pour éliminer les en-têtes/pieds de page du navigateur */
     @page {
         margin: 0;
     }
 
-    /* Ajoute un espacement autour du corps de la page pour éviter que le contenu touche les bords physiques */
     body {
         padding: 20mm;
         background-color: transparent;

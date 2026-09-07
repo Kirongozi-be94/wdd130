@@ -17,25 +17,23 @@
 
         <!-- PANNEAU DE CONFIGURATION (GAUCHE) -->
         <div class="editor-panel no-print">
-            <h2 id="ui-app-title">📝 Option de Configuration</h2>
+            <h2 id="ui-app-title">📝 Configuration du CV</h2>
 
             <div class="config-row">
                 <div class="form-group">
-                    <label id="ui-lbl-lang">Langue</label>
+                    <label for="select-lang" id="ui-lbl-lang">Langue</label>
                     <select id="select-lang">
                         <option value="fr">Français 🇫🇷</option>
                         <option value="en">English 🇬🇧</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label id="ui-lbl-theme">Style / Couleur</label>
+                    <label for="select-theme" id="ui-lbl-theme">Style / Couleur</label>
                     <select id="select-theme">
-                        <option value="theme-navy">Midnight Navy (Gratuit)</option>
-                        <option value="theme-emerald">Emerald Green (Gratuit)</option>
-                        <option value="theme-ruby" data-premium="true">👑 Executive Ruby (Premium)
-                        </option>
-                        <option value="theme-gold" data-premium="true">👑 Luxury Gold (Premium)
-                        </option>
+                        <option value="theme-navy">Midnight Navy</option>
+                        <option value="theme-emerald">Emerald Green</option>
+                        <option value="theme-ruby">Executive Ruby</option>
+                        <option value="theme-gold">Luxury Gold</option>
                     </select>
                 </div>
             </div>
@@ -49,7 +47,7 @@
             </div>
 
             <div class="form-group">
-                <label>Texte extrait par l'application :</label>
+                <label for="ocr-result">Texte extrait par l'application :</label>
                 <textarea id="ocr-result" rows="4"
                   placeholder="Le texte lu dans votre image s'écrira ici tout seul..."
                   style="background-color: #0f172a; color: #38bdf8; font-family: monospace; font-size: 11px; resize: vertical;"></textarea>
@@ -58,113 +56,108 @@
             <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
 
             <div class="form-group">
-                <label id="ui-lbl-photo">Photo de profil</label>
+                <label for="input-photo" id="ui-lbl-photo">Photo de profil</label>
                 <input type="file" id="input-photo" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label id="ui-lbl-nom">Nom complet</label>
+                <label for="in-nom" id="ui-lbl-nom">Nom complet</label>
                 <input type="text" id="in-nom" value="BENJAMIN KIRONGOZI MAZUYA">
             </div>
 
             <div class="form-group">
-                <label id="ui-lbl-titre">Titre du poste / Profil</label>
+                <label for="in-titre" id="ui-lbl-titre">Titre du poste / Profil</label>
                 <input type="text" id="in-titre"
                   value="LOGISTICS SPECIALIST & SOFTWARE SYSTEMS DEVELOPER">
             </div>
 
             <div class="form-group">
-                <label id="ui-lbl-contacts">Contacts (Adresse, Tél)</label>
+                <label for="in-contacts" id="ui-lbl-contacts">Contacts (Adresse, Tél)</label>
                 <input type="text" id="in-contacts"
                   value="Kolwezi, Lualaba, RDC  |  +243 890 924 824">
             </div>
 
             <div class="form-group">
-                <label id="ui-lbl-liens">Liens (Email, GitHub)</label>
+                <label for="in-liens" id="ui-lbl-liens">Liens (Email, GitHub)</label>
                 <input type="text" id="in-liens"
                   value="Email: monadresse@gmail.com  |  GitHub: github.com">
             </div>
 
             <div class="form-group">
-                <label id="ui-lbl-profil">Accroche Professionnelle</label>
+                <label for="in-profil" id="ui-lbl-profil">Accroche Professionnelle</label>
                 <textarea id="in-profil"
                   rows="3">Expert chevronné en gestion logistique, maintenance et sécurité industrielle avec plus de 10 ans d'expérience dans les secteurs miniers et industriels.</textarea>
             </div>
 
             <h3 id="ui-sub-comp">🛠️ Compétences</h3>
             <div class="form-group">
-                <label id="ui-lbl-comp1">Expertises Métier</label>
+                <label for="in-comp1" id="ui-lbl-comp1">Expertises Métier</label>
                 <input type="text" id="in-comp1"
                   value="Gestion des stocks, HSE, Audits, Inventaires, Supervisions">
             </div>
             <div class="form-group">
-                <label id="ui-lbl-comp2">Technologies & Outils</label>
+                <label for="in-comp2" id="ui-lbl-comp2">Technologies & Outils</label>
                 <input type="text" id="in-comp2"
                   value="Python, JavaScript, HTML5/CSS3, Git & GitHub">
             </div>
 
             <h3 id="ui-sub-exp">💼 Expérience</h3>
             <div class="form-group">
-                <label id="ui-lbl-exp-titre">Poste Occupé</label>
+                <label for="in-exp-titre" id="ui-lbl-exp-titre">Poste Occupé</label>
                 <input type="text" id="in-exp-titre"
                   value="Chief Storekeeper (Gestionnaire Principal des Stocks)">
             </div>
             <div class="form-group">
-                <label id="ui-lbl-exp-cie">Entreprise & Ville</label>
+                <label for="in-exp-cie" id="ui-lbl-exp-cie">Entreprise & Ville</label>
                 <input type="text" id="in-exp-cie" value="Complexe Industriel & Minier - Kolwezi">
             </div>
             <div class="form-group">
-                <label id="ui-lbl-exp-dates">Dates</label>
+                <label for="in-exp-dates" id="ui-lbl-exp-dates">Dates</label>
                 <input type="text" id="in-exp-dates" value="Nov 2019 - Présent">
             </div>
             <div class="form-group">
-                <label id="ui-lbl-exp-details">Missions (Une par ligne)</label>
+                <label for="in-exp-details" id="ui-lbl-exp-details">Missions (Une par ligne)</label>
                 <textarea id="in-exp-details"
                   rows="3">Diriger l'ensemble de la gestion des inventaires et des flux logistiques.&#10;Garantir l'application stricte des normes HSE et de sécurité industrielle.&#10;Optimiser les bases de données d'approvisionnement.</textarea>
             </div>
 
             <h3 id="ui-sub-edu">🎓 Éducation</h3>
             <div class="form-group">
-                <label id="ui-lbl-edu-titre">Diplôme obtenu ou visé</label>
+                <label for="in-edu-titre" id="ui-lbl-edu-titre">Diplôme obtenu ou visé</label>
                 <input type="text" id="in-edu-titre"
                   value="Bachelor of Science in Software Development">
             </div>
             <div class="form-group">
-                <label id="ui-lbl-edu-dates">Années</label>
+                <label for="in-edu-dates" id="ui-lbl-edu-dates">Années</label>
                 <input type="text" id="in-edu-dates" value="2024 - 2027">
             </div>
             <div class="form-group">
-                <label id="ui-lbl-edu-details">Établissement / Précisions</label>
+                <label for="in-edu-details" id="ui-lbl-edu-details">Établissement /
+                    Précisions</label>
                 <input type="text" id="in-edu-details"
                   value="Focus Académique : Algorithmique, architectures logicielles et web.">
             </div>
 
-            <!-- CONTENEUR DES BOUTONS D'ACTION CÔTE À CÔTE -->
+            <!-- ACTIONS PRINCIPALES ET PAIEMENT SOBRE -->
             <div class="action-buttons-row">
                 <button id="ui-btn-print" class="btn-print-action" onclick="window.print()">🖨️
-                    Imprimer PDF</button>
-                <button id="btn-pay-now" class="btn-premium-action"
-                  onclick="declencherPaiement('illicocash', '+243973292227')">👑 Essai 3j puis
-                    $1.99</button>
+                    Imprimer / PDF</button>
+                <button id="btn-pay-now" class="btn-support-action"
+                  onclick="declencherPaiement('Mobile Money')">💳 Soutenir ($1.99)</button>
             </div>
 
-            <!-- PETITS BOUTONS DE PAIEMENT MOBILE MONEY DIRECTS -->
+            <!-- PETITS BOUTONS DE PAIEMENT DISCRETS -->
             <div class="momo-container">
-                <button class="btn-momo airtel"
-                  onclick="declencherPaiement('Airtel Money', '+243973292227')">🔴 Airtel
-                    Money</button>
-                <button class="btn-momo orange"
-                  onclick="declencherPaiement('Orange Money', '+243890924824')">🟠 Orange
-                    Money</button>
+                <button class="btn-momo airtel" onclick="declencherPaiement('Airtel Money')">🔴
+                    Airtel</button>
+                <button class="btn-momo orange" onclick="declencherPaiement('Orange Money')">🟠
+                    Orange</button>
             </div>
         </div>
 
         <!-- RENDER DU CV (DROITE) -->
         <div class="preview-panel">
             <div id="cv-target" class="cv-container theme-navy">
-
-                <!-- FILIGRANE PAR DÉFAUT -->
-                <div id="cv-watermark" class="watermark-premium">CV_Auto byu-tools.com</div>
 
                 <header>
                     <div class="header-grid">

@@ -1,9 +1,3 @@
-/**
- * CV_Auto - Main Application Script
- * Developer: Benjamin K. Mazuya
- * Features: Multi-theme rendering, Bilingual support, OCR Scanner, and Multi-Gateway MoMo integration ($1.99 with 3-day trial)
- */
-
 const dictionary = {
     fr: {
         app_title: "📝 Configuration du CV",
@@ -27,8 +21,8 @@ const dictionary = {
         lbl_edu_titre: "Diplôme obtenu ou visé",
         lbl_edu_dates: "Années",
         lbl_edu_details: "Établissement / Précisions",
-        btn_print: "🖨️ Imprimer PDF",
-        btn_premium: "👑 Essai 3j puis $1.99",
+        btn_print: "🖨️ Imprimer / PDF",
+        btn_support: "💳 Soutenir ($1.99)",
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Profil Professionnel",
         cv_sec_comp: "Matrice des Compétences",
@@ -59,8 +53,8 @@ const dictionary = {
         lbl_edu_titre: "Degree / Major",
         lbl_edu_dates: "Years",
         lbl_edu_details: "University / Institution",
-        btn_print: "🖨️ Print PDF",
-        btn_premium: "👑 3d Trial then $1.99",
+        btn_print: "🖨️ Print / PDF",
+        btn_support: "💳 Support ($1.99)",
         cv_photo_lbl: "PHOTO",
         cv_sec_profil: "Professional Summary",
         cv_sec_comp: "Skills Matrix",
@@ -71,10 +65,7 @@ const dictionary = {
     }
 };
 
-let userHasPaid = false; 
-
 document.addEventListener("DOMContentLoaded", () => {
-    
     const selectLang = document.getElementById("select-lang");
     const selectTheme = document.getElementById("select-theme");
     const cvTarget = document.getElementById("cv-target");
@@ -104,10 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("ui-lbl-edu-dates").textContent = txt.lbl_edu_dates;
         document.getElementById("ui-lbl-edu-details").textContent = txt.lbl_edu_details;
         document.getElementById("ui-btn-print").textContent = txt.btn_print;
-        
-        if(!userHasPaid) {
-            document.getElementById("btn-pay-now").textContent = txt.btn_premium;
-        }
+        document.getElementById("btn-pay-now").textContent = txt.btn_support;
 
         document.getElementById("ui-cv-photo-lbl").textContent = txt.cv_photo_lbl;
         document.getElementById("cv-sec-profil").textContent = txt.cv_sec_profil;
@@ -148,16 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     selectTheme.addEventListener("change", (e) => {
-        const selectedOption = e.target.options[e.target.selectedIndex];
-        const isPremium = selectedOption.getAttribute("data-premium") === "true";
-
-        if (isPremium && !userHasPaid) {
-            alert("⚠️ Ce thème exige l'activation Premium. Profitez de nos 3 jours gratuits (puis $1.99) en activant l'offre via l'un des boutons de paiement.");
-            selectTheme.value = "theme-navy";
-            cvTarget.className = "cv-container theme-navy";
-        } else {
-            cvTarget.className = "cv-container " + e.target.value;
-        }
+        cvTarget.className = "cv-container " + e.target.value;
     });
 
     selectLang.addEventListener("change", (e) => {
@@ -220,37 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePreview();
 });
 
-// PASSAGE DU FLUX À LA NOUVELLE STRATÉGIE DE 3 JOURS GRATUITS PUIS $1.99
-window.declencherPaiement = function(gatewayName = 'illicocash', defaultNumber = '+243973292227') {
-    if(userHasPaid) {
-        alert("🎉 Votre offre Premium (Essai 3 jours) est déjà en cours !");
-        return;
+window.declencherPaiement = function(gatewayName) {
+    const phoneNumber = prompt(`Soutien du projet ($1.99)\nOpérateur : ${gatewayName}\nEntrez votre numéro de compte :`, "+243973292227");
+    if (phoneNumber && phoneNumber.trim() !== "") {
+        alert(`🙏 Merci beaucoup pour votre soutien via ${gatewayName} (${phoneNumber}) ! Votre contribution aide au développement de l'application.`);
     }
-
-    const phoneNumber = prompt(`Offre : 3 Jours Gratuits, puis $1.99.\nOpérateur : ${gatewayName}.\nConfirmez ou entrez votre numéro de compte :`, defaultNumber);
-    if (!phoneNumber || phoneNumber.trim() === "") {
-        alert("❌ Un numéro de téléphone valide est requis pour valider l'essai gratuit.");
-        return;
-    }
-
-    const btnPay = document.getElementById("btn-pay-now");
-    btnPay.textContent = "⏳ Traitement...";
-    btnPay.disabled = true;
-
-    setTimeout(() => {
-        userHasPaid = true; 
-        document.getElementById("cv-watermark").style.display = "none";
-        
-        const stylePrintCleanup = document.createElement('style');
-        stylePrintCleanup.innerHTML = "@media print { .watermark-premium { display: none !important; } }";
-        document.head.appendChild(stylePrintCleanup);
-
-        btnPay.textContent = "✅ Essai 3j Actif";
-        btnPay.style.backgroundColor = "#10b981";
-        
-        // Cache la ligne MoMo secondaire après validation
-        document.querySelector('.momo-container').style.display = "none";
-        
-        alert(`🎉 Félicitations ! Votre essai gratuit de 3 jours a été configuré avec succès via ${gatewayName} sur le numéro ${phoneNumber}.\nLe filigrane a été supprimé. Le prélèvement de $1.99 interviendra automatiquement après l'expiration de vos 3 jours gratuits.`);
-    }, 3000); 
-}
+} 
